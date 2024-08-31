@@ -11,11 +11,58 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+import os
+from langchain.utilities import GoogleSerperAPIWrapper
+import pprint
+
+class WebSearch:
+    def __init__(self, api_key: str):
+
+        self.api_key = api_key
+        os.environ["SERPER_API_KEY"] = self.api_key
+        self.search_wrapper = GoogleSerperAPIWrapper()
+
+    #web search function
+    def search(self, query: str) -> dict:
+
+        return self.search_wrapper.results(query)
+
+    def get_first_link(self, query: str) -> str:
+        """
+        获取搜索结果中的第一个链接。
+        """
+        search_result = self.search(query)
+        if 'organic' in search_result and len(search_result['organic']) > 0:
+            return search_result['organic'][0]['link']
+        else:
+            return "No link found"
+
+    def webpilot_query(query):
+        print(query)
+        data = {
+            "model": "wp-watt-3.52-16k",
+            "content": query
+        }
+        headers = {
+            'Authorization': f'Bearer 0a4e3011e3c3489c8b4ccb397b95017e'  # 注意：令牌不需要尖括号
+        }
+        response = requests.post('https://beta.webpilotai.com/api/v1/watt', json=data, headers=headers, stream=True)
+        response_string = ""
+        try:
+            response_string = json.loads(response.text)["content"]
+        except (KeyError, JSONDecodeError):
+            response_string = "Webpilot API Error"
+        except SSLError:
+            print("SSL error! Retry in 5 minutes")
+            time.sleep(300)
+            webpilot_query(query)
+        print(response_string)
+        return response_string
+
 
 class AutoPaginator:
     def __init__(self, start_url: str):
         """
-        初始化 AutoPaginator 实例
         :param start_url: 分页的起始 URL
         """
         self.start_url = start_url
@@ -23,10 +70,7 @@ class AutoPaginator:
         self.driver = webdriver.Chrome()
 
     def find_next_button(self):
-        """
-        尝试多种方法查找“下一页”按钮的通用方法
-        :return: 如果找到下一页按钮，返回该元素；否则返回 None
-        """
+
         # 可能的选择器列表
         selectors = [
             {"by": By.XPATH, "value": "//a[contains(@aria-label, 'next')]"},  # 基于 `aria-label`
@@ -68,21 +112,25 @@ class AutoPaginator:
                 next_button.click()
                 self.url_list.append(self.driver.current_url)
             else:
-                print("没有找到下一页按钮，分页结束。")
+                print("没有找到next button，分页结束。")
                 break
 
         # 关闭浏览器
         self.driver.quit()
 
     def get_all_urls(self):
-        """
-        返回所有页码的 URL 列表
-        """
         return self.url_list
 
 
 # 使用示例
 if __name__ == "__main__":
+    '''WebSearch搜url使用示例'''
+    _query = 'faculty directory mechanical engineering Massachusetts Institute of Technology (MIT)'
+    web_search = WebSearch(api_key="88a8892a02409063f02a3bb97ac08b36fb213ae7")
+    first_link = web_search.get_first_link(query=_query)# 获取第一个link
+    print(first_link)
+
+    '''自动分页使用示例'''
     start_url = "https://engineering.msu.edu/faculty?departments=d09c48c1-b896-494b-8f18-fcbcbaa009e6&letter="
     paginator = AutoPaginator(start_url)
     paginator.auto_paginate()
