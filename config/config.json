@@ -1,0 +1,13 @@
+{  
+    "model_path": "./LLM-Research/Meta-Llama-3-8B-Instruct",  
+    "embedding_model_path": "BCEmbeddingmodel",  
+    "max_chunk_size": 256,  
+    "overlap": 50,  
+    "batch_size": 4,  
+    "temperature": 0.7,  
+    "top_p": 0.9,  
+    "document_path": "./Physics.txt",  
+    "input_file": "output_with_codes.csv",  
+    "device": "cuda",  
+    "keywords": ["school", "professor", "research"]  
+}
