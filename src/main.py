@@ -7,14 +7,14 @@ import pandas as pd
 from io import StringIO
 from transformers import AutoModel, AutoTokenizer, AutoModelForCausalLM  
 import tempfile  
-# 定义模型路径  
-model_path = './LLM-Research/Meta-Llama-3-8B-Instruct'  
-#model_path = './IEITYuan/Yuan2-2B-Mars-hf'
-embedding_model_path = 'BCEmbeddingmodel'  
+
+# 加载配置文件  
+with open('config.json', 'r') as config_file:  
+    config = json.load(config_file)
 
 # 文本切分类  
 class TextSplitter:  
-    def __init__(self, max_chunk_size=256, overlap=50):  
+    def __init__(self, max_chunk_size=config['max_chunk_size'], overlap=config['overlap']):  
         self.max_chunk_size = max_chunk_size  
         self.overlap = overlap  
 
@@ -24,13 +24,13 @@ class TextSplitter:
         for i in range(0, len(words), self.max_chunk_size - self.overlap):  
             chunk = words[i:i + self.max_chunk_size]  
             chunks.append(' '.join(chunk))  
-        return chunks  
+        return chunks   
     
 class LLM:  
-    def __init__(self, model_path: str) -> None:  
-        print("Creat tokenizer...")  
+    def __init__(self, model_path: str = config['model_path']) -> None:  
+        print("Creating tokenizer...")  
         self.tokenizer = transformers.AutoTokenizer.from_pretrained(model_path)  
-        
+
         print("Creating model...")  
         self.model = transformers.AutoModelForCausalLM.from_pretrained(  
             model_path,  
@@ -56,8 +56,8 @@ class LLM:
             inputs,  
             do_sample=True,  
             max_new_tokens=256,  
-            temperature=0.7,  
-            top_p=0.9  
+            temperature=config['temperature'],  
+            top_p=config['top_p']  
         )  
         # 解码模型的输出  
         output = self.tokenizer.decode(outputs[0], skip_special_tokens=True)  
@@ -69,17 +69,17 @@ class LLM:
         if "<|end_of_answer|>" in result_after_marker:  
             result_after_marker = result_after_marker.split("<|end_of_answer|>")[0].strip()  
 
-        return result_after_marker
+        return result_after_marker  
 
 # 定义向量模型类  
 class EmbeddingModel:  
-    def __init__(self, model_name: str, device: str = 'cuda'):  
+    def __init__(self, model_name: str = config['embedding_model_path'], device: str = config['device']):  
         self.tokenizer = transformers.AutoTokenizer.from_pretrained(model_name)  
         self.model = transformers.AutoModel.from_pretrained(model_name)  
         self.device = device  
         self.model.to(self.device)  
-    
-    def get_embeddings(self, sentences: List[str], batch_size: int = 4) -> np.ndarray:  
+
+    def get_embeddings(self, sentences: List[str], batch_size: int = config['batch_size']) -> np.ndarray:  
         all_embeddings = []  
         for i in range(0, len(sentences), batch_size):  
             batch = sentences[i:i + batch_size]  
@@ -94,7 +94,7 @@ class EmbeddingModel:
 
 # 定义向量库索引类  
 class VectorStoreIndex:  
-    def __init__(self, document_path: str, embed_model: EmbeddingModel, chunker: TextSplitter) -> None:  
+    def __init__(self, document_path: str = config['document_path'], embed_model: EmbeddingModel, chunker: TextSplitter) -> None:  
         self.documents = []  
         self.chunks = []  
         self.chunker = chunker  
@@ -126,25 +126,22 @@ class VectorStoreIndex:
 
 # 使用会话状态管理模型  
 if 'llm' not in st.session_state:  
-    st.session_state.llm = LLM(model_path)  
+    st.session_state.llm = LLM()  
     print('LLM model has been initialized.')  
 
 if 'embed_model' not in st.session_state:  
-    st.session_state.embed_model = EmbeddingModel(embedding_model_path)  
+    st.session_state.embed_model = EmbeddingModel()  
     print('Embedding model has been initialized.')  
 
 if 'index' not in st.session_state:  
-    chunker = TextSplitter(max_chunk_size=256, overlap=50)  
-    document_path = './Physics.txt'  
-    st.session_state.index = VectorStoreIndex(document_path, st.session_state.embed_model, chunker)  
+    chunker = TextSplitter()  
+    st.session_state.index = VectorStoreIndex(embed_model=st.session_state.embed_model, chunker=chunker)  
     print('Index has been initialized.')  
     
-    
-def should_select_school_and_faculty(question):  # 待修改，用相似度匹配好一点
-    keywords = ["school", "professor", "research"]  
-    return any(keyword in question.lower() for keyword in keywords)  
+def should_select_school_and_faculty(question):  
+    return any(keyword in question.lower() for keyword in config['keywords'])  
 
-def filter_and_save_csv(rank_range, interest, input_file='output_with_codes.csv'):  
+def filter_and_save_csv(rank_range, interest, input_file=config['input_file']):  
     # 读取输入文件  
     df = pd.read_csv(input_file)  
     
@@ -175,7 +172,7 @@ def filter_and_save_csv(rank_range, interest, input_file='output_with_codes.csv'
     csv_result_df = csv_result_df.drop_duplicates(subset='Institution Name').reset_index(drop=True)  
     # 返回两个结果  
     return csv_result_df, txt_output.getvalue()  
-    
+
     
 # 页面布局  
 st.set_page_config(page_title="PhD Application Assistant", layout="wide")  
