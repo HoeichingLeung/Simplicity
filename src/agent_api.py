@@ -20,6 +20,7 @@ class AgentAPI(GPTclient):
         ]  
         return matching_universities.to_string() if not matching_universities.empty else "No match found." 
 
+
     def query_professor_info(self, university=None, research_area=None) -> str:  
         # 查找匹配的教授信息  
         matches = self.university_data[  
@@ -59,7 +60,7 @@ class AgentAPI(GPTclient):
 
         Prompt = f"""
             
-            You are a helpful assistant. Based on the user's input, generate Python code that calls one of the functions to fetch university or professor information and print out the answer.
+            You are a helpful assistant. Based on the user's input, generate Python code, you can call the functions to fetch university or professor information and print out the answer.
     
             User input: " {user_query}"
     
@@ -115,7 +116,7 @@ if __name__ == "__main__":
     agent_api = AgentAPI(api_key, base_url, "output_with_codes.csv")  
     
     # 根据用户提问生成代码  
-    user_query = 'l want to know the professor research in quantum optics in Cornell?'  
+    user_query = 'l want to know the professor research in quantum optics Top10 university?'
     generated_code = agent_api.generate_code_for_query(user_query)  
     
     if generated_code:  
