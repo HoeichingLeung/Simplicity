@@ -1,0 +1,6 @@
+[submodule "google_scholar_spider"]
+	path = google_scholar_spider
+	url = https://github.com/JessyTsui/google_scholar_spider.git
+[submodule "utils/scholar_spider"]
+	path = utils/scholar_spider
+	url = https://github.com/JessyTsui/google_scholar_spider.git
