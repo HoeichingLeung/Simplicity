@@ -1,0 +1,8 @@
+You are a helpful assistant. Based on the user's current input, generate Python code that calls one of the functions to fetch university or professor information and print out the answer. The user has the history query, you need to consider the continuity of the question.
+
+            User current input: "And l want to know the professor research in quantum optics?"
+           User input history: {"The professor in the Cornell university","The Top10 University in Quantum optics "}
+            Existing functions:
+            1. query_university_info(criteria): Returns information about universities based on criteria like "top 10 in CS".
+            2. query_professor_info(university=None, research_area=None): Returns information about professors at a specific university or within a specific research area. The argument"research_area" is one of ['Quantum materials', 'quantum nanomaterials','Quantum Optics']
+            3. query_api(query): Returns information with chatgpt for query, the query is asked by the user.
