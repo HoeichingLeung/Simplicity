@@ -1,7 +1,11 @@
-from Simplicity.src.main import *
-from Simplicity.utils.gpt_api import GPTclient
+#from Simplicity.src.main import *
+#from Simplicity.utils.gpt_api import GPTclient
+from openai import OpenAI
 import re
 import pandas as pd
+import cProfile  
+import pstats  
+import io  
 
 class AgentAPI(GPTclient):
 
@@ -12,22 +16,63 @@ class AgentAPI(GPTclient):
         :param csv_file_path: CSV文件路径  
         """  
         super().__init__(api_key, base_url)  
+        self.csv_file_path = csv_file_path  # Save path as instance variable 
         self.university_data = pd.read_csv(csv_file_path)  
+        
+    def query_prof_details(self, professor_name: str) -> str:
+        print('To do by Lang.')
 
-    def query_university_info(self, criteria: str) -> str:  
-        matching_universities = self.university_data[  
-            self.university_data.apply(lambda row: criteria.lower() in row.to_string().lower(), axis=1)  
+    def query_university_info(self, criteria: str) -> list:  
+        self.university_data = pd.read_csv(self.csv_file_path)
+        # 提取排名区间  
+        try:  
+            min_rank, max_rank = map(int, criteria.split('-'))  
+        except ValueError:  
+            print("Please use 'min-max' format.")  
+            return []  
+
+        # 根据排名区间过滤数据  
+        matches = self.university_data[  
+            (self.university_data['Rank'].astype(int) >= min_rank) &  
+            (self.university_data['Rank'].astype(int) <= max_rank)  
         ]  
-        return matching_universities.to_string() if not matching_universities.empty else "No match found." 
+        matches = matches.drop_duplicates(subset='University')  
+        # 只选择 University 和 Rank 列  
+        if not matches.empty:  
+            # 将匹配的数据转换为字符串  
+            content = matches.apply(  
+                lambda row: (  
+                    f"Ranked {row['Rank']}, {row['University']}"  
+                ),  
+                axis=1  
+            ).to_list()  
 
+            # 将列表转换为字符串，每个条目换行  
+            content_str = "\n".join(content)  
+            # 增加提示信息  
+            prompt = "Rewrite the information.\n"  
+            # 将提示与内容结合  
+            content_str = prompt + content_str  
+        else:  
+            content_str = "No data"  
 
+        # 调用self.get_response并传入content_str  
+        response = self.get_response(content_str)  
+        print(response)  
+
+        # 返回大学名称列表  
+        university_list = matches['University'].to_list() if not matches.empty else []  
+        return university_list
+
+    
     def query_professor_info(self, university=None, research_area=None) -> str:  
         # 查找匹配的教授信息  
         matches = self.university_data[  
-            (self.university_data['University'].str.contains(university, na=False) if university else True) &  
-            (self.university_data['Research'].str.contains(research_area, na=False) if research_area else True)  
-        ]  
-
+            (self.university_data['University'].str.strip().str.contains(university, case=False, na=False) if university else True) &  
+            (self.university_data['Research'].str.strip().str.contains(research_area, case=False, na=False) if research_area else True)  
+        ]   # 大小写不敏感
+        # 刷新数据库
+        self.university_data = matches
         if not matches.empty:  
             # 将匹配的数据转换为字符串  
             content = matches.apply(  
@@ -50,46 +95,58 @@ class AgentAPI(GPTclient):
             content = "No data"
             # 调用self.get_response并传入content  
         response = self.get_response(content)  
-        return response
+        print(response)
             
 
-    def query_api(self, query):
-        response = self.get_response(content=query)
-        return response
-    def generate_code_for_query(self, user_query):
+    def query_api(self, query):  
+        # Get the response from the API  
+        response = self.get_response(content=query)  
+        #print(response)
+        # Check if the response is empty  
+        if not response:  
+            # Return a default message if the response is empty  
+            print("Please try again later or check your query.")  
 
-        Prompt = f"""
-            
-            You are a helpful assistant. Based on the user's input, generate Python code, you can call the functions to fetch university or professor information and print out the answer.
+        # Return the response if it's not empty  
+        print(response) 
     
-            User input: " {user_query}"
-    
-            Existing functions:
-            1. query_university_info(criteria): Returns information about universities based on criteria like "top 10 in CS".
-            2. query_professor_info(university=None, research_area=None): Returns information about professors at a specific university or within a specific research area. The argument"research_area" is one of ['Quantum materials', 'quantum nanomaterials','Quantum Optics']
-            3. query_api(query): Returns information with chatgpt for query, the query is asked by the user.
-            """
+    def generate_code_for_query(self, user_query, history):  
 
-        # 调用OpenAI的GPT API生成代码
+        Prompt = f"""  
+
+            You are a helpful assistant. Based on the user's current input, generate Python code that calls the functions to fetch university or professor information. The user has the history query, you need to consider the continuity of the question.  
+
+            User current input: '{user_query}'  
+            User input history: '{history}'  
+
+            Existing functions:  
+            1. query_university_info(criteria): criteria is the string parameter, the format is "1-10". Return a university list based on criteria.  
+            2. query_professor_info(university=None, research_area=None): Return information about professors at a specific university or within a specific research area. The argument "research_area" is one of ['Quantum materials', 'quantum nanomaterials','Quantum Optics']  
+            3. query_prof_details(professor_name): Return the detail information about the professors like their publications and more research information.  
+            4. query_api(query): Return information with chatgpt for query, the query is asked by the user.  
+
+        """  
+
+        # 调用OpenAI的GPT API生成代码  
         response = self.client.chat.completions.create(  
             messages=[{"role": "system", "content": Prompt}],  
             model="gpt-3.5-turbo",  
             max_tokens=150,  
-            temperature=0  
+            temperature=0.9
         )  
-
-        # 提取生成的代码
-        full_content = response.choices[0].message.content.strip()
-        # Use a regular expression to find text between triple backticks (`)  
+        #print(response)  
+        # 提取生成的代码  
+        full_content = response.choices[0].message.content.strip()  
+        # 使用正则表达式找到三重反引号之间的文本  
         code_match = re.search(r"```python\n(.*?)\n```", full_content, re.DOTALL)  
 
         if code_match:  
-            generated_code = code_match.group(1)  # Extract the code part  
+            generated_code = code_match.group(1)  # 提取代码部分  
             print(generated_code)  
         else:  
-            print("No Python code block found in the response.")  
-        return generated_code
-
+            generated_code = ''  
+            #print("No Python code block found in the response.")  
+        return generated_code  
 
     def exec_code(self, code_from_gpt):  
         # 提供安全执行环境  
@@ -97,7 +154,8 @@ class AgentAPI(GPTclient):
             "query_api": self.query_api,  # 确保加入query_api  
             "query_professor_info": self.query_professor_info,  # 加入query_professor_info  
             "query_university_info": self.query_university_info,  # 加入query_university_info  
-            "print": print,
+            "query_prof_details": self.query_prof_details,  
+            "print": print,  
             "__builtins__": {}  # 可选：限制内建函数以增强安全性  
         }  
 
@@ -105,20 +163,42 @@ class AgentAPI(GPTclient):
             # 执行生成的代码  
             exec(code_from_gpt, safe_globals)  
         except Exception as e:  
-            print(f"执行代码时发生错误: {e}")
-        
-if __name__ == "__main__":  
-    # 设置API密钥和中转URL  
-    api_key = "sk-Erm52wwWJba3F2iz620d47D7F40e4fDcB2D36e9cC22bDe09"  
-    base_url = "https://api.pumpkinaigc.online/v1"  
+            print(f"执行代码时发生错误: {e}")  
 
-    # 创建AgentAPI实例  
-    agent_api = AgentAPI(api_key, base_url, "output_with_codes.csv")  
+
+# 设置 API 密钥和基础 URL  
+api_key = "sk-Erm52wwWJba3F2iz620d47D7F40e4fDcB2D36e9cC22bDe09"  
+base_url = "https://api.pumpkinaigc.online/v1"  
+
+# 创建 AgentAPI 实例  
+agent_api = AgentAPI(api_key, base_url, "output_with_codes.csv")  
+
+print("Welcome to the PhD Assistant Chatbot!\nType 'exit' to quit.")  
+
+# 初始化列表以存储用户查询  
+query_history = []  
+
+while True:  
+    # 获取用户输入  
+    user_query = input("Please enter your query: ")  
     
-    # 根据用户提问生成代码  
-    user_query = 'l want to know the professor research in quantum optics Top10 university?'
-    generated_code = agent_api.generate_code_for_query(user_query)  
+    # 如果用户输入 'exit'，则退出循环  
+    if user_query.lower() == "exit":  
+        print("Goodbye!")  
+        break  
+
+    # 确保历史记录最多存储10条记录  
+    if len(query_history) >= 10:  
+        query_history.pop(0)  # 移除最老的记录  
+
+    # 添加当前查询到历史记录  
+    query_history.append(user_query)  
+
+    # 根据用户查询和查询历史生成代码  
+    generated_code = agent_api.generate_code_for_query(user_query, query_history)  
     
     if generated_code:  
         # 执行生成的代码  
         agent_api.exec_code(generated_code)  
+    else:  
+        print("Sorry, I couldn't generate a response for that query. Please try again.")
