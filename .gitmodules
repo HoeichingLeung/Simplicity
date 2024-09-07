@@ -4,6 +4,3 @@
 [submodule "utils/scholar_spider"]
 	path = utils/scholar_spider
 	url = https://github.com/JessyTsui/google_scholar_spider.git
-[submodule "utils/google-scholar-scraper"]
-	path = utils/google-scholar-scraper
-	url = https://github.com/sheikhartin/google-scholar-scraper.git
