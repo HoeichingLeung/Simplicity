@@ -1,11 +1,9 @@
-from Simplicity.src.main import *
-from Simplicity.utils.gpt_api import GPTclient
+import sys
+sys.path.append("D:/Simplicity/utils") # 加入路径以便于直接运行
+from gpt_api import GPTclient
 from openai import OpenAI
 import re
-import pandas as pd
-import cProfile  
-import pstats  
-import io  
+import pandas as pd 
 import ast
 
 class AgentAPI(GPTclient):
@@ -97,38 +95,56 @@ class AgentAPI(GPTclient):
         return university_list
 
     
-    def query_professors(self, university=None, research_area=None) -> str:  
-        # 查找匹配的教授信息 
-        matches = self.university_data[  
-            (self.university_data['University'].str.strip().str.contains(university, case=False, na=False) if university else True) &  
-            (self.university_data['Research'].str.strip().str.contains(research_area, case=False, na=False) if research_area else True)  
-        ]   # 大小写不敏感
-        
-        if not matches.empty:  
-            # 将匹配的数据转换为字符串  
-            content = matches.apply(  
-                lambda row: (  
-                    f"Ranked {row['Rank']}, {row['University']} has a faculty member named {row['Faculty']}. "  
-                    f"They are involved in {row['Research']}. More information can be found on their website: {row['Website']}. "  
-                    f"Contact them via email: {row['Email']}."  
-                    f"Full Research: {row['full_research']}."  
-                ),  
-                axis=1  
-            ).to_list()  
+    def query_professors(self, university_list=None, research_area=None) -> list:  
+        # Initialize an empty list to store professors  
+        professor_list = []  
+        # Initialize an empty string to accumulate content  
+        content = ""  
+        # Initialize an empty DataFrame to accumulate matches  
+        all_matches = pd.DataFrame()  
 
-            # 将列表转换为字符串，每个条目换行  
-            content = "\n".join(content)
-        else:
-            content = "No professors in this case."
-        
-        # 返回prof列表  
-        professor_list = matches['Faculty'].to_list() if not matches.empty else []  
-        prompt = "Here are the professors"
-        content = prompt + content
-        response = self.get_response(content)
-        print(response)
-        # 刷新数据库
-        # self.university_data = matches
+        # Iterate over each university in the university_list  
+        for university in university_list:  
+            # Find matching professor information for each university  
+            matches = self.university_data[  
+                (self.university_data['University'].str.strip().str.contains(university, case=False, na=False) if university else True) &  
+                (self.university_data['Research'].str.strip().str.contains(research_area, case=False, na=False) if research_area else True)  
+            ]  # Case insensitive  
+
+            if not matches.empty:  
+                # Convert the matching data to a string  
+                university_content = matches.apply(  
+                    lambda row: (  
+                        f"Ranked {row['Rank']}, {row['University']} has a faculty member named {row['Faculty']}. "  
+                        f"They are involved in {row['Research']}. More information can be found on their website: {row['Website']}. "  
+                        f"Contact them via email: {row['Email']}."  
+                        f"Full Research: {row['full_research']}."  
+                    ),  
+                    axis=1  
+                ).to_list()  
+
+                # Add the professors to the list  
+                professor_list.extend(matches['Faculty'].to_list())  
+
+                # Append the university content to the overall content  
+                content += "\n".join(university_content) + "\n"  
+
+                # Accumulate matches  
+                all_matches = pd.concat([all_matches, matches], ignore_index=True)  
+            else:  
+                matches = pd.DataFrame()  
+        if all_matches.empty:
+            content = 'No professors.'
+        # Prepare the prompt and get the response  
+        prompt = "Rewrite the following information:\n"  
+        full_content = prompt + content  
+        response = self.get_response(full_content)  
+        print(response)  
+        if not all_matches.empty:
+            # Refresh self.university_data with all matches  
+            self.university_data = all_matches  
+
+        # Return the list of professors  
         return professor_list
             
 
@@ -151,16 +167,16 @@ class AgentAPI(GPTclient):
 
         Prompt = f"""  
 
-            You are a helpful assistant. Based on the user's current input, generate Python code that calls the functions to fetch university or professor information. The user has the history query, you need to consider the continuity of the question. Remember: try to generate Python each time.
+            You are a helpful assistant. Based on the user's current input, generate Python code that calls the functions to fetch university or professor information. The user has the history query, you need to consider the continuity of the question. Remember: try to generate Python each time. Call more than one function only when it is necessary.
 
             User current input: '{user_query}'  
             User input history: '{history}'  
 
             Existing functions:  
             1. query_university_info(criteria): criteria is the string parameter, the format is "1-10" and do not use any other format. Return a university list based on criteria.  
-            2. query_professors(university=None, research_area=None): Return a professors list at a specific university or within a specific research area. "university" is the string parameter for one specific university, the argument "research_area" is one of ['Quantum materials', 'quantum nanomaterials','Quantum Optics']  
+            2. query_professors(university_list=None, research_area=None): Return a professors list at a specific university or within a specific research area. "university_list" is the list of university, if one specific university is given, the list may contain only one university. the argument "research_area" is one of ['Quantum materials', 'quantum nanomaterials','Quantum Optics']  
             3. query_professors_details(professor_name): Return the detail information about the professors like their publications and more research information. This function is called when users want more information.
-            4. query_api(query): Return information with chatgpt for query, the query is asked by the user. That means the query may be not relvent with functions above.
+            4. query_api(query): Return information directly with chatgpt for query. If you don't want to call other functions.
             5. personalized_recommend(inputs): Take the whole user current input as the 'inputs' parameter. Return the personalized recommendation according to user's own information.
 
         """  
@@ -208,25 +224,6 @@ class AgentAPI(GPTclient):
             print("Welcome to the PhD Assistant Chatbot!\nType 'exit' to quit.")  
             self.has_greeted = True
 
-def profile_code(code_to_run):  
-    # 创建一个cProfile分析器  
-    pr = cProfile.Profile()  
-    pr.enable()  # 启用分析器  
-    
-    # 运行要分析的代码  
-    code_to_run()  
-    
-    pr.disable()  # 禁用分析器  
-    
-    # 使用pstats处理输出并按照累计时间进行排序  
-    s = io.StringIO()  
-    sortby = 'cumulative'  # 可以使用 'tottime' 来按每个函数的执行时间排序  
-    ps = pstats.Stats(pr, stream=s).sort_stats(sortby)  
-    ps.print_stats(10)  # 可以调整数字以显示不同数量的前n个函数  
-
-    # 打印分析结果  
-    print(s.getvalue())  
-
 def is_python_code(code):  
     try:  
         # 尝试解析代码字符串为 Python 语法树  
@@ -241,7 +238,7 @@ def run_agent_api():
     base_url = "https://api.pumpkinaigc.online/v1"  
 
     # 创建 AgentAPI 实例  
-    agent_api = AgentAPI(api_key, base_url, "output_with_codes.csv")  
+    agent_api = AgentAPI(api_key, base_url, "D:/Simplicity/data/output_with_codes.csv")  
     agent_api.greet_user() 
 
     # 初始化列表以存储用户查询  
