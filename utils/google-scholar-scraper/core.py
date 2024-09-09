@@ -104,7 +104,7 @@ class GSArticlesSpider(Spider):
         for article in articles:
             print("publication_count = ", self.max_publications_count)
 
-            time.sleep(random.uniform(0.5, 0.8))  # 休眠 2 到 5 秒之间的随机时间
+            time.sleep(random.uniform(2, 2.8))  # 休眠 2 到 5 秒之间的随机时间
             if self.max_publications is not None and self.max_publications_count >= self.max_publications:
                 print('Reached the maximum number of publications to parse.')
                 return  # Exit the function if the limit is reached
@@ -334,12 +334,12 @@ if __name__ == '__main__':
     df = pd.read_csv(original_file_path, encoding=result['encoding'])
 
     # 定义每个子文件的行数
-    chunk_size = 30
+    chunk_size = 20
 
     # 遍历数据帧并分割成多个文件
     for i in range(0, len(df), chunk_size):
         chunk = df.iloc[i:i + chunk_size]
-        chunk.to_csv(f'D:/llm_python/Simplicity/data/split/part_{i // chunk_size}.csv', index=False)
+        chunk.to_csv(f'D:/llm_python/Simplicity/data/split/debug_part_{i // chunk_size}.csv', index=False)
 
 
     # 列出所有分割的 CSV 文件路径
