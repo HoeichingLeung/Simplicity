@@ -19,7 +19,8 @@ class AgentAPI(GPTclient):
         self.university_data = pd.read_csv(self.csv_file_path)  
         self.has_greeted = False
         
-    def query_professors_details(self, professor_name: str) -> str:  
+    def query_professors_details(self, professor_name: str, user_query) -> str:  
+        user_query = user_query + "Use the provided information to generate a clear and accurate response to the query."
         # 查找匹配的教授信息  
         matches = self.university_data[  
             self.university_data['Faculty'].str.strip().str.contains(professor_name, case=False, na=False)  
@@ -43,16 +44,17 @@ class AgentAPI(GPTclient):
 
             # 将列表转换为字符串，每个条目换行  
             response_content = "\n".join(response_content)  
-
+            content = response_content + user_query
             # 使用 self.get_response 生成回答  
-            response = self.get_response(response_content)  
+            response = self.get_response(content)  
             print(response)  
             #return response  
         else:  
             print("No detailed information about this professor.")  
             #return "No data"
 
-    def query_university_info(self, criteria: str) -> list:  
+    def query_university_rank(self, criteria: str, user_query) -> list:  
+        user_query = user_query + "Use the provided information to generate a clear and accurate response to the query."
         #self.university_data = pd.read_csv(self.csv_file_path)
         # 提取排名区间  
         try:  
@@ -80,7 +82,7 @@ class AgentAPI(GPTclient):
             # 将列表转换为字符串，每个条目换行  
             content_str = "\n".join(content)  
             # 增加提示信息  
-            prompt = "Rewrite the information.\n"  
+            prompt = user_query  
             # 将提示与内容结合  
             content_str = prompt + content_str  
         else:  
@@ -95,7 +97,8 @@ class AgentAPI(GPTclient):
         return university_list
 
     
-    def query_professors(self, university_list=None, research_area=None) -> list:  
+    def query_professors(self, university_list=None, research_area=None, user_query=None) -> list:  
+        user_query = user_query + "Use the provided information to generate a clear and accurate response to the query."
         # Initialize an empty list to store professors  
         professor_list = []  
         # Initialize an empty string to accumulate content  
@@ -136,7 +139,7 @@ class AgentAPI(GPTclient):
         if all_matches.empty:
             content = 'No professors.'
         # Prepare the prompt and get the response  
-        prompt = "Rewrite the following information:\n"  
+        prompt = user_query 
         full_content = prompt + content  
         response = self.get_response(full_content)  
         print(response)  
@@ -148,9 +151,9 @@ class AgentAPI(GPTclient):
         return professor_list
             
 
-    def query_api(self, query):  
+    def query_api(self, user_query):  
         # Get the response from the API  
-        response = self.get_response(content=query)  
+        response = self.get_response(content=user_query)  
         #print(response)
         # Check if the response is empty  
         if not response:  
@@ -166,20 +169,30 @@ class AgentAPI(GPTclient):
     def generate_code_for_query(self, user_query, history):  
 
         Prompt = f"""  
-
-            You are a helpful assistant. Based on the user's current input, generate Python code that calls the functions to fetch university or professor information. The user has the history query, you need to consider the continuity of the question. Remember: try to generate Python each time. Call more than one function only when it is necessary.
+            You are a helpful assistant tasked with generating Python code to fetch information about universities or professors based on the user's input. Each response should maintain continuity with the user's query history and focus on generating Python code that calls only one function at a time. If the user's input is unrelated to the functions query_university_rank, query_professors, query_professors_details, or personalized_recommend, directly generate code using query_api(query).  
 
             User current input: '{user_query}'  
             User input history: '{history}'  
 
-            Existing functions:  
-            1. query_university_info(criteria): criteria is the string parameter, the format is "1-10" and do not use any other format. Return a university list based on criteria.  
-            2. query_professors(university_list=None, research_area=None): Return a professors list at a specific university or within a specific research area. "university_list" is the list of university, if one specific university is given, the list may contain only one university. the argument "research_area" is one of ['Quantum materials', 'quantum nanomaterials','Quantum Optics']  
-            3. query_professors_details(professor_name): Return the detail information about the professors like their publications and more research information. This function is called when users want more information.
-            4. query_api(query): Return information directly with chatgpt for query. If you don't want to call other functions.
-            5. personalized_recommend(inputs): Take the whole user current input as the 'inputs' parameter. Return the personalized recommendation according to user's own information.
+            Available functions:  
+            1. query_api(user_query): Use this function to directly access information via ChatGPT for any query where specific functions fail to address the user's needs adequately. Ideal for broad inquiries or when the user's request does not fit within the constraints or capabilities of the available functions. Leverages ChatGPT's broad knowledge base to provide comprehensive answers without relying on predefined function parameters.  
+            2. query_professors(university_list, research_area, user_query): Retrieves a list of professors at a particular university or within a specific research area. Example: university_list=['Harvard University', 'EPFL']. "Use this when asking 'who works' or 'which professor'." 
+            3. query_professors_details(professor_name, user_query): Provides detailed information about a professor's publications and research. Used for deeper insights.  
+            4. query_university_rank(criteria, user_query): Returns a list of universities based on the ranking criteria specified in the format "1-3". To translate user input such as "top N universities", convert to the format "1-N".  
+            5. personalized_recommend(user_query): Takes the entire current user input as the 'inputs' parameter and returns recommendations tailored to the user's needs.  
 
-        """  
+            Guidelines:  
+            1. If the user's input includes a specific university, include only that university in university_list.  
+            2. Importing functions is not required.  
+            3. Generate code for only one function at a time.  
+            4. If a query requires multiple steps or cannot be satisfied by a single function call, clearly inform the user: Respond with, "I'm unable to process this request in one step. Please break it down into simpler, sequential questions." This response should guide the user to split their question into smaller, manageable parts that align with the available functions.  
+            5. Example for addressing complex queries:  
+                User Query: "List top 10 universities and their professors in Quantum Optics."  
+                Assistant Response: "I'm unable to process this request in one step. Please break it down into simpler, sequential questions."  
+                Suggested Steps for the User:  
+                    "List top 10 universities."  
+                    "List professors in Quantum Optics at [specific university]."  
+            """
 
         # 调用OpenAI的GPT API生成代码  
         response = self.client.chat.completions.create(  
@@ -197,7 +210,7 @@ class AgentAPI(GPTclient):
         if code_match:  
             generated_code = code_match.group(1)  # 提取代码部分  
             #print(generated_code)  
-        else:  
+        else:  # 找不到代码
             generated_code = full_content  # 将响应的完整文本作为生成代码
             #print("No Python code block found in the response.")  
         return generated_code  
@@ -207,7 +220,7 @@ class AgentAPI(GPTclient):
         safe_globals = {  
             "query_api": self.query_api,  # 确保加入query_api  
             "query_professors": self.query_professors,  # 加入query_professor_info  
-            "query_university_info": self.query_university_info,  # 加入query_university_info  
+            "query_university_rank": self.query_university_rank,  # 加入query_university_info  
             "query_professors_details": self.query_professors_details,  
             "personalized_recommend": self.personalized_recommend,
             "print": print,  
@@ -221,7 +234,7 @@ class AgentAPI(GPTclient):
             print(f"执行代码时发生错误: {e}")  
     def greet_user(self):  
         if not self.has_greeted:  
-            print("Welcome to the PhD Assistant Chatbot!\nType 'exit' to quit.")  
+            print("Welcome to the PhD Assistant Chatbot!\nFor a more accurate answer, please ask your questions step by step.\nType 'exit' to quit.")  
             self.has_greeted = True
 
 def is_python_code(code):  
