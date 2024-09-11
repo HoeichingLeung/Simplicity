@@ -27,6 +27,7 @@ class Spider:
     max_publications: Optional[int] = None  # Add this line to set the maximum number of publications
 
     def __init__(self) -> None:
+
         self.name = self.name if self.name is not None else self.__class__.__name__
         self.session = HTMLSession()
     def __str__(self) -> str:
@@ -54,10 +55,9 @@ class Spider:
         """Goes between all the specified URLs."""
         print(f'{self.name} started...')
         requests_count = 0
-
         for url in self.start_urls:
             requests_count += 1
-            print(f'\nFetching request #{requests_count} from {url}')
+            # print(f'\nFetching request #{requests_count} from {url}')
             response = self.session.get(url)
             for item in self.parse(response):
                 yield item
@@ -94,6 +94,7 @@ class GSArticlesSpider(Spider):
 
     def setup(self, *args, **kwargs) -> None:
         query = _build_articles_query(**kwargs, extra='as_sdt=0,5')
+        self.start_urls = []
         self.start_urls.append(f'https://scholar.google.com/scholar?{query}')
 
     def parse(self, response: HTMLSession) -> Generator[dict, None, None]:
@@ -150,25 +151,15 @@ class GSArticlesSpider(Spider):
                 'citations no.': citations_no,
             }
 
-            result = {
-                'title': title,
-                'authors': authors,
-                'year': year,
-                'source': source,
-                'paper': paper,
-                'citations no.': citations_no,
-                'snippet': snippet  # Save the full snippet for later review
-            }
-            results.append(result)
-
-            # Write the results to a JSON file
-            with open('parsed_results_test.json', 'w', encoding='utf-8') as f:
-                json.dump(results, f, ensure_ascii=False, indent=4)
+            # # Write the results to a JSON file
+            # with open('parsed_results_test.json', 'w', encoding='utf-8') as f:
+            #     json.dump(results, f, ensure_ascii=False, indent=4)
 
         next_page = response.html.xpath('//div[@id="gs_res_ccl_bot"]//td[@align="left"]/a/@href', first=True)
         if next_page is not None:
             next_page_url = f'https://scholar.google.com{next_page}'
             print(f'Next page found at {next_page_url}')
+            self.extra_urls = []
             self.extra_urls.append(next_page_url)
 
 
@@ -279,8 +270,8 @@ def process_publications(_dataframe):
 
         # Define parameters for the search
         params = {
-            'keywords': f'{prof_name}_{university_name}',  # Change keywords as needed
-            'start_year': 2018,              # Start year for the search
+            'keywords': f'{prof_name} {university_name}',  # Change keywords as needed
+            'start_year': 2014,              # Start year for the search
             'end_year': 2024,                # End year for the search
             'languages': ['en'],             # Language(s) for the search
         }
@@ -334,12 +325,12 @@ if __name__ == '__main__':
     df = pd.read_csv(original_file_path, encoding=result['encoding'])
 
     # 定义每个子文件的行数
-    chunk_size = 20
+    chunk_size = 10
 
     # 遍历数据帧并分割成多个文件
     for i in range(0, len(df), chunk_size):
         chunk = df.iloc[i:i + chunk_size]
-        chunk.to_csv(f'D:/llm_python/Simplicity/data/split/debug_part_{i // chunk_size}.csv', index=False)
+        chunk.to_csv(f'D:/llm_python/Simplicity/data/split/part_{i // chunk_size}.csv', index=False)
 
 
     # 列出所有分割的 CSV 文件路径
@@ -347,6 +338,7 @@ if __name__ == '__main__':
     files = [os.path.join(directory_path, file) for file in os.listdir(directory_path) if file.startswith('part_')]
 
     for file_path in files:
+        print("file_path_current:", file_path)
         df = pd.read_csv(file_path)
         updated_df = process_publications(df)
         # 保存更新后的数据到新的 CSV 文件
@@ -355,7 +347,9 @@ if __name__ == '__main__':
     updated_files = [os.path.join(directory_path, file) for file in os.listdir(directory_path) if
                      file.startswith('updated_part_')]
     # 合并所有更新的 CSV 文件
+
     df_list = [pd.read_csv(file) for file in updated_files]
+    print(df_list)
     final_df = pd.concat(df_list, ignore_index=True)
 
     # 保存合并后的最终 CSV 文件
