@@ -7,6 +7,7 @@ Simplicity
 ├── model
 |   └── BCEmbeddingmodel
 ├── Datacrawler
+|   └── raw_data_crawler.py
 ├── config
 ├── data
 |   └── txt_to_embed
@@ -17,6 +18,7 @@ Simplicity
 ├── utils
 |   ├── google-scholar-scraper
 |   ├── gpt_api.py
-|   └── strea_generator.py
+|   ├── cProfile.py
+|   └── stream_generator.py
 └── README.md
 ```
