@@ -19,11 +19,4 @@ Simplicity
 |   ├── gpt_api.py
 |   └── strea_generator.py
 └── README.md
- 
-
-
-
-
-
-
 ```
