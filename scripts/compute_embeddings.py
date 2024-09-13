@@ -4,33 +4,80 @@ from transformers import AutoTokenizer, AutoModel
 import torch  
 from typing import List  
 
-class EmbeddingModel:  
-    def __init__(self, model_name: str, device: str = 'cuda'):  
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)  
-        self.model = AutoModel.from_pretrained(model_name)  
-        self.device = device  
-        self.model.to(self.device)  
-    
-    def get_embeddings_with_mapping(self, sentences: List[str], batch_size: int = 4):  
-        all_embeddings = []  
-        index_to_sentence = {}  
+import os
+import numpy as np
+from transformers import AutoTokenizer, AutoModel
+import torch
+from typing import List
+import pandas as pd
 
-        for i in range(0, len(sentences), batch_size):  
-            batch = sentences[i:i + batch_size]  
+class EmbeddingModel:
+    def __init__(self, model_name: str, device: str = 'cuda'):
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+        self.model = AutoModel.from_pretrained(model_name)
+        self.device = device
+        self.model.to(self.device)
+        self.vector = np.empty((1,768))
+    def get_embeddings(self, sentences: List[str], batch_size: int = 8) -> np.ndarray:
+        all_embeddings = []
+        for i in range(0, len(sentences), batch_size):
+            batch = sentences[i:i + batch_size]
+            #print(batch)
+            inputs = self.tokenizer(batch, padding=True, truncation=True, max_length=256, return_tensors="pt")
+            #print(inputs)
+            inputs_on_device = {k: v.to(self.device) for k, v in inputs.items()}
+            with torch.no_grad():
+                outputs = self.model(**inputs_on_device, return_dict=True)
+            embeddings = outputs.last_hidden_state[:, 0]
+            embeddings = embeddings / embeddings.norm(dim=1, keepdim=True)
+            all_embeddings.append(embeddings.cpu().numpy())
+        return np.vstack(all_embeddings)
 
-            # Create a mapping of index to sentence  
-            for idx, sentence in enumerate(batch, start=i):  
-                index_to_sentence[idx] = sentence  
+    def get_embeddings_with_mapping(self, sentences: List[str], batch_size: int = 4):
+        all_embeddings = []
+        index_to_sentence = {}
 
-            inputs = self.tokenizer(batch, padding=True, truncation=True, max_length=256, return_tensors="pt")  
-            inputs_on_device = {k: v.to(self.device) for k, v in inputs.items()}  
-            with torch.no_grad():  
-                outputs = self.model(**inputs_on_device, return_dict=True)  
-            embeddings = outputs.last_hidden_state[:, 0]  
-            embeddings = embeddings / embeddings.norm(dim=1, keepdim=True)  
-            all_embeddings.append(embeddings.cpu().numpy())  
+        for i in range(0, len(sentences), batch_size):
+            batch = sentences[i:i + batch_size]
 
-        return np.vstack(all_embeddings), index_to_sentence   
+            # Create a mapping of index to sentence
+            for idx, sentence in enumerate(batch, start=i):
+                index_to_sentence[idx] = sentence
+
+            inputs = self.tokenizer(batch, padding=True, truncation=True, max_length=256, return_tensors="pt")
+            inputs_on_device = {k: v.to(self.device) for k, v in inputs.items()}
+            with torch.no_grad():
+                outputs = self.model(**inputs_on_device, return_dict=True)
+            embeddings = outputs.last_hidden_state[:, 0]
+            embeddings = embeddings / embeddings.norm(dim=1, keepdim=True)
+            all_embeddings.append(embeddings.cpu().numpy())
+        return np.vstack(all_embeddings), index_to_sentence
+    def get_similarity(self, vector1: List[float], vector2: List[float]) -> float:
+        """
+        calculate cosine similarity between two vectors
+        """
+        dot_product = np.dot(vector1, vector2)
+        magnitude = np.linalg.norm(vector1) * np.linalg.norm(vector2)
+        if not magnitude:
+            return 0
+        return dot_product / magnitude
+    def load_embed(self, file_path):
+        array_data = np.load(file_path)
+        self.vectors = array_data
+        print('>load_embed...')
+        print(f'The embed size is{array_data.shape}')
+    def query_for_sentences(self, question: str, k: int) -> List[str]:
+        question_vector = self.get_embeddings([question])[0]
+        result = np.array([self.get_similarity(question_vector, vector) for vector in self.vectors])
+        top_k_indices = result.argsort()[-k:][::-1]
+        print("top_k:",top_k_indices)
+        df = pd.read_csv('data/embeddings/physics_full_mapping.csv')
+        # Retrieve the sentences corresponding to indices
+        matched_sentences = df[df['Index'].isin(top_k_indices)]['Sentence'].tolist()
+        print("sentences:",matched_sentences)
+        return matched_sentences
+
+
 
 def read_text_data(file_path, delimiter='###'):  
     with open(file_path, 'r', encoding='utf-8') as file:  
@@ -40,40 +87,55 @@ def read_text_data(file_path, delimiter='###'):
 def save_embeddings(embeddings, file_path):  
     np.save(file_path, embeddings)  
 
-def save_mappings(mapping, file_path):  
-    with open(file_path, 'w', encoding='utf-8') as f:  
-        for idx, sentence in mapping.items():  
-            f.write(f"{idx}\t{sentence}\n")  
+# def save_mappings(mapping, file_path):
+#     with open(file_path, 'w', encoding='utf-8') as f:
+#         for idx, sentence in mapping.items():
+#             f.write(f"{idx}\t{sentence}\n")
+def save_mappings(mapping, file_path):
+    df = pd.DataFrame(list(mapping.items()), columns=['Index', 'Sentence'])
+    df['Sentence'] = df['Sentence'].replace('\n', ' ', regex=True)
+    df.set_index('Index', inplace=True)
+    df.to_csv(file_path, encoding='utf-8')
 
-def main():  
-    # Initialize the embedding model class  
-    model_name = 'BCEmbeddingmodel'  # Use relative path  
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'  
-    vector_model = EmbeddingModel(model_name=model_name, device=device)  
+def main():
+    # 实例化向量模型类
+    model_name = './AI-ModelScope/BCEmbeddingmodel'  # 使用相对路径
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    vector_model = EmbeddingModel(model_name=model_name, device=device)
 
-    # Data directory and embeddings saving directory  
-    data_dir = 'data/txt_to_embed'  # Relative path  
-    save_dir = 'data/embeddings'  
-    os.makedirs(save_dir, exist_ok=True)  
+    # 数据目录和嵌入保存目录
+    data_dir = 'data/txt_to_embed'  # 相对路径
+    save_dir = 'data/embeddings'
+    os.makedirs(save_dir, exist_ok=True)
 
-    # Iterate over txt files in the data directory, compute and save embeddings  
-    for filename in os.listdir(data_dir):  
-        if filename.endswith('.txt'):  
-            file_path = os.path.join(data_dir, filename)  
-            sentences = read_text_data(file_path)  
+    # 遍历data目录中的txt文件，计算并保存嵌入
+    for filename in os.listdir(data_dir):
+        if filename.endswith('.txt'):
+            file_path = os.path.join(data_dir, filename)
+            sentences = read_text_data(file_path)
 
-            # Compute embeddings and mapping  
-            embeddings, index_to_sentence = vector_model.get_embeddings_with_mapping(sentences)  
+            # 计算嵌入与映射
+            embeddings, index_to_sentence = vector_model.get_embeddings_with_mapping(sentences)
 
-            # Save embeddings  
-            save_path = os.path.join(save_dir, f"{os.path.splitext(filename)[0]}_embedding.npy")  
-            save_embeddings(embeddings, save_path)  
-            print(f"Embedding for {filename} saved to {save_path}")  
+            # 保存嵌入
+            save_path = os.path.join(save_dir, f"{os.path.splitext(filename)[0]}_embedding.npy")
+            save_embeddings(embeddings, save_path)
+            print(f"Embedding for {filename} saved to {save_path}")
 
-            # Save mappings  
-            mapping_path = os.path.join(save_dir, f"{os.path.splitext(filename)[0]}_mapping.txt")  
-            save_mappings(index_to_sentence, mapping_path)  
-            print(f"Mapping for {filename} saved to {mapping_path}")  
+            # 保存映射
+            mapping_path = os.path.join(save_dir, f"{os.path.splitext(filename)[0]}_mapping.csv")
+            save_mappings(index_to_sentence, mapping_path)
+            print(f"Mapping for {filename} saved to {mapping_path}")
 
-if __name__ == '__main__':  
+    '''
+    testing RAG
+    '''
+    file_path_npy = './data/embeddings/physics_full_embedding.npy'
+    test_model = EmbeddingModel(model_name=model_name, device=device)
+    test_model.load_embed(file_path = file_path_npy)
+    rag_result = test_model.query_for_sentences(k=3,question = "I am interested in first-principles exploration of novel quantum physics and materials, focusing on emergent quantum phenomena" )
+    print(">rag:",rag_result)
+
+
+if __name__ == '__main__':
     main()
