@@ -32,44 +32,45 @@ class EmbeddingModel:
 
         return np.vstack(all_embeddings), index_to_sentence   
 
-def read_text_data(file_path):  
+def read_text_data(file_path, delimiter='###'):  
     with open(file_path, 'r', encoding='utf-8') as file:  
-        return file.readlines()  # 获取每一行文本数据作为独立的句子
-    
+        content = file.read()  
+        return content.split(delimiter)  
+
 def save_embeddings(embeddings, file_path):  
-    np.save(file_path, embeddings)
+    np.save(file_path, embeddings)  
 
 def save_mappings(mapping, file_path):  
     with open(file_path, 'w', encoding='utf-8') as f:  
         for idx, sentence in mapping.items():  
-            f.write(f"{idx}\t{sentence}")  
+            f.write(f"{idx}\t{sentence}\n")  
 
 def main():  
-    # 实例化向量模型类  
-    model_name = 'BCEmbeddingmodel'  # 使用相对路径  
+    # Initialize the embedding model class  
+    model_name = 'BCEmbeddingmodel'  # Use relative path  
     device = 'cuda' if torch.cuda.is_available() else 'cpu'  
     vector_model = EmbeddingModel(model_name=model_name, device=device)  
 
-    # 数据目录和嵌入保存目录  
-    data_dir = 'data/txt_to_embed'  # 相对路径  
+    # Data directory and embeddings saving directory  
+    data_dir = 'data/txt_to_embed'  # Relative path  
     save_dir = 'data/embeddings'  
     os.makedirs(save_dir, exist_ok=True)  
 
-    # 遍历data目录中的txt文件，计算并保存嵌入  
+    # Iterate over txt files in the data directory, compute and save embeddings  
     for filename in os.listdir(data_dir):  
         if filename.endswith('.txt'):  
             file_path = os.path.join(data_dir, filename)  
             sentences = read_text_data(file_path)  
 
-            # 计算嵌入与映射  
+            # Compute embeddings and mapping  
             embeddings, index_to_sentence = vector_model.get_embeddings_with_mapping(sentences)  
 
-            # 保存嵌入  
+            # Save embeddings  
             save_path = os.path.join(save_dir, f"{os.path.splitext(filename)[0]}_embedding.npy")  
             save_embeddings(embeddings, save_path)  
             print(f"Embedding for {filename} saved to {save_path}")  
 
-            # 保存映射  
+            # Save mappings  
             mapping_path = os.path.join(save_dir, f"{os.path.splitext(filename)[0]}_mapping.txt")  
             save_mappings(index_to_sentence, mapping_path)  
             print(f"Mapping for {filename} saved to {mapping_path}")  
