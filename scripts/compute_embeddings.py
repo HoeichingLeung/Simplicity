@@ -1,9 +1,3 @@
-import os  
-import numpy as np  
-from transformers import AutoTokenizer, AutoModel  
-import torch  
-from typing import List  
-
 import os
 import numpy as np
 from transformers import AutoTokenizer, AutoModel
@@ -18,6 +12,7 @@ class EmbeddingModel:
         self.device = device
         self.model.to(self.device)
         self.vector = np.empty((1,768))
+        
     def get_embeddings(self, sentences: List[str], batch_size: int = 8) -> np.ndarray:
         all_embeddings = []
         for i in range(0, len(sentences), batch_size):
@@ -66,16 +61,16 @@ class EmbeddingModel:
         self.vectors = array_data
         print('>load_embed...')
         print(f'The embed size is{array_data.shape}')
-    def query_for_sentences(self, question: str, k: int) -> List[str]:
-        question_vector = self.get_embeddings([question])[0]
-        result = np.array([self.get_similarity(question_vector, vector) for vector in self.vectors])
-        top_k_indices = result.argsort()[-k:][::-1]
-        print("top_k:",top_k_indices)
-        df = pd.read_csv('data/embeddings/physics_full_mapping.csv')
-        # Retrieve the sentences corresponding to indices
-        matched_sentences = df[df['Index'].isin(top_k_indices)]['Sentence'].tolist()
-        print("sentences:",matched_sentences)
-        return matched_sentences
+    def query_for_sentences(self, question: str, k: int) -> str:  
+        question_vector = self.get_embeddings([question])[0]  
+        result = np.array([self.get_similarity(question_vector, vector) for vector in self.vectors])  
+        top_k_indices = result.argsort()[-k:][::-1]  
+        df = pd.read_csv('data/embeddings/physics_full_mapping.csv')  
+        # Retrieve the sentences corresponding to indices  
+        matched_sentences = df[df['Index'].isin(top_k_indices)]['Sentence'].tolist()  
+        # Join the list of sentences into a single string  
+        result_string = ' '.join(matched_sentences)  
+        return result_string  
 
 
 
@@ -99,13 +94,13 @@ def save_mappings(mapping, file_path):
 
 def main():
     # 实例化向量模型类
-    model_name = './AI-ModelScope/BCEmbeddingmodel'  # 使用相对路径
+    model_name = 'BCEmbeddingmodel'  # 使用相对路径
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     vector_model = EmbeddingModel(model_name=model_name, device=device)
 
     # 数据目录和嵌入保存目录
-    data_dir = 'data/txt_to_embed'  # 相对路径
-    save_dir = 'data/embeddings'
+    data_dir = './data/txt_to_embed'  # 相对路径
+    save_dir = './data/embeddings'
     os.makedirs(save_dir, exist_ok=True)
 
     # 遍历data目录中的txt文件，计算并保存嵌入
@@ -130,11 +125,11 @@ def main():
     '''
     testing RAG
     '''
-    file_path_npy = './data/embeddings/physics_full_embedding.npy'
-    test_model = EmbeddingModel(model_name=model_name, device=device)
-    test_model.load_embed(file_path = file_path_npy)
-    rag_result = test_model.query_for_sentences(k=3,question = "I am interested in first-principles exploration of novel quantum physics and materials, focusing on emergent quantum phenomena" )
-    print(">rag:",rag_result)
+    #file_path_npy = './data/embeddings/physics_full_embedding.npy'
+    #test_model = EmbeddingModel(model_name=model_name, device=device)
+    #test_model.load_embed(file_path = file_path_npy)
+    #rag_result = test_model.query_for_sentences(k=3,question = "I am interested in first-principles exploration of novel quantum physics and materials, focusing on emergent quantum phenomena" )
+    #print(">rag:",rag_result)
 
 
 if __name__ == '__main__':

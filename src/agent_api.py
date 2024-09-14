@@ -1,11 +1,14 @@
 import sys
-sys.path.append("D:/Simplicity/utils") # 加入路径以便于直接运行
-from gpt_api import GPTclient
+sys.path.append("./utils") # 加入路径以便于直接运行
+sys.path.append("./scripts") # 加入路径以便于直接运行
+from gpt_api import GPTclient  
+from compute_embedding import EmbeddingModel, read_text_data, save_embeddings, save_mappings
 from openai import OpenAI
+import streamlit as st
 import re
 import pandas as pd 
 import ast
-
+import torch
 class AgentAPI(GPTclient):
 
     def __init__(self, api_key: str, base_url: str, csv_file_path: str):  
@@ -17,7 +20,6 @@ class AgentAPI(GPTclient):
         super().__init__(api_key, base_url)  
         self.csv_file_path = csv_file_path  # Save path as instance variable 
         self.university_data = pd.read_csv(self.csv_file_path)  
-        self.has_greeted = False
         
     def query_professors_details(self, professor_name: str, user_query) -> str:  
         user_query = user_query + "Use the provided information to generate a clear and accurate response to the query."
@@ -28,8 +30,7 @@ class AgentAPI(GPTclient):
 
         if not matches.empty:  
             # 提取相关列  
-            selected_columns = matches[['Website', 'Email', 'full_research']]
-            # selected_columns = matches[['Website', 'Email', 'full_research', 'publications']]  
+            selected_columns = matches[['Website', 'Email', 'full_research', 'publications']]  
 
             # 将数据转换为无序列表格式  
             response_content = selected_columns.apply(  
@@ -37,7 +38,7 @@ class AgentAPI(GPTclient):
                     f"- Website: {row['Website']}\n"  
                     f"- Email: {row['Email']}\n"  
                     f"- Full Research: {row['full_research']}\n"  
-                    #f"- Publications: {row['publications']}\n"  
+                    f"- Publications: {row['publications']}\n"  
                 ),  
                 axis=1  
             ).to_list()  
@@ -47,10 +48,13 @@ class AgentAPI(GPTclient):
             content = response_content + user_query
             # 使用 self.get_response 生成回答  
             response = self.get_response(content)  
-            print(response)  
+            
+            st.chat_message("assistant").write(response) 
+            st.session_state.messages.append({"role": "assistant", "content": response}) 
             #return response  
         else:  
-            print("No detailed information about this professor.")  
+            st.chat_message("assistant").write("No detailed information about this professor.") 
+            st.session_state.messages.append({"role": "assistant", "content": response})  
             #return "No data"
 
     def query_university_rank(self, criteria: str, user_query) -> list:  
@@ -60,7 +64,8 @@ class AgentAPI(GPTclient):
         try:  
             min_rank, max_rank = map(int, criteria.split('-'))  
         except ValueError:  
-            print("Please use 'min-max' format.")  
+            st.chat_message("assistant").write("Please use 'min-max' format.") 
+            st.session_state.messages.append({"role": "assistant", "content": "Please use 'min-max' format."})
             return []  
 
         # 根据排名区间过滤数据  
@@ -90,7 +95,9 @@ class AgentAPI(GPTclient):
 
         # 调用self.get_response并传入content_str  
         response = self.get_response(content_str)  
-        print(response)  
+        #print(response)
+        st.chat_message("assistant").write(response) 
+        st.session_state.messages.append({"role": "assistant", "content": response}) 
 
         # 返回大学名称列表  
         university_list = matches['University'].to_list() if not matches.empty else []  
@@ -142,7 +149,9 @@ class AgentAPI(GPTclient):
         prompt = user_query 
         full_content = prompt + content  
         response = self.get_response(full_content)  
-        print(response)  
+
+        st.chat_message("assistant").write(response) 
+        st.session_state.messages.append({"role": "assistant", "content": response}) 
         if not all_matches.empty:
             # Refresh self.university_data with all matches  
             self.university_data = all_matches  
@@ -158,35 +167,52 @@ class AgentAPI(GPTclient):
         # Check if the response is empty  
         if not response:  
             # Return a default message if the response is empty  
-            print("Please try again later or check your query.")  
+            st.write("Please try again later or check your query.")  
 
         # Return the response if it's not empty  
-        print(response) 
+        st.chat_message("assistant").write(response) 
+        st.session_state.messages.append({"role": "assistant", "content": response}) 
         
-    def personalized_recommend(self, inputs):
-        pass
+    def personalized_recommendations(self, user_query=None):
+        user_query = user_query + "Use the provided information to generate a clear and accurate response to the query."
+        model_name = 'BCEmbeddingmodel'  # 使用相对路径
+        device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        
+        file_path_npy = './data/embeddings/physics_full_embedding.npy'
+        model = EmbeddingModel(model_name=model_name, device=device)
+        model.load_embed(file_path = file_path_npy)
+        rag_result = model.query_for_sentences(k=3,question = user_query)
+        #print(">rag:",rag_result)
+        content = user_query + rag_result
+        response = self.get_response(content)
+        
+        # Return the response 
+        st.chat_message("assistant").write(response) 
+        st.session_state.messages.append({"role": "assistant", "content": response}) 
     
     def generate_code_for_query(self, user_query, history):  
 
         Prompt = f"""  
-            You are a helpful assistant tasked with generating Python code to fetch information about universities or professors based on the user's input. Each response should maintain continuity with the user's query history and focus on generating Python code that calls only one function at a time. If the user's input is unrelated to the functions query_university_rank, query_professors, query_professors_details, or personalized_recommend, directly generate code using query_api(query).  
+            You are a helpful assistant tasked with generating Python code to fetch information about universities or professors based on the user's input. Each response should maintain continuity with the user's query history and focus on generating Python code that calls only one function at a time. If the user's input is unrelated to the functions query_university_rank, query_professors, query_professors_details, or personalized_recommendations, directly generate code using query_api(query). If user's input contains 'personalized', use function personalized_recommendations. 
 
             User current input: '{user_query}'  
             User input history: '{history}'  
 
             Available functions:  
             1. query_api(user_query): Use this function to directly access information via ChatGPT for any query where specific functions fail to address the user's needs adequately. Ideal for broad inquiries or when the user's request does not fit within the constraints or capabilities of the available functions. Leverages ChatGPT's broad knowledge base to provide comprehensive answers without relying on predefined function parameters.  
-            2. query_professors(university_list, research_area, user_query): Retrieves a list of professors at a particular university or within a specific research area. Example: university_list=['Harvard University', 'EPFL']. "Use this when asking 'who works' or 'which professor'." 
+            2. query_professors(university_list, research_area, user_query): Retrieves a list of professors at a particular university or within a specific research area. Example: university_list=['Harvard University', 'EPFL']. "Use this when asking 'who works' or 'which professor'."   
             3. query_professors_details(professor_name, user_query): Provides detailed information about a professor's publications and research. Used for deeper insights.  
             4. query_university_rank(criteria, user_query): Returns a list of universities based on the ranking criteria specified in the format "1-3". To translate user input such as "top N universities", convert to the format "1-N".  
-            5. personalized_recommend(user_query): Takes the entire current user input as the 'inputs' parameter and returns recommendations tailored to the user's needs.  
+            5. personalized_recommendations(user_query): Use this function when the user's query indicates a need for recommendations based on their specific academic interests, career goals, or personal aspirations. Ideal for queries that mention personal interests in research topics, such as "first-principles exploration of novel quantum physics," and requests for advice on what might suit their unique profile and objectives. 
 
             Guidelines:  
-            1. If the user's input includes a specific university, include only that university in university_list.  
-            2. Importing functions is not required.  
-            3. Generate code for only one function at a time.  
-            4. If a query requires multiple steps or cannot be satisfied by a single function call, clearly inform the user: Respond with, "I'm unable to process this request in one step. Please break it down into simpler, sequential questions." This response should guide the user to split their question into smaller, manageable parts that align with the available functions.  
-            5. Example for addressing complex queries:  
+            1. Remember to take the user current input 'user_query' as input parameter for each function.  
+            2. If the user's input includes a specific university, include only that university in university_list.  
+            3. Importing functions is not required.  
+            4. Generate code for only one function at a time.  
+            5. If a query requires multiple steps or cannot be satisfied by a single function call, clearly inform the user: Respond with, "I'm unable to process this request in one step. Please break it down into simpler, sequential questions." This response should guide the user to split their question into smaller, manageable parts that align with the available functions.  
+            6. If user's input contains 'personalized', use function personalized_recommendations.
+            7. Example for addressing complex queries:  
                 User Query: "List top 10 universities and their professors in Quantum Optics."  
                 Assistant Response: "I'm unable to process this request in one step. Please break it down into simpler, sequential questions."  
                 Suggested Steps for the User:  
@@ -201,7 +227,7 @@ class AgentAPI(GPTclient):
             max_tokens=512,  
             temperature=0.1
         )  
-        print(response)  
+        #print(response)  
         # 提取生成的代码  
         full_content = response.choices[0].message.content.strip()  
         # 使用正则表达式找到三重反引号之间的文本  
@@ -222,20 +248,18 @@ class AgentAPI(GPTclient):
             "query_professors": self.query_professors,  # 加入query_professor_info  
             "query_university_rank": self.query_university_rank,  # 加入query_university_info  
             "query_professors_details": self.query_professors_details,  
-            "personalized_recommend": self.personalized_recommend,
+            "personalized_recommendations": self.personalized_recommendations,
             "print": print,  
             "__builtins__": {}  # 可选：限制内建函数以增强安全性  
         }  
 
         try:  
             # 执行生成的代码  
-            exec(code_from_gpt, safe_globals)  
+            response = exec(code_from_gpt, safe_globals)  
+            return response
         except Exception as e:  
             print(f"执行代码时发生错误: {e}")  
-    def greet_user(self):  
-        if not self.has_greeted:  
-            print("Welcome to the PhD Assistant Chatbot!\nFor a more accurate answer, please ask your questions step by step.\nType 'exit' to quit.")  
-            self.has_greeted = True
+
 
 def is_python_code(code):  
     try:  
@@ -251,7 +275,7 @@ def run_agent_api():
     base_url = "https://api.pumpkinaigc.online/v1"  
 
     # 创建 AgentAPI 实例  
-    agent_api = AgentAPI(api_key, base_url, "D:/Simplicity/data/output_with_codes.csv")  
+    agent_api = AgentAPI(api_key, base_url, "./data/physics_full.csv")  
     agent_api.greet_user() 
 
     # 初始化列表以存储用户查询  
@@ -286,4 +310,5 @@ def run_agent_api():
         else:  
             print("Sorry, I couldn't generate a response for that query. Please try again.") 
 
-run_agent_api()       
+if __name__ == '__main__':
+    run_agent_api()       
