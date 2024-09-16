@@ -47,7 +47,7 @@ class AgentAPI(GPTclient):
             response_content = "\n".join(response_content)  
             content = response_content + user_query
             # 使用 self.get_response 生成回答  
-            response = self.get_response(content)  
+            response = self.get_response_prof_details(content)  
             
             st.chat_message("assistant").write(response) 
             st.session_state.messages.append({"role": "assistant", "content": response}) 
@@ -162,7 +162,7 @@ class AgentAPI(GPTclient):
 
     def query_api(self, user_query):  
         # Get the response from the API  
-        response = self.get_response(content=user_query)  
+        response = self.get_response_query(content=user_query)  
         #print(response)
         # Check if the response is empty  
         if not response:  
@@ -193,39 +193,34 @@ class AgentAPI(GPTclient):
     def generate_code_for_query(self, user_query, history):  
 
         Prompt = f"""  
-            You are a helpful assistant tasked with generating Python code to fetch information about universities or professors based on the user's input. Each response should maintain continuity with the user's query history and focus on generating Python code that calls only one function at a time. If the user's input is unrelated to the functions query_university_rank, query_professors, query_professors_details, or personalized_recommendations, directly generate code using query_api(query). If user's input contains 'personalized', use function personalized_recommendations. 
+        You are a helpful assistant tasked with generating Python code to fetch information about universities or professors based on the user's input. Each response should maintain continuity with the user's query history and focus on generating Python code that calls functions at a time. If the user's input is unrelated to the functions query_university_rank, query_professors, query_professors_details, or personalized_recommendations, directly generate code using query_api(query). If user's input contains 'personalized', use function personalized_recommendations.  
+  
+        User input history: '{history}'  
 
-            User current input: '{user_query}'  
-            User input history: '{history}'  
+        Available functions:  
+        1. query_api(user_query): Use this function to directly access information via ChatGPT for any query where specific functions fail to address the user's needs adequately. Ideal for broad inquiries or when the user's request does not fit within the constraints or capabilities of the available functions. Leverages ChatGPT's broad knowledge base to provide comprehensive answers without relying on predefined function parameters.  
+        2. query_professors(university_list, research_area, user_query): Retrieves a list of professors at a particular university or within a specific research area. Example: university_list=['Harvard University', 'EPFL']. "Use this when asking 'who works' or 'which professor'."   
+        3. query_professors_details(professor_name, user_query): Provides detailed information about a professor's publications and research. Used for deeper insights.  
+        4. query_university_rank(criteria, user_query): Returns a list of universities based on the ranking criteria specified in the format "1-3". To translate user input such as "top N universities", convert to the format "1-N".  
+        5. personalized_recommendations(user_query): Use this function when the user's query indicates a need for recommendations based on their specific academic interests, career goals, or personal aspirations. Ideal for queries that mention personal interests in research topics, such as "first-principles exploration of novel quantum physics," and requests for advice on what might suit their unique profile and objectives.   
 
-            Available functions:  
-            1. query_api(user_query): Use this function to directly access information via ChatGPT for any query where specific functions fail to address the user's needs adequately. Ideal for broad inquiries or when the user's request does not fit within the constraints or capabilities of the available functions. Leverages ChatGPT's broad knowledge base to provide comprehensive answers without relying on predefined function parameters.  
-            2. query_professors(university_list, research_area, user_query): Retrieves a list of professors at a particular university or within a specific research area. Example: university_list=['Harvard University', 'EPFL']. "Use this when asking 'who works' or 'which professor'."   
-            3. query_professors_details(professor_name, user_query): Provides detailed information about a professor's publications and research. Used for deeper insights.  
-            4. query_university_rank(criteria, user_query): Returns a list of universities based on the ranking criteria specified in the format "1-3". To translate user input such as "top N universities", convert to the format "1-N".  
-            5. personalized_recommendations(user_query): Use this function when the user's query indicates a need for recommendations based on their specific academic interests, career goals, or personal aspirations. Ideal for queries that mention personal interests in research topics, such as "first-principles exploration of novel quantum physics," and requests for advice on what might suit their unique profile and objectives. 
+        Guidelines:  
+        1. Remember to take the user current input 'user_query' as input parameter for each function.  
+        2. If the user's input includes a specific university, include only that university in university_list.  
+        3. Importing functions is not required.  
+        4. Generate code for more than one function only when it is possible.  
+        5. If user's input contains 'personalized', use function personalized_recommendations. 
+        """  
 
-            Guidelines:  
-            1. Remember to take the user current input 'user_query' as input parameter for each function.  
-            2. If the user's input includes a specific university, include only that university in university_list.  
-            3. Importing functions is not required.  
-            4. Generate code for only one function at a time.  
-            5. If a query requires multiple steps or cannot be satisfied by a single function call, clearly inform the user: Respond with, "I'm unable to process this request in one step. Please break it down into simpler, sequential questions." This response should guide the user to split their question into smaller, manageable parts that align with the available functions.  
-            6. If user's input contains 'personalized', use function personalized_recommendations.
-            7. Example for addressing complex queries:  
-                User Query: "List top 10 universities and their professors in Quantum Optics."  
-                Assistant Response: "I'm unable to process this request in one step. Please break it down into simpler, sequential questions."  
-                Suggested Steps for the User:  
-                    "List top 10 universities."  
-                    "List professors in Quantum Optics at [specific university]."  
-            """
-
-        # 调用OpenAI的GPT API生成代码  
+        # Modify the messages part to properly pass the prompt to the API  
         response = self.client.chat.completions.create(  
-            messages=[{"role": "system", "content": Prompt}],  
+            messages=[  
+                {"role": "system", "content": Prompt},    
+                {"role": "user", "content": user_query},  
+            ],  
             model="gpt-3.5-turbo",  
             max_tokens=512,  
-            temperature=0.1
+            temperature=0.1  
         )  
         #print(response)  
         # 提取生成的代码  
@@ -276,7 +271,6 @@ def run_agent_api():
 
     # 创建 AgentAPI 实例  
     agent_api = AgentAPI(api_key, base_url, "./data/physics_full.csv")  
-    agent_api.greet_user() 
 
     # 初始化列表以存储用户查询  
     query_history = []  
