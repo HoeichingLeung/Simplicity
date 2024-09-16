@@ -1,12 +1,32 @@
 import os
 import numpy as np
+from Simplicity.utils.gpt_api import GPTclient
 from transformers import AutoTokenizer, AutoModel
 import torch
 from typing import List
 import pandas as pd
+from langchain_community.utilities import GoogleSerperAPIWrapper
 
-class EmbeddingModel:
-    def __init__(self, model_name: str, device: str = 'cuda'):
+
+def web_search(prof_name: str):
+    os.environ["SERPER_API_KEY"] = "88a8892a02409063f02a3bb97ac08b36fb213ae7"
+    search = GoogleSerperAPIWrapper()
+    search_result = prof_name + ":"
+    search_item = prof_name + "information"
+    search_result += str(search.run(search_item)) + '\n'
+    return search_result
+    # results = search.results(search_item)
+    # pprint.pp(results)
+
+
+class EmbeddingModel(GPTclient):
+    def __init__(self, api_key: str, base_url: str, model_name: str, device: str = 'cuda'):
+        """
+        :param api_key: API密钥
+        :param base_url: 中转url
+        :param csv_file_path: CSV文件路径
+        """
+        super().__init__(api_key, base_url)
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModel.from_pretrained(model_name)
         self.device = device
@@ -61,7 +81,9 @@ class EmbeddingModel:
         self.vectors = array_data
         print('>load_embed...')
         print(f'The embed size is{array_data.shape}')
-    def query_for_sentences(self, question: str, k: int) -> str:  
+
+
+    def query_for_sentences(self, question: str, k: int) -> str:
         question_vector = self.get_embeddings([question])[0]  
         result = np.array([self.get_similarity(question_vector, vector) for vector in self.vectors])  
         top_k_indices = result.argsort()[-k:][::-1]  
@@ -69,8 +91,18 @@ class EmbeddingModel:
         # Retrieve the sentences corresponding to indices  
         matched_sentences = df[df['Index'].isin(top_k_indices)]['Sentence'].tolist()  
         # Join the list of sentences into a single string  
-        result_string = ' '.join(matched_sentences)  
-        return result_string  
+        result_string = ' '.join(matched_sentences)
+
+        # 增加网络搜索faculty信息
+        faculty_names = [entry.split('Faculty: ')[1].split(' Title:')[0] for entry in matched_sentences]
+        print(">>>>>>faculty name:", faculty_names)
+        web_result = []
+        for name in faculty_names:
+            web_result.append(web_search(name))
+
+        print(">web_result:", web_result)
+
+        return matched_sentences, web_result
 
 
 

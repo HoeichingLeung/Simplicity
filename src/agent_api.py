@@ -174,18 +174,19 @@ class AgentAPI(GPTclient):
         st.session_state.messages.append({"role": "assistant", "content": response}) 
         
     def personalized_recommendations(self, user_query=None):
-        user_query = user_query + "Use the provided information to generate a clear and accurate response to the query."
+        # retrive the academic keywords of the user input
+        user_query_rag = self.get_response_keywords(user_query)
+
         model_name = 'BCEmbeddingmodel'  # 使用相对路径
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        
+        dilimitor = "###RAG###"
         file_path_npy = './data/embeddings/physics_full_embedding.npy'
         model = EmbeddingModel(model_name=model_name, device=device)
         model.load_embed(file_path = file_path_npy)
-        rag_result = model.query_for_sentences(k=3,question = user_query)
+        rag_result, web_result = model.query_for_sentences(k=3, question = user_query_rag)
         #print(">rag:",rag_result)
-        content = user_query + rag_result
-        response = self.get_response(content)
-        
+        content = user_query + dilimitor + str(rag_result) + str(web_result)
+        response = self.get_response_psnl(content)
         # Return the response 
         st.chat_message("assistant").write(response) 
         st.session_state.messages.append({"role": "assistant", "content": response}) 
@@ -303,6 +304,7 @@ def run_agent_api():
                 print(generated_code)  
         else:  
             print("Sorry, I couldn't generate a response for that query. Please try again.") 
+
 
 if __name__ == '__main__':
     run_agent_api()       
