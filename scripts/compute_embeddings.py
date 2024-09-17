@@ -1,6 +1,8 @@
 import os
+import sys
 import numpy as np
-from Simplicity.utils.gpt_api import GPTclient
+sys.path.append("./utils")
+from gpt_api import GPTclient
 from transformers import AutoTokenizer, AutoModel
 import torch
 from typing import List
@@ -95,12 +97,12 @@ class EmbeddingModel(GPTclient):
 
         # 增加网络搜索faculty信息
         faculty_names = [entry.split('Faculty: ')[1].split(' Title:')[0] for entry in matched_sentences]
-        print(">>>>>>faculty name:", faculty_names)
+        #print(">>>>>>faculty name:", faculty_names)
         web_result = []
         for name in faculty_names:
             web_result.append(web_search(name))
 
-        print(">web_result:", web_result)
+        #print(">web_result:", web_result)
 
         return matched_sentences, web_result
 

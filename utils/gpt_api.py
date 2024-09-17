@@ -1,9 +1,5 @@
 from openai import OpenAI
 
-
-
-
-
 class GPTclient:
     def __init__(self, api_key: str, base_url: str):
         """
@@ -15,7 +11,8 @@ class GPTclient:
         self.api_key = api_key
         self.base_url = base_url
         self.client = OpenAI(api_key=self.api_key, base_url=self.base_url)
-
+        
+    
     def get_response_prof_details(self, content: str) -> str:
         try:
             # 调用API
@@ -23,7 +20,7 @@ class GPTclient:
                 messages=[  
                     {  
                         "role": "system",  
-                        "content": "You are a helpful assistant providing detailed information about professors. Answer in a consistent style."  
+                        "content": "You are a helpful assistant providing detailed information about professors. Answer in a consistent style. Provide the link of website if possible."  
                     },  
                     {  
                         "role": "user",  
@@ -74,7 +71,8 @@ class GPTclient:
                         "content": content,  
                     }  
                 ],
-                model="gpt-3.5-turbo-16k"
+                model="gpt-3.5-turbo-16k",
+                temperature=0.1
             )
             # 返回结果
             return chat_completion.choices[0].message.content
@@ -92,15 +90,15 @@ class GPTclient:
                 messages=[
                     {
                         "role": "system",
-                        "content": "You will be provided with a few sentences from the user. Your task is to extract academic keywords from the user input. The user input is their academic and personal background. The keywords should include personal details, academic focus, and relevant topics to help recommend research groups.Remember you should ignore the irrelevant message such as the region preference and the University preference. Provide only the keywords."
+                        "content": "You will be provided with a few sentences from the user. Your task is to extract academic keywords from the user input. The user input is their academic and personal background. The keywords should include how many items that user want, personal details, academic focus, and relevant topics to help recommend research groups.Remember you should ignore the irrelevant message such as the region preference and the University preference. Provide only the keywords."
                     },
                     {
                         "role": "user",
-                        "content": "I want to apply PhD in quantum physics, and I prefer to stay in America, I have publications in the experiment using nitrogen-vacancy centers in diamond, physics review A, 2023, I am interested in spintronics, quantum information. please recommend the group and show me their brief information, give me the reason"
+                        "content": "I want to apply PhD in quantum physics, and I prefer to stay in America, I have publications in the experiment using nitrogen-vacancy centers in diamond, physics review A, 2023, I am interested in spintronics, quantum information. please recommend 5 groups and show me their brief information, give me the reason"
                     },
                     {
                         "role": "assistant",
-                        "content": "PhD in quantum physics, Nitrogen-vacancy (NV) centers in diamond, Spintronics, Quantum information"
+                        "content": "PhD in quantum physics, Nitrogen-vacancy (NV) centers in diamond, Spintronics, Quantum information, k=5"
                     },
                     {
                         "role": "user",
@@ -131,7 +129,7 @@ class GPTclient:
                                    "--Notice the preference of the [region/University/publication/professor title/rank/citizenship/gender] of the research group information "
                                    "--Provide the link of website if needed."
                                    "--You can use all the data in the RAG text, dilimited with the tag ###RAG##."
-                                   "--Remember to think whether the RAG result totally match the user requirement."
+                                   "--Remember to think repeatedly that whether the RAG result totally match the user requirement."
                                    "--You can answer with bullet points to make it clearer."
                     },
                     {
@@ -147,7 +145,8 @@ class GPTclient:
                         "content": content,
                     }
                 ],
-                model="gpt-3.5-turbo-16k"
+                model="gpt-3.5-turbo-16k",
+                temperature=0.1
             )
             # 返回结果
             return chat_completion.choices[0].message.content
@@ -167,7 +166,8 @@ class GPTclient:
                         "content": content,
                     }
                 ],
-                model="gpt-3.5-turbo-16k"
+                model="gpt-3.5-turbo-16k",
+                temperature=0.1
             )
             # 返回结果
             return chat_completion.choices[0].message.content
@@ -178,7 +178,7 @@ class GPTclient:
             return ""
 
 
-
+'''
 # 使用示例
 if __name__ == "__main__":
     api_key = "sk-Erm52wwWJba3F2iz620d47D7F40e4fDcB2D36e9cC22bDe09"
@@ -194,3 +194,4 @@ if __name__ == "__main__":
 
     response = client.get_response(user_query)
     print(response)
+'''

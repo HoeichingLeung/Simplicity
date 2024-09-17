@@ -21,7 +21,7 @@ class AgentAPI(GPTclient):
         self.csv_file_path = csv_file_path  # Save path as instance variable 
         self.university_data = pd.read_csv(self.csv_file_path)  
         
-    def query_professors_details(self, professor_name: str, user_query) -> str:  
+    def query_professors_details(self, professor_name: str, user_query: str) -> str:  
         user_query = user_query + "Use the provided information to generate a clear and accurate response to the query."
         # 查找匹配的教授信息  
         matches = self.university_data[  
@@ -173,28 +173,43 @@ class AgentAPI(GPTclient):
         st.chat_message("assistant").write(response) 
         st.session_state.messages.append({"role": "assistant", "content": response}) 
         
-    def personalized_recommendations(self, user_query=None):
+    def personalized_recommendations(self, user_query: str):
         # retrive the academic keywords of the user input
         user_query_rag = self.get_response_keywords(user_query)
+        def extract_k_from_query(query, default_k=3):  
+            # 使用正则表达式尝试在查询中提取k值  
+            match = re.search(r'\bk=(\d+)\b', query)  
+            if match:  
+                # 提取并返回k值  
+                return int(match.group(1))  
+            return default_k  
+        #print(user_query_rag)
+        # 初始化标志变量  
+        embed_loaded = False  
+        k = extract_k_from_query(user_query_rag)  
+        model_name = 'BCEmbeddingmodel'  # 使用相对路径  
+        device = 'cuda' if torch.cuda.is_available() else 'cpu'  
+        dilimitor = "###RAG###"  
+        file_path_npy = './data/embeddings/physics_full_embedding.npy'  
 
-        model_name = 'BCEmbeddingmodel'  # 使用相对路径
-        device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        dilimitor = "###RAG###"
-        file_path_npy = './data/embeddings/physics_full_embedding.npy'
-        model = EmbeddingModel(model_name=model_name, device=device)
-        model.load_embed(file_path = file_path_npy)
-        rag_result, web_result = model.query_for_sentences(k=3, question = user_query_rag)
-        #print(">rag:",rag_result)
-        content = user_query + dilimitor + str(rag_result) + str(web_result)
-        response = self.get_response_psnl(content)
-        # Return the response 
-        st.chat_message("assistant").write(response) 
-        st.session_state.messages.append({"role": "assistant", "content": response}) 
+        # 检查是否已经加载过嵌入  
+        if not embed_loaded:  
+            model = EmbeddingModel(model_name=model_name, device=device, api_key=self.api_key, base_url=self.base_url)  
+            model.load_embed(file_path=file_path_npy)  
+            embed_loaded = True  # 更新标志变量  
+
+        rag_result, web_result = model.query_for_sentences(k=k, question=user_query_rag)  
+        content = user_query + dilimitor + str(rag_result) + str(web_result)  
+        response = self.get_response_psnl(content)  
+
+        # Return the response  
+        st.chat_message("assistant").write(response)  
+        st.session_state.messages.append({"role": "assistant", "content": response})
     
     def generate_code_for_query(self, user_query, history):  
 
         Prompt = f"""  
-        You are a helpful assistant tasked with generating Python code to fetch information about universities or professors based on the user's input. Each response should maintain continuity with the user's query history and focus on generating Python code that calls functions at a time. If the user's input is unrelated to the functions query_university_rank, query_professors, query_professors_details, or personalized_recommendations, directly generate code using query_api(query). If user's input contains 'personalized', use function personalized_recommendations.  
+        You are a helpful assistant tasked with generating Python code to fetch information about universities or professors based on the user's input. Each response should maintain continuity with the user's query history and focus on generating Python code that calls functions at a time. Use `personalized_recommendations` for queries that relate to personal academic interests, career aspirations, specific research goals, or specific reigons such as US or Europe.  
   
         User input history: '{history}'  
 
@@ -206,11 +221,13 @@ class AgentAPI(GPTclient):
         5. personalized_recommendations(user_query): Use this function when the user's query indicates a need for recommendations based on their specific academic interests, career goals, or personal aspirations. Ideal for queries that mention personal interests in research topics, such as "first-principles exploration of novel quantum physics," and requests for advice on what might suit their unique profile and objectives.   
 
         Guidelines:  
-        1. Remember to take the user current input 'user_query' as input parameter for each function.  
+        1. Remember to take the user current input as an input parameter for each function. 
         2. If the user's input includes a specific university, include only that university in university_list.  
         3. Importing functions is not required.  
         4. Generate code for more than one function only when it is possible.  
-        5. If user's input contains 'personalized', use function personalized_recommendations. 
+        5. If the user's input pertains to personalized academic interests or aspirations (e.g., research areas, publication history, specific personal goals), use `personalized_recommendations`.
+        6. Use `query_api` for more general questions or inquiries unrelated to academic and research personalizations.  
+        7. If generate more than one function, ensure that the final function call directly executes the operation (e.g., by printing the result) instead of storing it in a variable. 
         """  
 
         # Modify the messages part to properly pass the prompt to the API  

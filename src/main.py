@@ -48,7 +48,7 @@ def run_agent_api_streamlit():
 
     - **Select Your Major:** Use the dropdown menu on the left to choose your field of study. 
     - **Ask Questions:** Feel free to inquire about specific schools or professors to get detailed insights.  
-    - **Personalized Recommendations:** Enter your personal information, and for the best results, include the phrase "personalized recommendations" in your query to receive customized advice and suggestions, powered by advanced language models.
+    - **Personalized Recommendations:** Enter your personal information to receive customized advice and suggestions powered by advanced language models.
 
     Let's embark on your academic journey together!  
     """)  
@@ -66,25 +66,36 @@ def run_agent_api_streamlit():
 
     # Handle user input  
     if user_query := st.chat_input("Please input your question:"):  
+        # 检查消息列表的长度，如果超过15条，则移除最早的一条  
+        if len(st.session_state.messages) >= 15:  
+            st.session_state.messages.pop(0)  
+
+        # 添加用户的查询到消息列表  
         st.session_state.messages.append({"role": "user", "content": user_query})  
         st.chat_message("user").write(user_query)  
 
-        # Generate response based on the query and CSV context  
+        # 根据查询和CSV上下文生成响应  
         generated_code = agent_api.generate_code_for_query(user_query, st.session_state.messages)  
 
         if generated_code:  
-            print(generated_code) # 在terminal，方便debug
+            print(generated_code)  # 在终端打印，方便调试  
             if is_python_code(generated_code):  
-                # Execute Python code  
+                # 执行Python代码  
                 response = agent_api.exec_code(generated_code)  
                 #print(response)  
             else:  
-                # Print text output  
+                # 打印文本输出  
                 response = generated_code  
+                # 检查消息列表的长度，如果超过15条，则移除最早的一条  
+                if len(st.session_state.messages) >= 15:  
+                    st.session_state.messages.pop(0)  
                 st.session_state.messages.append({"role": "assistant", "content": response})  
-                st.chat_message("assistant").write(response)
+                st.chat_message("assistant").write(response)  
         else:  
             response = "Sorry, I couldn't generate a response for that query. Please try again."  
+            # 检查消息列表的长度，如果超过15条，则移除最早的一条  
+            if len(st.session_state.messages) >= 15:  
+                st.session_state.messages.pop(0)  
             st.session_state.messages.append({"role": "assistant", "content": response})  
             st.chat_message("assistant").write(response)
 
