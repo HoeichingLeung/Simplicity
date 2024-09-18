@@ -6,19 +6,20 @@ really simple :)
 Simplicity
 ├── model
 |   └── BCEmbeddingmodel
-├── Datacrawler
-|   └── raw_data_crawler.py
 ├── config
 ├── data
-|   └── txt_to_embed
-├── scripts
-|   └── compute_embeddings.py
-├── src 
+|   |── txt_to_embed
+|   ├── embeddings
+|   ├── raw
+|   └── scripts
+├── src
+|   ├── main.py
 |   └── agent_api.py
 ├── utils
 |   ├── google-scholar-scraper
 |   ├── gpt_api.py
 |   ├── cProfile.py
+|   ├── compute_embeddings.py
 |   └── stream_generator.py
 └── README.md
 ```
