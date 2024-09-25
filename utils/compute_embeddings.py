@@ -127,10 +127,11 @@ def save_mappings(mapping, file_path):
     df.to_csv(file_path, encoding='utf-8')
 
 def main():
-    # 实例化向量模型类
     model_name = 'BCEmbeddingmodel'  # 使用相对路径
+    api_key = "sk-Erm52wwWJba3F2iz620d47D7F40e4fDcB2D36e9cC22bDe09"
+    base_url = "https://api.pumpkinaigc.online/v1"  
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    vector_model = EmbeddingModel(model_name=model_name, device=device)
+    vector_model = EmbeddingModel(model_name=model_name, device=device, api_key=api_key, base_url=base_url)
 
     # 数据目录和嵌入保存目录
     data_dir = './data/txt_to_embed'  # 相对路径
