@@ -135,3 +135,22 @@ if __name__ == "__main__":
     paginator = AutoPaginator(start_url)
     paginator.auto_paginate()
     print("所有页码的 URL：", paginator.get_all_urls())
+
+
+    '''自动爬取测试'''
+    _query = 'faculty directory in robotics California Institute of Technology (Caltech)'
+    web_search = WebSearch(api_key="88a8892a02409063f02a3bb97ac08b36fb213ae7")
+    first_link = web_search.get_first_link(query=_query)# 获取第一个link
+    print(first_link)
+    
+    start_url = first_link
+    paginator = AutoPaginator(start_url)
+    paginator.auto_paginate()
+    url_list = paginator.get_all_urls()
+    print("所有页码的 URL：", url_list)
+    result = []
+    for url in url_list:
+       query_head = "can you give me the name of the current professors list in this url:"
+       query = query_head + url
+       prof_name = web_search.webpilot_query(query)
+       result.append(prof_name)
