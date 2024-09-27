@@ -129,6 +129,23 @@ class AutoPaginator:
     def get_all_urls(self):
         return self.url_list
 
+    def get_single_result(self):
+        # 搞一个传单个list来返回webpilotresult的函数算了
+        """
+        传单个link，返回webpilot 搜索结果，存在result
+        """
+        self.auto_paginate()
+        url_list = self.get_all_urls()
+        print("url_list:", url_list)
+
+        result = []
+        for url in url_list:
+            query_head = "Please list the names and titles of current professors from this URL in the format '1. Name - Title 2. Name - Title', reducing unnecessary introductions and conclusions:"
+            query = query_head + url
+            prof_name = web_search.webpilot_query(query)
+            result.append(prof_name)
+
+        return result
 
 # 使用示例
 if __name__ == "__main__":
@@ -171,53 +188,53 @@ if __name__ == "__main__":
             #{"name": "KTH Royal Institute of Technology", "query": "faculty directory mechanical engineering of KTH Royal Institute of Technology", "rank": 20}
             ]  
 
-    results = []  
-
-    for university in universities:  
-        _query = university["query"]  
-        print(f"Searching for: {_query}")  
-        first_link = web_search.get_first_link(query=_query)  
-        print(f"First link for {university['name']}: {first_link}")  
-
-        start_url = first_link  
-        paginator = AutoPaginator(start_url)  
-        paginator.auto_paginate()  
-        url_list = paginator.get_all_urls()  
-        print(f"All page URLs for {university['name']}: {url_list}")  
-
-        result = []  
-        for url in url_list:  
-            query_head = "Please list the names and titles of current professors from this URL in the format '1. Name - Title 2. Name - Title', reducing unnecessary introductions and conclusions:"  
-            query = query_head + url  
-            prof_name = web_search.webpilot_query(query)  
-            result.append(prof_name)  
-
-        combined_result = "\n".join(result)  
-
-        '''
+    # results = []
+    # for university in universities:
+    #     _query = university["query"]
+    #     print(f"Searching for: {_query}")
+    #     first_link = web_search.get_first_link(query=_query)
+    #     print(f"First link for {university['name']}: {first_link}")
+    #
+    #
+    #     start_url = first_link
+    #     paginator = AutoPaginator(start_url)
+    #     paginator.auto_paginate()
+    #     url_list = paginator.get_all_urls()
+    #     print(f"All page URLs for {university['name']}: {url_list}")
+    #
+    #     result = []
+    #     for url in url_list:
+    #         query_head = "Please list the names and titles of current professors from this URL in the format '1. Name - Title 2. Name - Title', reducing unnecessary introductions and conclusions:"
+    #         query = query_head + url
+    #         prof_name = web_search.webpilot_query(query)
+    #         result.append(prof_name)
+    #
+    #     combined_result = "\n".join(result)
+        paginator = AutoPaginator(start_url='https://mp.gatech.edu/faculty')
+        combined_result = paginator.get_single_result()
         # 如果有问题可以运行这一段代码作为检查
-        # 定义文件保存路径  
-        output_txt_path = 'D:/Simplicity/data/faculty/combined_result.txt'  
+        # 定义文件保存路径
+        output_txt_path = 'D:/llm_python/Simplicity/data/faculty/combined_result_1.txt'
 
-        # 确保目标目录存在  
-        import os  
-        os.makedirs(os.path.dirname(output_txt_path), exist_ok=True)  
+        # 确保目标目录存在
+        import os
+        os.makedirs(os.path.dirname(output_txt_path), exist_ok=True)
 
-        # 将 combined_result 保存到 .txt 文件中  
-        with open(output_txt_path, 'w', encoding='utf-8') as txt_file:  
-            txt_file.write(combined_result)  
+        # 将 combined_result 保存到 .txt 文件中
+        with open(output_txt_path, 'w', encoding='utf-8') as txt_file:
+            txt_file.write(combined_result)
 
         print(f"TXT 文件已保存：{output_txt_path}")
 
-        # 定义文件路径  
-        file_path = 'D:/Simplicity/data/faculty/combined_result.txt'  
+        # 定义文件路径
+        file_path = 'D:/llm_python/Simplicity/data/faculty/combined_result_1.txt'
 
-        # 读取文件内容  
-        with open(file_path, 'r', encoding='utf-8') as file:  
-            combined_result = file.read()  
+        # 读取文件内容
+        with open(file_path, 'r', encoding='utf-8') as file:
+            combined_result = file.read()
         #print(combined_result)
-        '''
 
+'''
         # 使用正则表达式查找所有匹配项  
         pattern = r"\d+\.\s+(.+?)\s+-\s+(.+)(?:\s+\(.*\))?"  
         matches = re.findall(pattern, combined_result)  
@@ -239,7 +256,7 @@ if __name__ == "__main__":
             })  
 
     # 确保目录存在  
-    output_dir = 'D:/Simplicity/data/faculty'  
+    output_dir = 'D:/llm_python/Simplicity/data/faculty'
     os.makedirs(output_dir, exist_ok=True)  
 
     # 创建 CSV 文件  
@@ -253,3 +270,4 @@ if __name__ == "__main__":
             writer.writerow(result)  
 
     print(f"CSV 文件已创建：{csv_file_path}")  
+'''
