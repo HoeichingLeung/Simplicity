@@ -1,0 +1,30 @@
+1. BILLARD Aude # None # Learning algorithms and systems Laboratory # None # None  
+2. BRIAND Danick # None # Soft Transducers Lab # None # None  
+3. FARHAT Mohamed # None # SCI STI MF Group # None # None  
+4. FERRARI TRECATE Giancarlo # None # Dependable Control and Decision group # None # None  
+5. FLOREANO Dario # None # Laboratory of Intelligent Systems # None # None  
+6. GALLAIRE François # None # Laboratory of Fluid Mechanics and Instabilities # None # None  
+7. GASS Volker # None # Space Innovation # None # None  
+8. HAUSSENER Sophia # None # Laboratory of Renewable Energy Science and Engineering # None # None  
+9. HENEIN Simon # None # Micromechanical and Horological Design Laboratory # None # None  
+10. HUGHES Josie # None # Computational Robot Design & Fabrication Lab # None # None  
+11. IJSPEERT Auke # None # Biorobotics Laboratory # None # None  
+12. JONES Colin # None # Automatic Control Laboratory 3 # None # None  
+13. KAMGARPOUR Maryam # None # Systems Control and Multiagent Optimization Research # None # None  
+14. KARIMI Alireza # None # Data-Driven Modelling and Control Group # None # None  
+15. KIM Sangwoo # None # Mechanics of Soft and Biological Matter Laboratory # None # None  
+16. KOLINSKI John Martin # None # Engineering Mechanics of Soft lnterfaces # None # None  
+17. LU Zhengmao # None # Energy Transport Advances Laboratory # None # None  
+18. MARÉCHAL François # None # Industrial Process and Energy Systems Engineering # None # None  
+19. MULLENERS Karen # None # Unsteady Flow Diagnostics Laboratory # None # None  
+20. PAIK Jamie # None # Reconfigurable Robotics Lab # None # None  
+21. PIOLETTI Dominique # None # Laboratory of Biomechanical Orthopedics # None # None  
+22. REIS Pedro M. # None # Flexible Structures Laboratory # None # None  
+23. SAKAR Selman # None # MicroBioRobotic Systems Laboratory # None # None  
+24. SCHIFFMANN Jürg Alexander # None # Laboratory for Applied Mechanical Design # None # None  
+25. SCHNEIDER Tobias # None # Emergent Complexity in Physical Systems Laboratory # None # None  
+26. SHEA Herbert # None # Soft Transducers Laboratory # None # None  
+27. TAGLIABUE Giulia # None # Laboratory of Nanoscience for Energy Technologies # None # None  
+28. VAN HERLE Jan # None # Group of Energy Materials # None # None  
+29. VILLANUEVA Guillermo # None # Advanced Nano-electromechanical Systems Laboratory # None # None  
+30. YIM Eunok # None # Hydro Energy and Applied fluid Dynamics laboratory # None # None
