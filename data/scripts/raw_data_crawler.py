@@ -101,6 +101,30 @@ class AutoPaginator:
 
         return None
 
+    def find_and_click_tabs(self):
+        """
+        查找页面中的标签并点击
+        """
+        try:
+            # 通用查找具有 role="tab" 属性的元素
+            tabs = self.driver.find_elements(By.XPATH, '//*[@role="tab"]')
+
+            if not tabs:
+                print("No tabs found on the page.")
+                return False
+
+            # 遍历并点击每一个标签
+            for tab in tabs:
+                print(f"Clicking tab: {tab.text}")
+                tab.click()
+                WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@role="tabpanel"]')))
+                # 等待面板内容加载，可以根据具体需求调整等待条件
+
+            return True
+        except Exception as e:
+            print(f"Error while finding and clicking tabs: {e}")
+            return False
+
     def auto_paginate(self):
         """
         自动处理分页并将所有页码的 URL 存储在 url_list 中
@@ -113,6 +137,20 @@ class AutoPaginator:
             response = requests.get(self.driver.current_url)
             html = response.text
             soup = BeautifulSoup(html, 'html.parser')
+
+            while True:
+                # 查找并点击所有标签
+                tabs_clicked = self.find_and_click_tabs()
+
+
+                if tabs_clicked:
+                    self.url_list.append(self.driver.current_url)
+                    print("已点击页面标签。")
+                else:
+                    print("No tabs found, or an error occurred.")
+
+                # 查找下一页按钮
+                next_button = self.find_next_button()
 
             # 尝试查找“下一页”链接
             next_button = self.find_next_button()
