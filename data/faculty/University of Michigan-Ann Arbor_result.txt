@@ -1,0 +1,153 @@
+1. Solomon Adera # Assistant Professor # Heat and mass transfer, phase-change, water/fog harvesting, micro/nanoengineering, fluid-structure interactions # None # sadera@umich.edu  
+2. Alauddin Ahmed # Associate Research Scientist # Energy storage, battery materials, applied machine learning, materials design # None # alauddin@umich.edu  
+3. Rayhaneh Akhavan # Associate Professor # Fluid mechanics, turbulence modeling, biomimetic flow control # None # raa@umich.edu  
+4. Mitra Aliabouzar # Assistant Research Scientist # Cavitation therapy, mechanics of soft materials, 3D bioprinting # None # aliabouz@med.umich.edu  
+5. John Allison # Professor # Processing, alloying, microstructure and properties in metallic materials # None # johnea@umich.edu  
+6. Ellen Arruda # Department Chair # Mechanical behavior of materials, tissue engineering, polymers # None # arruda@umich.edu  
+7. James Ashton-Miller # Research Professor # Biomechanics, mobility impairments, injury prevention # None # jaam@umich.edu  
+8. Shorya Awtar # Professor # Mechanical design, robotics, mechatronic systems # None # awtar@umich.edu  
+9. Rohini Bala Chandran # Assistant Professor # Thermal and fluid sciences, radiative heat transfer # None # rbchan@umich.edu  
+10. Mihaela Banu # Professor # Lightweight materials, micro/nanocellulose composites # None # mbanu@umich.edu  
+11. James Barber # Professor # Solid mechanics, elasticity, tribology # None # jbarber@umich.edu  
+12. Kira Barton # Professor # Control theory, smart manufacturing, robotics # None # bartonkl@umich.edu  
+13. Michael Bernitsas # Professor # Energy conversion, vortex-induced vibration # None # michaelb@umich.edu  
+14. Andre Boehman # Professor # Automotive engineering, energy sciences # None # boehman@umich.edu  
+15. Claus Borgnakke # Associate Professor Emeritus # Combustion modeling, thermodynamic properties # None # claus@umich.edu  
+16. Diann Brei # Professor # Smart materials, structural dynamics # None # dibrei@umich.edu  
+17. Daniel Bruder # Assistant Professor # Soft robotic systems, modeling and control # None # bruderd@umich.edu  
+18. Ashley Bucsek # Assistant Professor # Mechanical behavior of materials, lightweight metals # None # abucsek@umich.edu  
+19. Jesse Capecelatro # Associate Professor # Fluid mechanics, turbulence, renewable energy # None # jcaps@umich.edu  
+20. Steve Ceccio # Professor # Fluid mechanics, multiphase flows, cavitation # None # ceccio@umich.edu  
+21. Erin Cech # Associate Professor # Gender and sexuality, sociology of culture # None # ecech@umich.edu  
+22. Michael Chen # Professor Emeritus # Heat transfer, fluid mechanics # None # mmchen@umich.edu  
+23. David Cole # Associate Professor Emeritus # Industry restructuring, globalization # None # None  
+24. Rhima Coleman # Associate Professor # Cartilage tissue regeneration, cell behavior manipulation # None # rhimacol@umich.edu  
+25. Maria Comninou # Professor Emerita # Elasticity, fracture mechanics # None # comninou@umich.edu  
+26. Daniel Cooper # Associate Professor # Manufacturing and sustainability # None # drcooper@umich.edu  
+27. Shanna Daly # Associate Professor # Design processes, engineering creativity # None # srdaly@umich.edu  
+28. Sambit Das # Assistant Research Scientist # None # None # dsambit@umich.edu  
+29. Neil Dasgupta # Associate Professor # Renewable energy, nanomanufacturing # None # ndasgupt@umich.edu  
+30. Cheri Deng # Professor # Biomedical ultrasound, drug delivery # None # cxdeng@umich.edu  
+31. Pingsha Dong # Professor # Joining plastics to metals, additive manufacturing # None # dongp@umich.edu  
+32. David Dowling # Professor # Underwater acoustics, hydrodynamics # None # drd@umich.edu  
+33. Karthik Duraisamy # Professor # Computational science, turbulence modeling # None # kdur@umich.edu  
+34. Paolo Elvati # Associate Research Scientist # Nanoparticle formations, molecular dynamics # None # elvati@umich.edu  
+35. Bogdan Epureanu # Professor # Biological systems, aerospace structures # None # epureanu@umich.edu  
+36. Martin Erinin # Assistant Professor (Joining January 2025) # Experimental fluid mechanics # None # merinin@umich.edu  
+37. Tulga Ersal # Associate Professor # Autonomous vehicles, human-autonomy interactions # None # tersal@umich.edu  
+38. Jon Estrada # Assistant Professor # Experimental mechanics of soft materials # None # jbestrad@umich.edu  
+39. Yue Fan # Associate Professor # Microstructural evolution, defects in materials # None # fanyue@umich.edu  
+40. Nima Fazeli # Professor # Robotic manipulation, contact dynamics # None # nfz@umich.edu  
+41. Evgueni Filipov # Associate Professor # Deployable structural systems, origami # None # filipov@umich.edu  
+42. David Fleming # LEO Lecturer III # None # None # dcflem@umich.edu  
+43. Theodor Freiheit # Research Associate Professor # Manufacturing systems engineering # None # tfreihei@umich.edu  
+44. Nicole Friedberg # LEO Lecturer III # None # None # nmtucker@umich.edu  
+45. Jianping Fu # Professor # Stem cell bioengineering, mechanobiology # None # jpfu@umich.edu  
+46. Miguel Funes Lora # Research Investigator # Robotics, manufacturing # None # miguelaf@umich.edu  
+47. Vikram Gavini # Professor # Computational frameworks for materials properties # None # vikramg@umich.edu  
+48. Yogesh Gianchandani # Professor # None # None # yogesh@umich.edu  
+49. Brent Gillespie # Professor # Haptic interface, robotics # None # brentg@umich.edu  
+50. Steven Goldstein # Professor Emeritus # Dynamics and control systems # None # stevegld@umich.edu  
+51. Jerard Gordon # Assistant Professor # Advanced materials, additive manufacturing # None # jerardvg@umich.edu  
+52. Nakhiah Goulbourne # Associate Professor # Aerospace engineering, mechanical engineering # None # ngbourne@umich.edu  
+53. William Graebel # Professor Emeritus # Fluid mechanics, computational fluid dynamics # None # graebel@umich.edu  
+54. Robert Gregg # Associate Professor # Wearable robots, bipedal locomotion # None # rdgregg@umich.edu  
+55. Karl Grosh # Professor # Cochlear mechanics, biomedical applications # None # grosh@umich.edu  
+56. Jay Guo # Professor # Polymer-based sensors, nanophotonics # None # guo@umich.edu  
+57. Robert Hess # Professor Emeritus # Dynamics, biomechanics # None # hess@umich.edu  
+58. John Hoard # Associate Research Scientist Emeritus # None # None # None  
+59. James Holly # Assistant Professor # Anti-Black racism in engineering # None # jhollyjr@umich.edu  
+60. Jingwen Hu # Research Professor # Impact biomechanics, occupant protection # None # jwhu@umich.edu  
+61. S. Jack Hu # Professor Emeritus # Manufacturing systems, assembly design # None # None  
+62. Xun (Ryan) Huan # Associate Professor # Uncertainty quantification, machine learning # None # xhuan@umich.edu  
+63. Greg Hulbert # Professor Emeritus # None # None # hulbert@umich.edu  
+64. Hugh Huntley # Associate Professor Emeritus # None # None # huntley@umich.edu  
+65. Art Hyde # Associate Professor of Engineering Practice # None # None # ahyde@umich.edu  
+66. Uduak Inyang-Udoh # Assistant Professor # Control theory, advanced manufacturing # None # udinyang@umich.edu  
+67. Eric Johnsen # Professor # Fluid mechanics, multiphase flow # None # ejohnsen@umich.edu  
+68. Elijah Kannatey-Asibu Jr. # Professor Emeritus # Manufacturing processes, monitoring # None # asibu@umich.edu  
+69. Bikash Kanungo # Assistant Research Scientist # None # None # bikash@umich.edu  
+70. Massoud Kaviany # Professor # Energy transport, thermoelectricity # None # kaviany@umich.edu  
+71. Noboru Kikuchi # Professor Emeritus # Computational mechanics, optimization # None # kikuchi@umich.edu  
+72. Brian Kish # LEO Lecturer III # None # None # bakish@umich.edu  
+73. Jeffrey Koller # LEO Lecturer III # None # None # jrkoller@umich.edu  
+74. Yoram Koren # Professor Emeritus # Reconfigurable manufacturing systems # None # ykoren@umich.edu  
+75. Sridhar Kota # Professor Emeritus # Bio-inspired engineering design # None # kota@umich.edu  
+76. Julia Kramer # Assistant Professor # Equitable engineering design # None # kramerju@umich.edu  
+77. Grant Kruger # Associate Research Scientist # Biomedical design, digital health # None # ghkruger@umich.edu  
+78. Katsuo Kurabayashi # Professor Emeritus # Biosensors, optofluidics # None # katsuo@umich.edu  
+79. David Kwabi # Assistant Professor # Electrochemistry, energy storage # None # dkwabi@umich.edu  
+80. Edward Lady # Professor Emeritus # Thermal sciences, power systems # None # erlady@umich.edu  
+81. Ronald Larson # Professor # Complex fluids, polymers # None # rlarson@umich.edu  
+82. Xiaogan Liang # Professor # Nanofabrication, microsystem technologies # None # xiaoganl@umich.edu  
+83. Allen Liu # Professor # Mechanobiology, synthetic biology # None # allenliu@umich.edu  
+84. Henry Liu # Professor # Transportation engineering, AI # None # henryliu@umich.edu  
+85. Wei Lu # Professor # Energy storage, advanced materials # None # weilu@umich.edu  
+86. Jon Luntz # Lecturer III # None # None # jluntz@umich.edu  
+87. Zheng-Dong Ma # Research Scientist Emeritus # Computational mechanics # None # mazd@umich.edu  
+88. Krishnan Mahesh # Professor # Turbulent flows, marine propulsors # None # krmahesh@umich.edu  
+89. Edgar Meyhofer # Professor # Nanotechnology, biomechanics # None # meyhofer@umich.edu  
+90. Tian Mi # LEO Lecturer III # None # None # tianm@umich.edu  
+91. Robert Middleton # Associate Research Scientist # Combustion in automotive engines # None # rjmidd@umich.edu  
+92. Amit Misra # Professor # Nano mechanics, metallic alloys # None # amitmis@umich.edu  
+93. Talia Moore # Assistant Professor # Dynamics of locomotion, bio-inspired design # None # taliaym@umich.edu  
+94. Sungmin Nam # Assistant Professor # Mechanobiology, medical devices # None # sungminn@umich.edu  
+95. Jun Ni # Professor Emeritus # Intelligent maintenance, manufacturing operations # None # junni@umich.edu  
+96. Lauro Ojeda # Research Scientist # Inertial sensing, biomechanics # None # lojeda@umich.edu  
+97. Chinedum Okwudire # Professor # Additive manufacturing, smart systems # None # okwudire@umich.edu  
+98. Kenn Oldham # Professor # Micro-mechatronic systems, imaging # None # oldham@umich.edu  
+99. Gabor Orosz # Professor # Nonlinear dynamics, traffic flow # None # orosz@umich.edu  
+100. Jwo Pan # Professor Emeritus # Fracture mechanics, fatigue testing # None # jwo@umich.edu  
+101. Panos Papalambros # Professor Emeritus # Design optimization, automotive systems # None # pyp@umich.edu  
+102. Young Geun Park # Associate Research Scientist # Optofluidics, nanomaterials # None # ygpark@umich.edu  
+103. Donald Patterson # Professor Emeritus # Internal combustion engines # None # None  
+104. Noel Perkins # Professor Emeritus # Dynamics, nonlinear dynamics # None # ncp@umich.edu  
+105. Marc Perlin # Professor Emeritus # Water-wave dynamics, coastal engineering # None # perlin@umich.edu  
+106. Kevin Pipe # Professor # Microscale heat transfer, thermoelectric systems # None # pipe@umich.edu  
+107. Bogdan Popa # Associate Professor # Engineered materials, biomedical applications # None # bipopa@umich.edu  
+108. Venkat Raman # Professor # Turbulent reacting flows, combustion devices # None # ramanvr@umich.edu  
+109. Pramod Sangi Reddy # Professor # Nanoscale charge transport, thermoelectric devices # None # pramodr@umich.edu  
+110. Elliott Rouse # Associate Professor # Exoskeletons, biomechanics # None # ejrouse@umich.edu  
+111. Kazu Saitou # Professor # Computational design, structural optimization # None # kazu@umich.edu  
+112. Anchal Sareen # Assistant Professor # Renewable energy, marine propulsion # None # asareen@umich.edu  
+113. Ulrich Scheven # Associate Research Scientist # Nuclear magnetic resonance techniques # None # uscheven@umich.edu  
+114. Bill Schultz # Professor Emeritus # Rheometry, peristalsis # None # schultz@umich.edu  
+115. Chenhui Shao # Associate Professor # Smart manufacturing, machine learning # None # chshao@umich.edu  
+116. Chengzhi Shi # Associate Professor # Acoustics, biomedical ultrasound # None # czshi@umich.edu  
+117. Albert Shih # Professor # Biomedical device design, manufacturing # None # shiha@umich.edu  
+118. Alex Shorter # Associate Professor # Human assist devices, biomechanics # None # kshorter@umich.edu  
+119. Volker Sick # Professor # CO2-utilization technologies, optical diagnostics # None # vsick@umich.edu  
+120. Jason Siegel # Research Associate Professor # Battery modeling, control systems # None # siegeljb@umich.edu  
+121. Kathleen Sienko # Professor # Rehabilitation engineering, biomechanics # None # sienko@umich.edu  
+122. Steve Skerlos # Professor # Sustainable technology systems, pollution prevention # None # skerlos@umich.edu  
+123. Siddhartha Srivastava # Assistant Research Scientist # None # None # sidsriva@umich.edu  
+124. Anna Stefanopoulou # Professor # Control of combustion engines, fuel cells # None # annastef@umich.edu  
+125. Jeffrey Stein # Professor Emeritus # Systems and control, modeling # None # stein@umich.edu  
+126. Jing Sun # Professor # Control systems, transportation systems # None # jingsun@umich.edu  
+127. Sita Syal # Assistant Professor # Energy justice, sustainable systems # None # syalsm@umich.edu  
+128. Wenda Tan # Associate Professor # Advanced manufacturing processes # None # wendatan@umich.edu  
+129. Jing Tang # Assistant Professor # Carbon capture, electrochemistry # None # jingtang@umich.edu  
+130. Alan Taub # Professor # Processing, microstructure and properties # None # alantaub@umich.edu  
+131. Karen A. Thole # Dean of Engineering # Heat transfer, gas turbine systems # None # kthole@umich.edu  
+132. Michael Thouless # Professor # Micromechanics, fracture mechanics # None # thouless@umich.edu  
+133. Dawn Tilbury # Professor # Control theory, manufacturing systems # None # tilbury@umich.edu  
+134. Serife Tol # Associate Professor # Smart materials, energy harvesting # None # stol@umich.edu  
+135. Aaron Towne # Assistant Professor # Fluid mechanics, flow control # None # towne@umich.edu  
+136. Nicolas Triantafyllidis # Professor Emeritus # Nonlinear dynamics, aerospace engineering # None # nick@umich.edu  
+137. Galip Ulsoy # Professor Emeritus # Dynamic systems, manufacturing automation # None # ulsoy@umich.edu  
+138. Michael Umbriac # LEO Lecturer IV # None # None # mumbriac@umich.edu  
+139. Ramanarayan Vasudevan # Associate Professor # Robotic systems, optimization # None # ramv@umich.edu  
+140. Christopher Vermillion # Associate Professor # Renewable energy systems, optimization # None # cvermill@umich.edu  
+141. Hugo Gonzalez Villasanti # Assistant Professor # Control theory in social systems # None # hugov@umich.edu  
+142. Angela Violi # Professor # Multiscale simulations, nanoparticle interactions # None # avioli@umich.edu  
+143. Venkat Viswanathan # Associate Professor # Electric vehicles, batteries # None # venkvis@umich.edu  
+144. Anthony Waas # Professor # Aerospace engineering, lightweight structures # None # awa@umich.edu  
+145. Kon-Well Wang # Professor # Structural dynamics, intelligent systems # None # kwwang@umich.edu  
+146. Thomas Wang # Professor # Biomedical instrument design, micro-optics # None # thomaswa@umich.edu  
+147. Alan Wineman # Professor Emeritus # Mechanics of continua, polymers # None # lardan@umich.edu  
+148. Margaret Wooldridge # Professor # Sustainable energy, combustion # None # mswool@umich.edu  
+149. Hongyi Xiao # Assistant Professor # Granular materials, soft robotics # None # hongyix@umich.edu  
+150. Wei-Hsuin Yang # Professor Emeritus # Solid mechanics, numerical analysis # None # weiyang@umich.edu  
+151. Euisik Yoon # Professor # Neurotechnology, biomedical engineering # None # esyoon@umich.edu  
+152. John Young # Associate Professor Emeritus # Thermodynamics, experiential learning # None # young@umich.edu  
+153. Lei Zuo # Professor # Naval architecture, marine engineering # None # leizuo@umich.edu  
