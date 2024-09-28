@@ -130,6 +130,122 @@ class AutoPaginator:
         return self.url_list
 
 
+def get_basic_data():
+    #自动爬取测试
+    web_search = WebSearch(api_key="88a8892a02409063f02a3bb97ac08b36fb213ae7")
+    # 这一部分可以变成json读入
+    universities = [  
+            # ok{"name": "Delft University of Technology", "query": "faculty directory mechanical engineering of Delft University of Technology", "rank": 3},  
+            #{"name": "University of Cambridge", "query": "faculty directory mechanical engineering of University of Cambridge", "rank": 4},  
+            #{"name": "Harvard University", "query": "faculty directory mechanical engineering of Harvard University", "rank": 5},  
+            # ok{"name": "ETH Zurich - Swiss Federal Institute of Technology", "query": "faculty directory mechanical engineering of ETH Zurich", "rank": 6},  
+            # ok{"name": "National University of Singapore (NUS)", "query": "faculty directory mechanical engineering of National University of Singapore", "rank": 7},  
+            #{"name": "University of California, Berkeley (UCB)", "query": "faculty directory mechanical engineering of University of California, Berkeley", "rank": 7},  
+            #{"name": "Politecnico di Milano", "query": "faculty directory mechanical engineering of Politecnico di Milano", "rank": 9},  
+            # ok{"name": "University of Oxford", "query": "faculty directory mechanical engineering of University of Oxford", "rank": 9},  
+            # ok{"name": "Imperial College London", "query": "faculty directory mechanical engineering of Imperial College London", "rank": 11},  
+            # ok{"name": "Nanyang Technological University, Singapore (NTU)", "query": "faculty directory mechanical engineering of Nanyang Technological University", "rank": 12}, 
+              
+            #{"name": "Georgia Institute of Technology", "query": "faculty directory mechanical engineering of Georgia Institute of Technology", "rank": 14},  
+            {"name": "University of Michigan-Ann Arbor", "query": "faculty directory mechanical engineering of University of Michigan-Ann Arbor", "rank": 15},  
+            {"name": "Purdue University", "query": "faculty directory mechanical engineering of Purdue University", "rank": 16},
+            # ok{"name": "California Institute of Technology (Caltech)", "query": "faculty directory mechanical engineering of California Institute of Technology", "rank": 17} 
+            #{"name": "EPFL", "query": "faculty directory mechanical engineering of EPFL", "rank": 18},  
+            #{"name": "RWTH Aachen University", "query": "faculty directory mechanical engineering of RWTH Aachen University", "rank": 19},  
+            #{"name": "KTH Royal Institute of Technology", "query": "faculty directory mechanical engineering of KTH Royal Institute of Technology", "rank": 20}
+            ]  
+
+    results = []  
+
+    for university in universities:  
+        
+        _query = university["query"]  
+        print(f"Searching for: {_query}")  
+        first_link = web_search.get_first_link(query=_query)  
+        print(f"First link for {university['name']}: {first_link}")  
+
+        start_url = first_link  
+        paginator = AutoPaginator(start_url)  
+        paginator.auto_paginate()  
+        url_list = paginator.get_all_urls()  
+        print(f"All page URLs for {university['name']}: {url_list}")  
+
+        result = []  
+        for url in url_list:  
+            query_head = """
+            Please list the information of current professors from this URL in the format 
+            '1. Name # Title # Research # Website # Email 2. Name # Title # Research # Website # Email',
+            Research shows the research interest of the professors, website is the homepage,
+            if you can not find some of the items like Research, Email or website, just use 'None'
+            reducing unnecessary introductions and conclusions:"""  
+            query = query_head + url  
+            prof_name = web_search.webpilot_query(query)  
+            result.append(prof_name)  
+
+        combined_result = "\n".join(result)  
+
+        '''
+        # 如果有问题可以运行这一段代码作为检查
+        # 定义文件保存路径  
+        output_txt_path = f'D:/Simplicity/data/faculty/{university["name"]}_result.txt'  
+
+        # 确保目标目录存在  
+        import os  
+        os.makedirs(os.path.dirname(output_txt_path), exist_ok=True)  
+
+        # 将 combined_result 保存到 .txt 文件中  
+        with open(output_txt_path, 'w', encoding='utf-8') as txt_file:  
+            txt_file.write(combined_result)  
+
+        print(f"TXT 文件已保存：{output_txt_path}")
+        
+        # 定义文件路径  
+        file_path = f'D:/Simplicity/data/faculty/{university["name"]}_result.txt'  
+
+        # 读取文件内容  
+        with open(file_path, 'r', encoding='utf-8') as file:  
+            combined_result = file.read()  
+        #print(combined_result) 
+        '''
+        # Adjust the pattern to capture only five fields with '#' as the separator  
+        pattern = r"\d+\.\s+(.*?)\s*#\s*(.*?)\s*#\s*(.*?)\s*#\s*(.*?)\s*#\s*(.*?)"  
+
+        # Use re.findall to capture all groups  
+        matches = re.findall(pattern, combined_result)  
+
+        for name, title, research, website, email in matches:  
+            results.append({  
+                'Rank': university["rank"],  
+                'University': university["name"],  
+                'Faculty': name.strip(),  
+                'Title': title.strip(),  
+                'Research': research.strip() if research.strip() != 'None' else '',  
+                'Website': website.strip() if website.strip() != 'None' else '',  
+                'Email': email.strip() if email.strip() != 'None' else '',  
+                'Status': '',  
+                'is_chinese': '',  
+                'send_priority': '',  
+                'full_research': '',  
+                'publications': ''  
+            })
+
+    # 确保目录存在  
+    output_dir = 'D:/Simplicity/data/faculty'  
+    os.makedirs(output_dir, exist_ok=True)  
+
+    # 创建 CSV 文件  
+    csv_file_path = os.path.join(output_dir, '15-16mechanical_engineering_faculty.csv')  
+    with open(csv_file_path, 'w', newline='', encoding='utf-8') as csvfile:  
+        fieldnames = ['Rank', 'University', 'Faculty', 'Title', 'Research', 'Website', 'Email', 'Status', 'is_chinese', 'send_priority', 'full_research', 'publications']  
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)  
+
+        writer.writeheader()  
+        for result in results:  
+            writer.writerow(result)  
+
+    print(f"CSV 文件已创建：{csv_file_path}")  
+
+
 # 使用示例
 if __name__ == "__main__":
     '''
@@ -145,111 +261,5 @@ if __name__ == "__main__":
     paginator.auto_paginate()
     print("所有页码的 URL：", paginator.get_all_urls())
     '''
+    get_basic_data()
     
-    #自动爬取测试
-    web_search = WebSearch(api_key="88a8892a02409063f02a3bb97ac08b36fb213ae7")
-    # 这一部分可以变成json读入
-    universities = [  
-            {"name": "Delft University of Technology", "query": "faculty directory mechanical engineering of Delft University of Technology", "rank": 3},  
-            #{"name": "University of Cambridge", "query": "faculty directory mechanical engineering of University of Cambridge", "rank": 4},  
-            #{"name": "Harvard University", "query": "faculty directory mechanical engineering of Harvard University", "rank": 5},  
-            {"name": "ETH Zurich - Swiss Federal Institute of Technology", "query": "faculty directory mechanical engineering of ETH Zurich", "rank": 6},  
-            {"name": "National University of Singapore (NUS)", "query": "faculty directory mechanical engineering of National University of Singapore", "rank": 7},  
-            #{"name": "University of California, Berkeley (UCB)", "query": "faculty directory mechanical engineering of University of California, Berkeley", "rank": 7},  
-            #{"name": "Politecnico di Milano", "query": "faculty directory mechanical engineering of Politecnico di Milano", "rank": 9},  
-            {"name": "University of Oxford", "query": "faculty directory mechanical engineering of University of Oxford", "rank": 9},  
-            {"name": "Imperial College London", "query": "faculty directory mechanical engineering of Imperial College London", "rank": 11},  
-            {"name": "Nanyang Technological University, Singapore (NTU)", "query": "faculty directory mechanical engineering of Nanyang Technological University", "rank": 12}, 
-            
-            #{"name": "Tsinghua University", "query": "faculty directory mechanical engineering of Tsinghua University", "rank": 13},  
-            #{"name": "Georgia Institute of Technology", "query": "faculty directory mechanical engineering of Georgia Institute of Technology", "rank": 14},  
-            {"name": "University of Michigan-Ann Arbor", "query": "faculty directory mechanical engineering of University of Michigan-Ann Arbor", "rank": 15},  
-            {"name": "Purdue University", "query": "faculty directory mechanical engineering of Purdue University", "rank": 16},
-            {"name": "California Institute of Technology (Caltech)", "query": "faculty directory mechanical engineering of California Institute of Technology", "rank": 17} 
-            #{"name": "EPFL", "query": "faculty directory mechanical engineering of EPFL", "rank": 18},  
-            #{"name": "RWTH Aachen University", "query": "faculty directory mechanical engineering of RWTH Aachen University", "rank": 19},  
-            #{"name": "KTH Royal Institute of Technology", "query": "faculty directory mechanical engineering of KTH Royal Institute of Technology", "rank": 20}
-            ]  
-
-    results = []  
-
-    for university in universities:  
-        _query = university["query"]  
-        print(f"Searching for: {_query}")  
-        first_link = web_search.get_first_link(query=_query)  
-        print(f"First link for {university['name']}: {first_link}")  
-
-        start_url = first_link  
-        paginator = AutoPaginator(start_url)  
-        paginator.auto_paginate()  
-        url_list = paginator.get_all_urls()  
-        print(f"All page URLs for {university['name']}: {url_list}")  
-
-        result = []  
-        for url in url_list:  
-            query_head = "Please list the names and titles of current professors from this URL in the format '1. Name - Title 2. Name - Title', reducing unnecessary introductions and conclusions:"  
-            query = query_head + url  
-            prof_name = web_search.webpilot_query(query)  
-            result.append(prof_name)  
-
-        combined_result = "\n".join(result)  
-
-        '''
-        # 如果有问题可以运行这一段代码作为检查
-        # 定义文件保存路径  
-        output_txt_path = 'D:/Simplicity/data/faculty/combined_result.txt'  
-
-        # 确保目标目录存在  
-        import os  
-        os.makedirs(os.path.dirname(output_txt_path), exist_ok=True)  
-
-        # 将 combined_result 保存到 .txt 文件中  
-        with open(output_txt_path, 'w', encoding='utf-8') as txt_file:  
-            txt_file.write(combined_result)  
-
-        print(f"TXT 文件已保存：{output_txt_path}")
-
-        # 定义文件路径  
-        file_path = 'D:/Simplicity/data/faculty/combined_result.txt'  
-
-        # 读取文件内容  
-        with open(file_path, 'r', encoding='utf-8') as file:  
-            combined_result = file.read()  
-        #print(combined_result)
-        '''
-
-        # 使用正则表达式查找所有匹配项  
-        pattern = r"\d+\.\s+(.+?)\s+-\s+(.+)(?:\s+\(.*\))?"  
-        matches = re.findall(pattern, combined_result)  
-
-        for name, title in matches:  
-            results.append({  
-                'Rank': university["rank"],  
-                'University': university["name"],  
-                'Faculty': name,  
-                'Title': title,  
-                'Research': '',  
-                'Website': '',  
-                'Email': '',  
-                'Status': '',  
-                'is_chinese': '',  
-                'send_priority': '',  
-                'full_research': '',  
-                'publications': ''  
-            })  
-
-    # 确保目录存在  
-    output_dir = 'D:/Simplicity/data/faculty'  
-    os.makedirs(output_dir, exist_ok=True)  
-
-    # 创建 CSV 文件  
-    csv_file_path = os.path.join(output_dir, '15-17mechanical_engineering_faculty.csv')  
-    with open(csv_file_path, 'w', newline='', encoding='utf-8') as csvfile:  
-        fieldnames = ['Rank', 'University', 'Faculty', 'Title', 'Research', 'Website', 'Email', 'Status', 'is_chinese', 'send_priority', 'full_research', 'publications']  
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)  
-
-        writer.writeheader()  
-        for result in results:  
-            writer.writerow(result)  
-
-    print(f"CSV 文件已创建：{csv_file_path}")  
