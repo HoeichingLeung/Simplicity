@@ -1,0 +1,57 @@
+1. Abbas Dashtimanesh # Assistant Professor # Future Ship Design for Decarbonisation, Artificial Intelligence Machine Learning in Ship Hydrodynamics, SHIFT-DT: Sustainable, Holistic, Integrated Framework for Ship Design and Production Transformation through Digital Twins # https://www.kth.se/profile/abbasda?l=en # abbasda@kth.se
+1. Huina Mao # Assistant Professor # Metamaterials Design and Aerospace Technology # https://www.kth.se/profile/huina # huina@kth.se
+1. Elias Alfredo Zea Marcano # Assistant Professor # Sparse signal processing, harmonic analysis, data-driven methods # https://www.kth.se/profile/zea # zea@kth.se
+1. Ruoli Wang # Assistant Professor # In vivo measurement of muscle morphology, composition and mechanical properties using medical imaging techniques; Decoding relationship between neural characteristics and movement; Real-time musculotendon parameter estimation for rehabilitation training # https://www.kth.se/profile/ruoli # ruoli@kth.se
+1. Malte Rothhämel # Assistant Professor # None # https://www.kth.se/profile/m2rotmal # m2rotmal@kth.se
+1. Alexander Grötsch # Assistant Professor # Applied Physics | Synchrotron Science | Solid Mechanics | Materials Science | SAXS | WAXS/XRD | Microscale | Nanoscale | Additive Manufacturing | In situ micromechanical testing | (Architected) Functional Materials | Mechanical Metamaterials | Bio-based Nanostructured Materials # https://www.kth.se/profile/grotsch # groetsch@kth.se
+1. Jenny Jerrelind # Associate Professor # Vehicle dynamics, rolling resistance, tyre wear, motion cueing for driving simulators, torque vectoring, mitigation of motion sickness in autonomous vehicles # https://www.kth.se/profile/jennyj # jennyj@kth.se
+1. Anders Dahlkild # ASSOCIATE PROFESSOR # None # https://www.kth.se/profile/aad?l=en # ad@mech.kth.se
+1. Lars Drugge # Associate Professor # None # https://www.kth.se/profile/larsd?l=en # larsd@kth.se
+1. Raffaello Mariani # Associate Professor # None # https://www.kth.se/profile/rmariani # rmariani@kth.se
+1. Michael Liverts # ASSOCIATE PROFESSOR # None # https://www.kth.se/profile/liverts?l=en # liverts@mech.kth.se
+1. Ivan Stenius # Associate Professor # Composite materials, fluid-structure interactions, hydrodynamics, hydrofoiling technologies, electric propulsion, marine robotics, model based systems engineering, dynamics of underactuated systems # https://www.kth.se/profile/stenius # stenius@kth.se
+1. Ricardo Vinuesa Motilva # ASSOCIATE PROFESSOR # None # https://www.kth.se/profile/rvinuesa/?l=en # rvinuesa@mech.kth.se
+1. Jonas Neumeister # ASSOCIATE PROFESSOR # None # https://www.kth.se/profile/jonasn?l=en # jonasn@kth.se
+1. Romain Rumpler # Associate Professor # Numerical methods for coupled acoustics and vibration applications, design optimization, transportation noise # https://www.kth.se/profile/rumpler # rumpler@kth.se
+1. Stefan Hallström # Associate Professor # Lightweight Structures # https://www.kth.se/profile/stefanha?l=en # stefanha@kth.se
+1. Evelyn Otero Sola # Associate Professor # Sustainable aviation, air traffic management, CO2 and non-CO2 emissions, sustainable aviation fuels, artificial intelligence, drones # https://www.kth.se/profile/otero # otero@kth.se
+1. Ciarán O'Reilly # Associate Professor # Development of methodologies to address functional conflicts in vehicle design # https://www.kth.se/profile/ciaran # ciaran@kth.se
+1. Karl Bolin # Associate Professor # Sound propagation and perception issues related to wind turbine noise and aircraft noise # https://www.kth.se/profile/kbolin/?l=en # kbolin@kth.se
+1. Erik Lindborg # ASSOCIATE PROFESSOR # None # https://www.kth.se/profile/eoli?l=en # erikl@mech.kth.se
+1. Karl Garme # Associate Professor # Naval Architecture, Seakeeping Studies, Waterborne Public Transport # https://www.kth.se/profile/garme?l=en # garme@kth.se
+1. Mikael Nybacka # Associate Professor # Vehicle validation, vehicle dynamics design process, vehicle suspension, chassis concept, vehicle control, urban vehicle concepts, autonomous vehicles, fault-tolerant control, over-actuated vehicles # https://www.kth.se/profile/mnybacka # mnybacka@kth.se
+1. Susann Boij # ASSOCIATE PROFESSOR # Flow acoustic interaction, sound propagation in confined flows, acoustic design for resource efficient vehicles # https://www.kth.se/profile/sboij?l=en # sboij@kth.se
+1. Per Wennhage # Associate Professor # None # https://www.kth.se/profile/wennhage?l=en # wennhage@kth.se
+1. Arne Nordmark # Associate Professor # None # https://www.kth.se/profile/nordmark/?l=en # nordmark@mech.kth.se
+1. Carlos Casanueva Perez # Associate Professor # Vehicle dynamics, wheel-rail contact damage, sustainability # https://www.kth.se/profile/carlosc # carlosc@kth.se
+1. Jens Fransson # Professor # Experimental Fluid Mechanics, Flow Control, Automotive and Wind Energy Aerodynamics # https://www.kth.se/profile/jensf # jensf@mech.kth.se
+1. Ines Lopez Arteaga # Professor # Models for tire/road interaction and tire vibration, Near-field acoustic holography, Educational methods # https://www.kth.se/profile/inesla?l=en # inesla@kth.se
+1. Mats Danielsson # Professor of Medical Imaging Physics # None # https://www.kth.se/en # None  
+2. Henrik Boström # Professor # None # https://www.kth.se/cs/scs/forskning/scs-professorer-och-lektorer-med-doktorander-1.812681 # bostromh@kth.se  
+3. David Broman # Associate Professor # None # https://www.kth.se/cs/scs/forskning/scs-professorer-och-lektorer-med-doktorander-1.812681 # dbro@kth.se  
+4. Xiongfei Wang # Professor # None # https://www.researchgate.net/profile/Xiongfei-Wang-4 # None  
+5. Ricardo Vinuesa # Associate Professor # None # https://www.researchgate.net/profile/Ricardo-Vinuesa # None  
+1. Philipp Schlatter # Professor # None # https://www.kth.se/profile/philipps # pschlatt@mech.kth.se
+1. Shervin Bagheri # Professor # Fluid Mechanics, Transport Processes in Fluids and Materials # https://www.kth.se/profile/sherwinb?l=en # shervin@mech.kth.se
+1. Zuheir Barsoum # Professor # Computational weld mechanics, Finite element analysis, Fatigue and fracture of engineering materials, Structural integrity, Welding and joining of lightweight metals # https://www.kth.se/profile/zuheir # zuheir@kth.se
+1. Gustav Amberg # Professor # Modeling and numerical simulation of phenomena involving phase change, fluid flows, heat and mass transfer, surface tension effects, wetting, micro-fluidics, and fluid dynamics # https://www.mech.kth.se/~gustava # gustava@mech.kth.se
+1. Mihai Mihaescu # Professor # Fluid dynamics; Aeroacoustics; Flow control; Noise suppression technologies; Turbulent jets; Transonic and supersonic flows; Gas exchange processes associated with propulsion systems; Turbomachinery and Turbocharging; Biofluid dynamics. # https://www.kth.se/profile/mihaescu # mihai@mech.kth.se
+1. Elena Gutierrez Farewik # Professor # Movement simulation, strategies, consequences, and assistance in children and adults with motion disorders # https://www.kth.se/profile/lanie # lanie@kth.se
+1. Per-Lennart Larsson # Professor # None # https://www.kth.se/profile/plla?l=en # plla@kth.se
+1. Jonas Faleskog # Professor # None # https://www.kth.se/profile/faleskog?l=en # faleskog@kth.se
+1. Mats Berg # Professor # None # https://www.kth.se/profile/mabe?l=en # mabe@kth.se
+1. Mårten Olsson # Professor # Research on solid mechanics, reliable structures, load estimation, multiaxial fatigue, probability of failure, optimization of structures # https://www.kth.se/profile/mart?l=en # mart@kth.se
+1. Outi Tammisola # Professor # None # https://www.kth.se/profile/outi?l=en # outi@mech.kth.se
+1. Jakob Kuttenkeuler # Professor # Research on maritime robotics, route optimization of ships, AUVs, and aerodynamics # https://www.kth.se/profile/jakob # jakob@kth.se
+1. Dan Zenkert # Professor # Mechanics of composite materials, multifunctional composites # https://www.kth.se/profile/danz # danz@kth.se
+1. Ulf Ringertz # Professor # None # https://www.kth.se/profile/rzu?l=en # rzu@kth.se
+1. Fredrik Lundell # Professor # Fluid physics, fluid mechanics, biobased materials # https://www.kth.se/profile/frlu # fredrik@mech.kth.se
+1. Sebastian Stichel # Professor # Rail Vehicle Dynamics, wheel and rail wear, rolling contact fatigue, freight vehicle dynamics, ride comfort, active suspension, dynamic pantograph-catenary interaction # https://www.kth.se/profile/stichel # stichel@kth.se
+1. Dan Henningson # Professor # None # https://www.kth.se/profile/henning?l=en # henning@mech.kth.se
+1. Leif Kari # Professor # None # https://www.kth.se/profile/leifkari?l=en # leifkari@kth.se
+1. Christian Gasser # Professor # Development and application of advanced numerical techniques in biomechanics # https://www.kth.se/profile/gasser # tg@hallf.kth.se
+1. Peter Gudmundson # Professor # Mechanical degradation mechanisms in lithium-ion batteries, strain gradient plasticity theories # https://www.kth.se/profile/petergu # petergu@kth.se
+1. Lisa Prahl Wittberg # Professor # Fluid dynamics with focus on complex fluids commonly found in the human body, aimed at enhancing physical understanding of flow physics for clinical applications # https://www.kth.se/profile/prahl # prahl@mech.kth.se
+1. Annika Stensson Trigell # Professor # None # https://www.kth.se/profile/annika?l=en # annika@kth.se
+1. Malin Åkermo # Professor # Research on composite materials and their processing, manufacturing structural composites, simulations combined with experimental studies, novel sensing composite materials, optimal material selection # https://www.kth.se/profile/akermo # akermo@kth.se
+1. Artem Kulachenko # Professor # None # https://www.kth.se/profile/artem?l=en # artem@kth.se

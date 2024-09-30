@@ -3,3 +3,44 @@
 1. Mohamed Farhat # Senior Scientist # Cavitation & Multiphase flows, Flow Induced Noise & Vibration, Fluid-Structure Interaction, Flow control, Flow instabilities in hydro turbines and pumps, Condition monitoring of Hydraulic Machines, Hemodynamics, Advanced Instrumentation in Fluid Dynamics # https://people.epfl.ch/mohamed.farhat # mohamed.farhat@epfl.ch
 1. Giancarlo Ferrari Trecate # Adjunct Professor # Automatic control, state estimation, system identification, machine learning, distributed control, hybrid systems, microgrids, biochemical networks # https://people.epfl.ch/giancarlo.ferraritrecate # giancarlo.ferraritrecate@epfl.ch
 1. Dario Floreano # Full Professor # Aerial Robots, Evolutionary Robots, Soft Robots, Wearable Robots, Bio-inspired Robots, Bio-inspired Artificial Intelligence # https://people.epfl.ch/dario.floreano # dario.floreano@epfl.ch
+1. François Gallaire # Associate Professor # Fluid dynamics, drop deformation and transport, hydrodynamic instability theory # https://people.epfl.ch/francois.gallaire?lang=en # francois.gallaire@epfl.ch
+1. Volker Gass # Director, Strategic Initiatives - VPI, Adjunct Professor # None # https://space-innovation.ch/ # volker.gass@epfl.ch
+1. Sophia Haussener # Associate Professor # Thermal sciences, fluid dynamics, thermo/electro/photochemistry in complex multi-phase media # https://people.epfl.ch/sophia.haussener?lang=en # sophia.haussener@epfl.ch
+1. Simon Henein # Associate Professor # Engineering: Micromechanical Design; Precision Mechanisms; Flexure Mechanisms with applications to Aerospace, Astrophysics, High Energy Physics, Surgical Instruments, Horology, Robotics, Micro-Electro-Mechanical-Systems (MEMS) # https://people.epfl.ch/simon.henein?lang=en # simon.henein@epfl.ch
+1. Josie Hughes # Tenure Track Assistant Professor # None # https://people.epfl.ch/josie.hughes?lang=en # josie.hughes@epfl.ch
+1. Auke Jan Ijspeert # Full Professor # Robotics, Computational Neuroscience, Nonlinear Dynamical Systems, Applied Machine Learning # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+2. Alessandro Crespi # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+3. Xiangxiao Liu # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+4. Kamilo Melo # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+5. Mohsen Falahi # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+6. Luca Randazzo # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+7. Jonathan Arreguit # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+8. Alice Bruel # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+9. Miroslav Caban # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+10. Andrea Di Russo # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+11. Astha Gupta # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+12. Zeynep Özge Orhan # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+13. Gizem Özdil # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+14. Laura Páez Coy # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+15. Alessandro Pazzaglia # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+16. Shravan Tata Ramalingasetty # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+17. Milad Shafiee # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+1. Colin Jones # Associate Professor # Optimal control, optimization, model predictive control, renewable energy challenges # https://people.epfl.ch/colin.jones # colin.jones@epfl.ch
+1. Maryam Kamgarpour # Tenure Track Assistant Professor # Safe decision-making and control under uncertainty, game theory and mechanism design, mixed integer and stochastic optimization and control # https://people.epfl.ch/maryam.kamgarpour?lang=en # maryam.kamgarpour@epfl.ch
+1. Alireza Karimi # Professor of Automatic Control # Data-Driven Control, Robust Control, System Identification, Smart Grids # https://scholar.google.com/citations?user=GPJv4xkAAAAJ&hl=en # None
+1. Sangwoo Kim # Tenure Track Assistant Professor # Research on biological and living systems, soft and active materials # https://people.epfl.ch/sangwoo.kim?lang=en # sangwoo.kim@epfl.ch
+1. John Martin Kolinski # Tenure Track Assistant Professor # Engineering Mechanics of Soft Interfaces # https://people.epfl.ch/john.kolinski # john.kolinski@epfl.ch
+1. Zhengmao Lu # Tenure Track Assistant Professor # Thermofluids, interface science, materials engineering # https://people.epfl.ch/zhengmao.lu # zhengmao.lu@epfl.ch
+1. None # None # None # https://www.epfl.ch/en # None
+1. Karen Mulleners # Associate Professor # experimental fluid dynamics, unsteady aerodynamics, vortex dynamics, flow separation # https://people.epfl.ch/karen.mulleners?lang=en # karen.mulleners@epfl.ch
+1. Jamie Paik # Associate Professor # Soft robotics, Origami robots, Wearable technologies, Novel robotic and actuator design # https://people.epfl.ch/jamie.paik?lang=en # jamie.paik@epfl.ch
+1. Dominique Pioletti # Full Professor # Orthopedic Biomechanics, Tissue Engineering, Mechano-Biology # https://people.epfl.ch/dominique.pioletti # dominique.pioletti@epfl.ch
+1. Pedro M. Reis # Full Professor # Mechanics and physics of solids and structures; Buckling of slender structures; Harvesting function from mechanical instabilities; Coupling between flexible structures and fluid flow; Experimental mechanics. # https://flexlab.epfl.ch # pedro.reis@epfl.ch
+1. Selman Sakar # Associate Professor # robotics, mechanobiology, microtechnology, smart materials, biomedical devices # https://people.epfl.ch/selman.sakar?lang=en # selman.sakar@epfl.ch
+1. Jürg Alexander Schiffmann # Associate Professor # None # https://lamd.epfl.ch/ # jurg.schiffmann@epfl.ch
+1. Tobias Schneider # Associate Professor # Nonlinear mechanics, spatial turbulent-laminar patterns in fluid flows transitioning to turbulence # https://ecps.epfl.ch # tobias.schneider@epfl.ch
+1. Herbert Shea # Full Professor # soft robotics, wearable haptics, electrostatic actuators, EHD # https://people.epfl.ch/herbert.shea # herbert.shea@epfl.ch
+1. Giulia Tagliabue # Tenure Track Assistant Professor # Nanoscience for Energy Technologies # https://people.epfl.ch/giulia.tagliabue?lang=en # giulia.tagliabue@epfl.ch
+1. Jan Van Herle # Maître d'enseignement et de recherche # Piles à combustible céramiques, assemblage et caractérisation des cellules et empilement # https://people.epfl.ch/jan.vanherle # jan.vanherle@epfl.ch
+1. Guillermo Villanueva # Associate Professor # MEMS/NEMS - design, analysis, fabrication and characterization; Sensors, Oscillators, nonlinear and coupled dynamics, fundamental noise processes # https://people.epfl.ch/guillermo.villanueva # guillermo.villanueva@epfl.ch
+1. Eunok Yim # None # None # https://people.epfl.ch/eunok.yim?lang=en # None
