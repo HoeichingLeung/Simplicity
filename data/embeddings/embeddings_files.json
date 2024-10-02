@@ -1,0 +1,14 @@
+[  
+    "Rank_embeddings.npy",  
+    "University_embeddings.npy",  
+    "Faculty_embeddings.npy",  
+    "Title_embeddings.npy",  
+    "Research_embeddings.npy",  
+    "Website_embeddings.npy",  
+    "Email_embeddings.npy",  
+    "Status_embeddings.npy",  
+    "is_chinese_embeddings.npy",  
+    "send_priority_embeddings.npy",  
+    "full_research_embeddings.npy",  
+    "publications_embeddings.npy"  
+]
