@@ -1,7 +1,6 @@
 import sys  
 import json
 sys.path.append("./utils") # 加入路径以便于直接运行
-sys.path.append("./scripts") # 加入路径以便于直接运行
 from gpt_api import GPTclient  
 from compute_embedding import EmbeddingModel, read_text_data, save_embeddings, save_mappings
 import torch  

@@ -1,6 +1,5 @@
 import sys
 sys.path.append("./utils") # 加入路径以便于直接运行
-sys.path.append("./scripts") # 加入路径以便于直接运行
 from gpt_api import GPTclient  
 from compute_embedding import EmbeddingModel, read_text_data, save_embeddings, save_mappings
 from openai import OpenAI
@@ -9,6 +8,10 @@ import re
 import pandas as pd 
 import ast
 import torch
+import json
+import os
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
 class AgentAPI(GPTclient):
 
     def __init__(self, api_key: str, base_url: str, csv_file_path: str):  
@@ -174,32 +177,84 @@ class AgentAPI(GPTclient):
         st.session_state.messages.append({"role": "assistant", "content": response}) 
         
     def personalized_recommendations(self, user_query: str):
-        # retrive the academic keywords of the user input
-        user_query_rag = self.get_response_keywords(user_query)
-        def extract_k_from_query(query, default_k=3):  
-            # 使用正则表达式尝试在查询中提取k值  
-            match = re.search(r'\bk=(\d+)\b', query)  
-            if match:  
-                # 提取并返回k值  
-                return int(match.group(1))  
-            return default_k  
-        #print(user_query_rag)
-        # 初始化标志变量  
-        embed_loaded = False  
-        k = extract_k_from_query(user_query_rag)  
+        # retrive the academic keywords of the user input 
+        # 初始化标志变量
         model_name = 'BCEmbeddingmodel'  # 使用相对路径  
         device = 'cuda' if torch.cuda.is_available() else 'cpu'  
-        dilimitor = "###RAG###"  
-        file_path_npy = './data/embeddings/physics_full_embedding.npy'  
+        dilimitor = "###RAG###"  # ？
+          
+        model = EmbeddingModel(model_name=model_name, device=device, api_key=self.api_key, base_url=self.base_url)
+        query_embedding = model.get_embeddings([user_query]) 
+        
+        # 计算每个列名的embedding与query_embedding的余弦相似度  
+        similarities = []  
+        col_embed_path = './data/embeddings/column_embeddings.npy'
+        column_name_embeddings = np.load(col_embed_path)
+        #print(column_embeddings.shape)
+        for i, embedding in enumerate(column_name_embeddings):  
+            # 计算余弦相似度  
+            similarity = cosine_similarity(query_embedding.reshape(1, -1), embedding.reshape(1, -1))[0][0]  
+            similarities.append(similarity)  
+            #print(f"Similarity for column {i}: {similarity}")
+            
+        # 归一化相似度  
+        max_sim = max(similarities)  
+        min_sim = min(similarities)  
+        normalized_similarities = [(sim - min_sim) / (max_sim - min_sim) for sim in similarities]
+        
+        json_file_path = 'data/embeddings/embeddings_files.json'
+        
+        # 打开并读取 JSON 文件  
+        with open(json_file_path, 'r') as f:  
+            embeddings_files = json.load(f)   
+        num_rows = None  
+        scores = None  
+        weights = np.array(normalized_similarities)  
+        df = pd.read_csv('data/major_data/physics_full.csv')
+        #original_indices = df.index.tolist()  # 保存原始索引
+        
+        for i, file_name in enumerate(embeddings_files):  
+            # 构建完整文件路径  
+            embeddings_dir = './data/embeddings/physics'  
+            file_path = os.path.join(embeddings_dir, file_name)  
 
-        # 检查是否已经加载过嵌入  
-        if not embed_loaded:  
-            model = EmbeddingModel(model_name=model_name, device=device, api_key=self.api_key, base_url=self.base_url)  
-            model.load_embed(file_path=file_path_npy)  
-            embed_loaded = True  # 更新标志变量  
+            # 检查文件是否存在  
+            if not os.path.exists(file_path):  
+                print(f"Warning: {file_path} does not exist.")  
+                continue  
 
-        rag_result, web_result = model.query_for_sentences(k=k, question=user_query_rag)  
-        content = user_query + dilimitor + str(rag_result) + str(web_result)  
+            # 加载对应列的嵌入数据  
+            embeddings = np.load(file_path)  
+
+            # 初始化 scores 数组  
+            if scores is None:  
+                num_rows = embeddings.shape[0]  
+                scores = np.zeros(num_rows)  
+
+            # 计算这一列的相似度  
+            similarity_scores = cosine_similarity(embeddings, query_embedding).flatten()  
+
+            # 作用权重于相似度  
+            weighted_similarity_scores = similarity_scores * weights[i]  
+
+            # 将加权相似度加到总分数  
+            scores += weighted_similarity_scores  
+
+        if scores is not None:  
+            # 找到相似度最高的3行  
+            top_3_indices = np.argsort(scores)[-3:][::-1]  
+            #print("Top 3 most similar rows indices and their texts:")
+            # 用于存储三个结果  
+            rag_results = []
+            print(top_3_indices)
+            for index in top_3_indices:  
+                rag_result = ", ".join(df.iloc[index].astype(str))  
+                rag_results.append(rag_result)
+        else:  
+            print("Error: No embeddings were loaded.")
+
+        print(rag_results)  
+        content = user_query + dilimitor + str(rag_results)# + str(web_result)  
         response = self.get_response_psnl(content)  
 
         # Return the response  
@@ -288,7 +343,7 @@ def run_agent_api():
     base_url = "https://api.pumpkinaigc.online/v1"  
 
     # 创建 AgentAPI 实例  
-    agent_api = AgentAPI(api_key, base_url, "./data/physics_full.csv")  
+    agent_api = AgentAPI(api_key, base_url, "./data/major_data/physics_full.csv")  
 
     # 初始化列表以存储用户查询  
     query_history = []  
