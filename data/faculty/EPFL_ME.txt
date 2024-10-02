@@ -8,23 +8,7 @@
 1. Sophia Haussener # Associate Professor # Thermal sciences, fluid dynamics, thermo/electro/photochemistry in complex multi-phase media # https://people.epfl.ch/sophia.haussener?lang=en # sophia.haussener@epfl.ch
 1. Simon Henein # Associate Professor # Engineering: Micromechanical Design; Precision Mechanisms; Flexure Mechanisms with applications to Aerospace, Astrophysics, High Energy Physics, Surgical Instruments, Horology, Robotics, Micro-Electro-Mechanical-Systems (MEMS) # https://people.epfl.ch/simon.henein?lang=en # simon.henein@epfl.ch
 1. Josie Hughes # Tenure Track Assistant Professor # None # https://people.epfl.ch/josie.hughes?lang=en # josie.hughes@epfl.ch
-1. Auke Jan Ijspeert # Full Professor # Robotics, Computational Neuroscience, Nonlinear Dynamical Systems, Applied Machine Learning # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-2. Alessandro Crespi # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-3. Xiangxiao Liu # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-4. Kamilo Melo # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-5. Mohsen Falahi # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-6. Luca Randazzo # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-7. Jonathan Arreguit # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-8. Alice Bruel # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-9. Miroslav Caban # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-10. Andrea Di Russo # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-11. Astha Gupta # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-12. Zeynep Özge Orhan # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-13. Gizem Özdil # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-14. Laura Páez Coy # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-15. Alessandro Pazzaglia # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-16. Shravan Tata Ramalingasetty # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
-17. Milad Shafiee # None # None # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None  
+1. Auke Jan Ijspeert # Full Professor # Robotics, Computational Neuroscience, Nonlinear Dynamical Systems, Applied Machine Learning # https://www.epfl.ch/labs/biorob/people/ijspeert/ # None       
 1. Colin Jones # Associate Professor # Optimal control, optimization, model predictive control, renewable energy challenges # https://people.epfl.ch/colin.jones # colin.jones@epfl.ch
 1. Maryam Kamgarpour # Tenure Track Assistant Professor # Safe decision-making and control under uncertainty, game theory and mechanism design, mixed integer and stochastic optimization and control # https://people.epfl.ch/maryam.kamgarpour?lang=en # maryam.kamgarpour@epfl.ch
 1. Alireza Karimi # Professor of Automatic Control # Data-Driven Control, Robust Control, System Identification, Smart Grids # https://scholar.google.com/citations?user=GPJv4xkAAAAJ&hl=en # None
