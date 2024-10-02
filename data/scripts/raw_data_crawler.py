@@ -239,7 +239,7 @@ def get_basic_data():
         # {"name": "University of California, Berkeley (UCB)", "query": "faculty directory mechanical engineering of University of California, Berkeley", "rank": 7},
         # {"name": "Politecnico di Milano", "query": "faculty directory mechanical engineering of Politecnico di Milano", "rank": 9},
         # ok{"name": "University of Oxford", "query": "faculty directory mechanical engineering of University of Oxford", "rank": 9},
-        # ok{"name": "Imperial College London", "query": "faculty directory mechanical engineering of Imperial College London", "rank": 11},
+        {"name": "Imperial College London", "query": "faculty directory mechanical engineering of Imperial College London", "rank": 11},
         # ok{"name": "Nanyang Technological University, Singapore (NTU)", "query": "faculty directory mechanical engineering of Nanyang Technological University", "rank": 12},
 
         # ok{"name": "Georgia Institute of Technology", "query": "faculty directory mechanical engineering of Georgia Institute of Technology", "rank": 14},
@@ -296,42 +296,76 @@ def get_basic_data():
         print(f"TXT 文件已保存：{output_txt_path}")
         '''
         # 定义文件路径
-        file_path = f'D:/Simplicity/data/faculty/{university["name"]}_result.txt'
+        # file_path = f'D:/Simplicity/data/faculty/{university["name"]}_result.txt'
+        file_path = f'D:/llm_python/Simplicity/data/faculty/11-1mechanical_engineering_faculty.txt'
 
         # 读取文件内容
         with open(file_path, 'r', encoding='utf-8') as file:
             combined_result = file.read()
             # print(combined_result)
 
-        # Adjust the pattern to capture only five fields with '#' as the separator
+        # # Adjust the pattern to capture only five fields with '#' as the separator
         # pattern = r"\d+\.\s+(.*?)\s*#\s*(.*?)\s*#\s*(.*?)\s*#\s*(.*?)\s*#\s*([\w\.-]+@[\w\.-]+)"  # 有邮箱
-        pattern = r"\d+\.\s+(.*?)\s*#\s*(.*?)\s*#\s*(.*?)\s*#\s*(.*?)\s*#\s*(.*?)"  # 没邮箱
+        #
+        # # pattern = r"\d+\.\s+(.*?)\s*#\s*(.*?)\s*#\s*(.*?)\s*#\s*(.*?)\s*#\s*(.*?)"  # 没邮箱
+        #
+        # # Use re.findall to capture all groups
+        # matches = re.findall(pattern, combined_result)
+        #
+        # for name, title, research, website, email in matches:
+        #     results.append({
+        #         'Rank': university["rank"],
+        #         'University': university["name"],
+        #         'Faculty': name.strip(),
+        #         'Title': title.strip(),
+        #         'Research': research.strip() if research.strip() != 'None' else '',
+        #         'Website': website.strip() if website.strip() != 'None' else '',
+        #         'Email': email.strip() if email.strip() != 'None' else '',
+        #         'Status': '',
+        #         'is_chinese': '',
+        #         'send_priority': '',
+        #         'full_research': '',
+        #         'publications': ''
+        #     })
 
-        # Use re.findall to capture all groups
-        matches = re.findall(pattern, combined_result)
 
-        for name, title, research, website, email in matches:
-            results.append({
-                'Rank': university["rank"],
-                'University': university["name"],
-                'Faculty': name.strip(),
-                'Title': title.strip(),
-                'Research': research.strip() if research.strip() != 'None' else '',
-                'Website': website.strip() if website.strip() != 'None' else '',
-                'Email': email.strip() if email.strip() != 'None' else '',
-                'Status': '',
-                'is_chinese': '',
-                'send_priority': '',
-                'full_research': '',
-                'publications': ''
-            })
+        '''从txt提取人名到csv'''
+        lines = combined_result.strip().split("\n")
+
+        # pattern = r'^\d+\.\s([A-Za-z\s]+)\s-\s(.+)$'# 无邮箱
+        pattern = r'^\d+\.\s(.+?)\s#\s(.+?)\s#\s(.+?)\s#\s(.+?)\s#\s(.+)$'# 有邮箱2
+
+
+        for line in lines:
+            match = re.match(pattern, line)
+            if match:
+                name = match.group(1).strip()  # 提取人名
+                title = match.group(2).strip()  # 提取头衔
+                research = match[2].strip()  # 提取研究领域
+                website = match[3].strip()  # 提取URL
+                email = match[4].strip()  # 提取额外信息
+
+                results.append({
+                    'Rank': university["rank"],
+                    'University': university["name"],
+                    'Faculty': name.strip(),
+                    'Title': title.strip(),
+                    'Research': research.strip() if research.strip() != 'None' else '',
+                    'Website': website.strip() if website.strip() != 'None' else '',
+                    'Email': email.strip() if email.strip() != 'None' else '',
+                    'Status': '',
+                    'is_chinese': '',
+                    'send_priority': '',
+                    'full_research': '',
+                    'publications': ''
+                })
 
     # 确保目录存在
-    output_dir = 'D:/Simplicity/data/faculty'
+    output_dir = 'D:/llm_python/Simplicity/data/faculty'
     os.makedirs(output_dir, exist_ok=True)
 
     # 创建 CSV 文件
-    csv_file_path = os.path.join(output_dir, '18mechanical_engineering_faculty.csv')
+    csv_file_path = os.path.join(output_dir, '11-1mechanical_engineering_faculty.csv')
     with open(csv_file_path, 'w', newline='', encoding='utf-8') as csvfile:
         fieldnames = ['Rank', 'University', 'Faculty', 'Title', 'Research', 'Website', 'Email', 'Status', 'is_chinese',
                       'send_priority', 'full_research', 'publications']
@@ -359,6 +393,6 @@ if __name__ == "__main__":
     paginator.auto_paginate()
     print("所有页码的 URL：", paginator.get_all_urls())
     '''
-    # get_basic_data()
-    get_detailed('D:/Simplicity/data/faculty/test.csv')
+    get_basic_data()
+    # get_detailed('D:/llm_python/Simplicity/data/faculty/3_12mechanical_engineering_faculty.csv')
     # get_basic_data_with_link()
