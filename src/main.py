@@ -125,9 +125,5 @@ def run_agent_api_streamlit():
         if len(st.session_state.messages) >= 15:
             st.session_state.messages.pop(0)
 
-        st.session_state.messages.append({"role": "assistant", "content": response})
-        st.chat_message("assistant").write(response)
-
-
 if __name__ == "__main__":
     run_agent_api_streamlit()

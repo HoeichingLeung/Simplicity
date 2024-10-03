@@ -46,6 +46,9 @@ class AgentAPI(GPTclient):
         except FileNotFoundError as e:
             logging.error(f"CSV file not found: {e}")
             self.university_data = pd.DataFrame()
+            response = "Sorry, the data for this section is temporarily unavailable."
+            st.chat_message("assistant").write(response)
+            st.session_state.messages.append({"role": "assistant", "content": response})
 
     def query_professors_details(self, professor_name: str, user_query: str) -> None:
         user_query += " Use the provided information to generate a clear and accurate response to the query."
@@ -101,16 +104,14 @@ class AgentAPI(GPTclient):
 
             content_str = user_query + content_str
             response = self.get_response(content_str)
-            st.chat_message("assistant").write(response)
-            st.session_state.messages.append({"role": "assistant", "content": response})
-
-            return matches["University"].to_list()
 
         except ValueError:
             response = "Please use 'min-max' format."
-            st.chat_message("assistant").write(response)
-            st.session_state.messages.append({"role": "assistant", "content": response})
-            return []
+
+        st.chat_message("assistant").write(response)
+        st.session_state.messages.append({"role": "assistant", "content": response})
+
+        return matches["University"].to_list() if not matches.empty else []
 
     def query_professors(
         self, university_list=None, research_area=None, user_query=None
@@ -178,7 +179,7 @@ class AgentAPI(GPTclient):
             st.session_state.messages.append({"role": "assistant", "content": response})
 
     def personalized_recommendations(self, user_query: str):
-        model_name = "BCEmbeddingmodel"  # 使用相对路径
+        model_name = "BCEmbeddingmodel"
         device = "cuda" if torch.cuda.is_available() else "cpu"
         dilimitor = "###RAG###"
 
@@ -190,82 +191,58 @@ class AgentAPI(GPTclient):
         )
         query_embedding = model.get_embeddings([user_query])
 
-        # 计算每个列名的embedding与query_embedding的余弦相似度
-        similarities = []
         col_embed_path = "./data/embeddings/column_embeddings.npy"
         column_name_embeddings = np.load(col_embed_path)
-        # print(column_embeddings.shape)
-        for i, embedding in enumerate(column_name_embeddings):
-            # 计算余弦相似度
-            similarity = cosine_similarity(
-                query_embedding.reshape(1, -1), embedding.reshape(1, -1)
-            )[0][0]
-            similarities.append(similarity)
-            # print(f"Similarity for column {i}: {similarity}")
 
-        # 归一化相似度
-        max_sim = max(similarities)
-        min_sim = min(similarities)
+        similarities = [
+            cosine_similarity(query_embedding.reshape(1, -1), embedding.reshape(1, -1))[
+                0
+            ][0]
+            for embedding in column_name_embeddings
+        ]
+
+        max_sim, min_sim = max(similarities), min(similarities)
         normalized_similarities = [
             (sim - min_sim) / (max_sim - min_sim) for sim in similarities
         ]
 
         json_file_path = "data/embeddings/embeddings_files.json"
-
-        # 打开并读取 JSON 文件
         with open(json_file_path, "r") as f:
             embeddings_files = json.load(f)
+
         num_rows = None
-        scores = None
+        scores = np.zeros(num_rows) if num_rows else None
         weights = np.array(normalized_similarities)
         df = pd.read_csv(self.csv_file_path)
-        # original_indices = df.index.tolist()  # 保存原始索引
 
         for i, file_name in enumerate(embeddings_files):
-            # 构建完整文件路径
-            embeddings_dir = "./data/embeddings/physics"
-            file_path = os.path.join(embeddings_dir, file_name)
+            file_path = os.path.join("./data/embeddings/physics", file_name)
 
-            # 检查文件是否存在
             if not os.path.exists(file_path):
-                print(f"Warning: {file_path} does not exist.")
+                logging.warning(f"{file_path} does not exist.")
                 continue
 
-            # 加载对应列的嵌入数据
             embeddings = np.load(file_path)
 
-            # 初始化 scores 数组
             if scores is None:
                 num_rows = embeddings.shape[0]
                 scores = np.zeros(num_rows)
 
-            # 计算这一列的相似度
             similarity_scores = cosine_similarity(embeddings, query_embedding).flatten()
+            scores += similarity_scores * weights[i]
 
-            # 作用权重于相似度
-            weighted_similarity_scores = similarity_scores * weights[i]
-
-            # 将加权相似度加到总分数
-            scores += weighted_similarity_scores
-
+        rag_results = []
         if scores is not None:
-            # 找到相似度最高的3行
             top_3_indices = np.argsort(scores)[-3:][::-1]
-            # print("Top 3 most similar rows indices and their texts:")
-            # 用于存储三个结果
-            rag_results = []
-            print(top_3_indices)
-            for index in top_3_indices:
-                rag_result = ", ".join(df.iloc[index].astype(str))
-                rag_results.append(rag_result)
+            rag_results = [
+                ", ".join(df.iloc[index].astype(str)) for index in top_3_indices
+            ]
         else:
-            print("Error: No embeddings were loaded.")
+            logging.error("Error: No embeddings were loaded.")
 
-        print(rag_results)
-        content = user_query + dilimitor + str(rag_results)  # + str(web_result)
+        content = user_query + dilimitor + str(rag_results)
         response = self.get_response_psnl(content)
 
-        # Return the response
         st.chat_message("assistant").write(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
 
