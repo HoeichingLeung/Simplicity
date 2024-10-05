@@ -1,0 +1,60 @@
+1. Dirk Abel # Univ.-Prof. Dr.-Ing. # None # None # None  
+2. Jakob Lukas Andert # Prof. Dr.-Ing. # None # None # None  
+3. Marek Behr # Univ.-Prof. Ph. D. # None # None # None  
+4. Andrea Benigni # Univ.-Prof. Dr.-Ing. # Energy Systems Engineering # None # None  
+5. Thomas Bergs # Univ.-Prof. Dr.-Ing. # None # None # None  
+6. Kirsten Bobzin # Univ.-Prof. Dr.-Ing. # None # None # None  
+7. Isaac Boxx # Univ.-Prof. PhD # Optical Diagnostics in ECPE # None # None  
+8. Christian Brecher # Univ.-Prof. Dr.-Ing. # Machine Tools # None # None  
+9. Christoph Broeckmann # Univ.-Prof. Dr.-Ing. # Materials Applications # None # None  
+10. Burkhard Corves # Univ.-Prof. Dr.-Ing. Dr. h. c. # Mechanism Theory, Machine Dynamics # None # None  
+11. Jan Deeken # Univ.-Prof. Dr.-Ing. # Space Propulsion # None # None  
+12. Lutz Eckstein # Univ.-Prof. Dr.-Ing. # Automotive Engineering # None # None  
+13. Frank Ole Flemisch # Univ.-Prof. Dr.-Ing. # System Ergonomics # None # None  
+14. Thomas Gries # Univ.-Prof. Professor h. c. (MGU) Dr.-Ing. # Textile Technology # None # None  
+15. Ronald Gebhardt # Univ.-Prof. Dr. rer. nat. # Soft Matter Process Engineering # None # None  
+16. Constantin Leon Häfner # Univ.-Prof. Dr. rer. nat. # Laser Technology # None # None  
+17. Karl Alexander Heufer # Univ.-Prof. Dr.-Ing. # High Pressure Gas Dynamics # None # None  
+18. Bernhard Hoffschmidt # Univ.-Prof. Dr.-Ing. # Solar Research # None # None  
+19. Carlo Holly # Univ.-Prof. Dr. rer. nat. Dipl.-Ing. # Optical Systems # None # None  
+20. Christian Hopmann # Univ.-Prof. Dr.-Ing. # Plastics Processing # None # None  
+21. Mikhail Itskov # Univ.-Prof. Dr.-Ing. (RUS) # Continuum Mechanics # None # None  
+22. Georg Jacobs # Univ.-Prof. Dr.-Ing. # Machine Elements # None # None  
+23. Pieter Jansens # Univ.-Prof. Dr. Ir. # Chemical Process Engineering # None # None  
+24. Peter Jeschke # Univ.-Prof. Dr.-Ing. # Jet Propulsion # None # None  
+25. Andreas Jupke # Univ.-Prof. Dr.-Ing. # Chemical Engineering # None # None  
+26. Achim Kampker # Univ.-Prof. Dr.-Ing. MBA # Production Engineering of E-Mobility Components # None # None  
+27. Reinhold Kneer # Univ.-Prof. Dr.-Ing. # Heat and Mass Transfer # None # None  
+28. Julia Kowalski # Univ.-Prof. Dr. sc. # Model-based Development # None # None  
+29. Michael Lauster # Univ.-Prof. Dr.-Ing. Dr. rer. pol. habil. # Security Research # None # None  
+30. Jørgen Magnus # Univ.-Prof. Dr.-Ing. # Biochemical Engineering # None # None  
+31. Bernd Markert # Univ.-Prof. Dr.-Ing. Dr. h. c. # General Mechanics # None # None  
+32. Anna Mechler # Univ.-Prof. Dr. rer. nat. # Electrochemical Reaction Engineering # None # None  
+33. Alexander Mitsos # Univ.-Prof. Ph.D. # Process Systems Engineering # None # None  
+34. Dieter Moormann # Univ.-Prof. Dr.-Ing. # Flight System Dynamics # None # None  
+35. Dirk Müller # Univ.-Prof. Dr.-Ing. # Energy Efficient Buildings # None # None  
+36. Ghaleb Natour # Univ.-Prof. Dr. rer. nat. # Joining Technology # None # None  
+37. Verena Nitsch # Univ.-Prof. Dr.-Ing. # Industrial Engineering # None # None  
+38. Stefan Pischinger # Univ.-Prof. Dr.-Ing. (USA) # Thermodynamics # None # None  
+39. Heinz Günter Pitsch # Univ.-Prof. Dr.-Ing. # Combustion Technology # None # None  
+40. Robert Pitz-Paal # Univ.-Prof. Dr.-Ing. # Solar Technology # None # None  
+41. Andreas Peschel # Univ.-Prof. Dr.-Ing. # Hydrogen Storage # None # None  
+42. Klaus Radermacher # Univ.-Prof. Dr.-Ing. # Medical Engineering # None # None  
+43. Uwe Reisgen # Univ.-Prof. Dr.-Ing. # Welding and Joining # None # None  
+44. Christian Sattler # Univ.-Prof. Dr. rer. nat. # Solar Fuel Generation # None # None  
+45. Christian Schindler # Univ.-Prof. Dr.-Ing. # Rail Vehicles # None # None  
+46. Johannes Schleifenbaum # Univ.-Prof. Dr.-Ing. Dipl.-Wirt.-Ing. # Digital Additive Production # None # None  
+47. Robert Schmitt # Univ.-Prof. Dr.-Ing. # Metrology and Quality Management # None # None  
+48. Katharina Schmitz # Univ.-Prof. Dr.-Ing. # Fluid Power Drives # None # None  
+49. Kai-Uwe Schröder # Univ.-Prof. Dr.-Ing. # Structural Mechanics # None # None  
+50. Wolfgang Schröder # Univ.-Prof. Dr.-Ing. # Fluid Mechanics # None # None  
+51. Günther Schuh # Univ.-Prof. Dr.-Ing. # Production Engineering # None # None  
+52. Wolfgang Schulz # Univ.-Prof. Dr. rer. nat. habil. # Non-linear Dynamics # None # None  
+53. Detlef Stolten # Univ.-Prof. Dr.-Ing. # Fuel Cells # None # None  
+54. Eike Stumpf # Univ.-Prof. Dr.-Ing. # Aerospace Engineering # None # None  
+55. Sebastian Trimpe # Univ.-Prof. Dr. # Data Science in Mechanical Engineering # None # None  
+56. Heike Vallery # Univ.-Prof. Dr.-Ing. # Automatic Control # None # None  
+57. Niklas von der Aßen # Univ.-Prof. Dr.-Ing. # Technical Thermodynamics # None # None  
+58. Matthias Wessling # Univ.-Prof. Dr.-Ing. # Chemical Process Engineering # None # None  
+59. Wolfgang Wiechert # Univ.-Prof. Dr. rer. nat. # Computational Systems Biotechnology # None # None  
+60. Manfred Christian Wirsum # Univ.-Prof. Dr.-Ing. habil. # Power Plant Technology # None # None  
