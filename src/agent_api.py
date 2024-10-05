@@ -15,7 +15,7 @@ sys.path.append("./utils")
 
 # Import custom modules
 from gpt_api import GPTclient
-from compute_embedding import EmbeddingModel
+#from compute_embedding import EmbeddingModel
 
 # 配置日志系统
 logging.basicConfig(level=logging.INFO)
@@ -103,7 +103,7 @@ class AgentAPI(GPTclient):
                 content_str = "No data"
 
             content_str = user_query + content_str
-            response = self.get_response(content_str)
+            response = self.get_response_rank(content_str)
 
         except ValueError:
             response = "Please use 'min-max' format."

@@ -116,6 +116,8 @@ def run_agent_api_streamlit():
                     response = agent_api.exec_code(generated_code)
                 else:
                     response = generated_code
+                    st.chat_message("assistant").write(response)
+                    st.session_state.messages.append({"role": "assistant", "content": response})
             else:
                 response = "Sorry, I couldn't generate a response for that query. Please try again."
         except Exception as e:

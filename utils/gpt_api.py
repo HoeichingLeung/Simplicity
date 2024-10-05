@@ -82,6 +82,35 @@ class GPTclient:
             print(f"Error occurred: {e}")
             return ""
 
+    def get_response_rank(self, content: str) -> str:
+        try:
+            # 调用API
+            chat_completion = self.client.chat.completions.create(
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a helpful assistant. When asked about a university's rank, respond with the university's name followed by 'RANK:' and the rank number.",
+                    },
+                    {
+                        "role": "user",
+                        "content": "Please provide the ranking for Delft University of Technology.",
+                    },
+                    {
+                        "role": "assistant",
+                        "content": "Sure, here is the rank of the university: Delft University of Technology RANK: [Rank Number].",
+                    },
+                    {"role": "user", "content": content},
+                ],
+                model="gpt-3.5-turbo-16k",
+            )
+            # 返回结果
+            return chat_completion.choices[0].message.content
+
+        except Exception as e:
+            # 如果请求失败，打印错误并返回空字符串
+            print(f"Error occurred: {e}")
+            return ""
+
     # gpt api used for keywords retrieval of user query
     def get_response_keywords(self, content: str) -> str:
         try:
