@@ -97,7 +97,7 @@ class GPTclient:
                     },
                     {
                         "role": "assistant",
-                        "content": "Sure, here is the rank of the university: Delft University of Technology RANK: [Rank Number].",
+                        "content": "Sure, here is the rank of the university: Delft University of Technology, RANK: [Rank Number].",
                     },
                     {"role": "user", "content": content},
                 ],

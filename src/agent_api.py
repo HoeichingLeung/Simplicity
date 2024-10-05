@@ -15,7 +15,7 @@ sys.path.append("./utils")
 
 # Import custom modules
 from gpt_api import GPTclient
-#from compute_embedding import EmbeddingModel
+from compute_embedding import EmbeddingModel
 
 # 配置日志系统
 logging.basicConfig(level=logging.INFO)
@@ -122,23 +122,30 @@ class AgentAPI(GPTclient):
         all_matches = pd.DataFrame()
 
         for university in university_list or []:
-            # 查找匹配的教授信息
-            matches = self.university_data[
-                (
-                    self.university_data["University"].str.contains(
-                        university, case=False, na=False
-                    )
-                    if university
-                    else True
-                )
-                & (
-                    self.university_data["Research"].str.contains(
-                        research_area, case=False, na=False
-                    )
-                    if research_area
-                    else True
-                )
-            ]
+            # 查找匹配的教授信息  
+            matches = self.university_data[  
+                (  
+                    self.university_data["University"].str.contains(  
+                        university, case=False, na=False  
+                    )  
+                    if university  
+                    else True  
+                )  
+                & (  
+                    (  
+                        self.university_data["Research"].str.contains(  
+                            research_area, case=False, na=False  
+                        )  
+                    )  
+                    | (  
+                        self.university_data["full_research"].str.contains(  
+                            research_area, case=False, na=False  
+                        )  
+                    )  
+                    if research_area  
+                    else True  
+                )  
+            ] # research和full_research一起匹配
 
             if not matches.empty:
                 university_content = matches.apply(
