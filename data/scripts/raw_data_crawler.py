@@ -393,6 +393,6 @@ if __name__ == "__main__":
     paginator.auto_paginate()
     print("所有页码的 URL：", paginator.get_all_urls())
     '''
-    get_basic_data()
-    # get_detailed('D:/llm_python/Simplicity/data/faculty/3_12mechanical_engineering_faculty.csv')
+    # get_basic_data()
+    get_detailed('D:/llm_python/Simplicity/data/faculty/11-1mechanical_engineering_faculty.csv')
     # get_basic_data_with_link()

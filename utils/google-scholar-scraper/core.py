@@ -105,7 +105,7 @@ class GSArticlesSpider(Spider):
         for article in articles:
             print("publication_count = ", self.max_publications_count)
 
-            time.sleep(random.uniform(2, 2.8))  # 休眠 2 到 5 秒之间的随机时间
+            time.sleep(random.uniform(1.1, 2.4))  # 休眠 2 到 5 秒之间的随机时间
             if self.max_publications is not None and self.max_publications_count >= self.max_publications:
                 print('Reached the maximum number of publications to parse.')
                 return  # Exit the function if the limit is reached
@@ -314,7 +314,7 @@ if __name__ == '__main__':
     from pathlib import Path
     import pandas as pd
     import chardet
-    original_file_path = 'D:\llm_python\Simplicity\data\Physics_Semiconductor or Quantum Computation or Quantum Optics_completed.csv'  # 替换为你的CSV文件路径
+    original_file_path = 'D:\llm_python\Simplicity\data\CS_AI.csv'  # 替换为你的CSV文件路径
     # 检测文件编码
     with open(original_file_path, 'rb') as f:
         result = chardet.detect(f.read())
@@ -325,16 +325,16 @@ if __name__ == '__main__':
     df = pd.read_csv(original_file_path, encoding=result['encoding'])
 
     # 定义每个子文件的行数
-    chunk_size = 10
+    chunk_size = 20
 
-    # 遍历数据帧并分割成多个文件
-    for i in range(0, len(df), chunk_size):
-        chunk = df.iloc[i:i + chunk_size]
-        chunk.to_csv(f'D:/llm_python/Simplicity/data/split/part_{i // chunk_size}.csv', index=False)
+    ## 遍历数据帧并分割成多个文件
+    # for i in range(0, len(df), chunk_size):
+    #     chunk = df.iloc[i:i + chunk_size]
+    #     chunk.to_csv(f'D:/llm_python/Simplicity/data/txt_to_embed/split_pub_cs_ai/part_{i // chunk_size}.csv', index=False)
 
 
     # 列出所有分割的 CSV 文件路径
-    directory_path = 'D:/llm_python/Simplicity/data/split/'
+    directory_path = 'D:/llm_python/Simplicity/data/txt_to_embed/split_pub_cs_ai/'
     files = [os.path.join(directory_path, file) for file in os.listdir(directory_path) if file.startswith('part_')]
 
     for file_path in files:
@@ -353,7 +353,7 @@ if __name__ == '__main__':
     final_df = pd.concat(df_list, ignore_index=True)
 
     # 保存合并后的最终 CSV 文件
-    final_df.to_csv('D:/llm_python/Simplicity/data/Updated_Physics_Semiconductor_or_Quantum_Computation_or_Quantum_Optics_completed.csv',
+    final_df.to_csv('D:/llm_python/Simplicity/data/Updated_CS_AI_completed.csv',
                     index=False)
 
 
