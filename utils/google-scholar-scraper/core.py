@@ -314,7 +314,16 @@ if __name__ == '__main__':
     from pathlib import Path
     import pandas as pd
     import chardet
-    original_file_path = 'D:\llm_python\Simplicity\data\CS_AI.csv'  # 替换为你的CSV文件路径
+    import os
+    '''相对路径大法^_^'''
+    # 获取当前脚本所在的目录
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # 获取上一级目录
+    parent_dir = os.path.dirname(current_dir)
+    # 获取再上一级目录
+    grandparent_dir = os.path.dirname(parent_dir)
+    # 拼接相对路径
+    original_file_path = os.path.join(grandparent_dir, 'data\\faculty\ME_faculty.csv')# CSV文件路径
     # 检测文件编码
     with open(original_file_path, 'rb') as f:
         result = chardet.detect(f.read())
@@ -327,14 +336,14 @@ if __name__ == '__main__':
     # 定义每个子文件的行数
     chunk_size = 20
 
-    ## 遍历数据帧并分割成多个文件
-    # for i in range(0, len(df), chunk_size):
-    #     chunk = df.iloc[i:i + chunk_size]
-    #     chunk.to_csv(f'D:/llm_python/Simplicity/data/txt_to_embed/split_pub_cs_ai/part_{i // chunk_size}.csv', index=False)
-
+    # 遍历数据帧并分割成多个文件
+    for i in range(0, len(df), chunk_size):
+        chunk = df.iloc[i:i + chunk_size]
+        chunk.to_csv(os.path.join(grandparent_dir, f'./data/txt_to_embed/split_pub_me/part_{i // chunk_size}.csv'), index=False)
+    print("csv_series:", os.path.join(grandparent_dir, './data/txt_to_embed/split_pub_me/part_{i}.csv'))
 
     # 列出所有分割的 CSV 文件路径
-    directory_path = 'D:/llm_python/Simplicity/data/txt_to_embed/split_pub_cs_ai/'
+    directory_path = os.path.join(grandparent_dir,'./data/txt_to_embed/split_pub_me/')
     files = [os.path.join(directory_path, file) for file in os.listdir(directory_path) if file.startswith('part_')]
 
     for file_path in files:
@@ -353,7 +362,7 @@ if __name__ == '__main__':
     final_df = pd.concat(df_list, ignore_index=True)
 
     # 保存合并后的最终 CSV 文件
-    final_df.to_csv('D:/llm_python/Simplicity/data/Updated_CS_AI_completed.csv',
+    final_df.to_csv(os.path.join(grandparent_dir,'./data/Updated_ME_completed.csv'),
                     index=False)
 
 
