@@ -1,0 +1,154 @@
+1. Sinan Acikgoz # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/sinan-acikgoz/ # sinan.acikgoz@eng.ox.ac.uk
+1. Karel Adamek # Departmental Lecturer # None # https://eng.ox.ac.uk/people/karel-adamek/ # karel.adamek@eng.ox.ac.uk
+1. Orestis Adamidis # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/orestis-adamidis/ # orestis.adamidis@eng.ox.ac.uk
+1. Thomas Adcock # Professor of Engineering Science # None # https://eng.ox.ac.uk/people/thomas-adcock/ # thomas.adcock@eng.ox.ac.uk
+1. Kawsar Ali # Departmental Lecturer in Medical Power Electronics # Works in a broad range of power electronics applications, including energy harvesting for IoT, power conditioning for datacenters and electric vehicles, and pulsed-power processing for biomedical applications # https://eng.ox.ac.uk/people/kawsar-ali/ # kawsar.ali@eng.ox.ac.uk
+1. Natalia Ares # Associate Professor # Experiments to advance the development of quantum technologies, focusing on artificial intelligence for quantum device control and quantum thermodynamics # https://eng.ox.ac.uk/people/natalia-ares/ # natalia.ares@eng.ox.ac.uk
+1. Daniel Armanios # BT Professor of Major Programme Management # Research integrates civil engineering and organisational theory to understand infrastructure management amidst complexity. Current projects include using broadband and bridge networks as 'social sensors' and studying the impact of political turmoil on entrepreneurship. # https://www.sbs.ox.ac.uk/about-us/people/daniel-armanios # daniel.armanios@sbs.ox.ac.uk
+1. Wes Armour # Professor of Scientific Computing # None # https://eng.ox.ac.uk/people/wes-armour/ # wes.armour@oerc.ox.ac.uk
+1. Amro Awad # Associate Professor # Electrical Engineering (Focus on Digital Technologies) # https://eng.ox.ac.uk/people/amro-awad/ # amro.awad@eng.ox.ac.uk
+1. Marko Bacic # Professor of Engineering Science # Control Systems and Gas Turbine Functionality # https://eng.ox.ac.uk/people/marko-bacic/ # marko.bacic@eng.ox.ac.uk
+1. Rene Bañares-Alcántara # Reader in Engineering Science # None # https://eng.ox.ac.uk/people/rene-banares-alcantara/ # rene.banares@eng.ox.ac.uk
+1. Abhirup Banerjee # Royal Society University Research Fellow # Multimodal Reconstruction of Digital Anatomy for Real-Time Clinical Interventions, Biomedical Engineering, Computer Science, Machine Learning, AI # https://eng.ox.ac.uk/people/abhirup-banerjee/ # abhirup.banerjee@eng.ox.ac.uk
+1. Paul Beard # Associate Professor # None # https://eng.ox.ac.uk/people/paul-beard/ # paul.beard@eng.ox.ac.uk
+1. Martin Booth # Statutory Professor of Electrical Engineering # Development of new dynamic optical methods for applications ranging from biomedical imaging to laser-based manufacturing # https://eng.ox.ac.uk/people/martin-booth/ # martin.booth@eng.ox.ac.uk
+1. Laurence Brassart # Associate Professor # Development of original constitutive models and micromechanical approaches for engineering materials, including polymers, soft materials, and energy materials # https://eng.ox.ac.uk/people/laurence-brassart/ # laurence.brassart@eng.ox.ac.uk
+1. Daniel Bulte # Associate Professor # Analyzing MRI data to create models of vascular physiology and metabolism # https://ibme.ox.ac.uk/person/daniel-bulte/ # daniel.bulte@eng.ox.ac.uk
+1. Harvey Burd # Professor of Engineering Science # Structural mechanics, soil mechanics, geotechnical engineering # https://eng.ox.ac.uk/people/harvey-burd/ # harvey.burd@eng.ox.ac.uk
+1. Byron Byrne # Professor of Engineering Science # Advanced Geotechnical Design, Offshore Renewable Energy # https://eng.ox.ac.uk/people/byron-byrne/ # byron.byrne@eng.ox.ac.uk
+1. Jan-Peter Calliess # Senior Research Fellow # Machine learning, adaptive decision making, uncertainty quantification, finance, control # https://www.robots.ox.ac.uk/~jan/ # jan “at” robots “dot”ox”dot” ac “dot” uk
+1. Mark Cannon # Associate Professor # None # https://eng.ox.ac.uk/people/mark-cannon/ # mark.cannon@eng.ox.ac.uk
+1. Robert Carlisle # Professor of Biomedical Engineering # Systemic delivery of anti-cancer agents, development of novel gene delivery systems and liposomal agents # https://ibme.ox.ac.uk/person/robert-carlisle/ # robert.carlisle@eng.ox.ac.uk
+1. Alfonso A. Castrejon-Pita # Professor in Fluid Mechanics # Experimental and theoretical studies of synchronization phenomena in fluids # https://eng.ox.ac.uk/people/alfonso-a-castrejon-pita/ # alfonso.castrejon-pita@eng.ox.ac.uk
+1. Kam Chana # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/kam-chana/ # kam.chana@eng.ox.ac.uk
+1. Manolis Chatzis # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/manolis-chatzis/ # manolis.chatzis@eng.ox.ac.uk
+1. Min Chen # Professor of Scientific Visualisation # Data visualization, data science, computer graphics, computer vision, human-computer interaction # https://eng.ox.ac.uk/people/min-chen/ # min.chen@oerc.ox.ac.uk
+1. Robin Cleveland # Professor of Engineering Science # Biomechanical Modelling of Porcine Kidney, Shock wave lithotripsy # https://ibme.ox.ac.uk/person/robin-cleveland/ # robin.cleveland@eng.ox.ac.uk
+1. David Clifton # Royal Academy of Engineering Chair of Clinical Machine Learning # AI for Healthcare # https://eng.ox.ac.uk/people/david-clifton/ # davidc@robots.ox.ac.uk
+1. Alan Cocks # Emeritus Professor # Micromechanical and computational modelling of the deformation and failure processes of engineering materials, particularly at elevated temperatures # https://eng.ox.ac.uk/people/alan-cocks/ # alan.cocks@eng.ox.ac.uk
+1. Steve Collins # Associate Professor of Engineering Science # Improving the performance of receivers for Visible Light Communications # https://eng.ox.ac.uk/people/steve-collins/ # steve.collins@eng.ox.ac.uk
+1. Justin Coon # Professor of Engineering Science # Information theory and digital/wireless communications # https://eng.ox.ac.uk/people/justin-coon/ # justin.coon@eng.ox.ac.uk
+1. John Coull # Associate Professor # Turbine aerodynamics, heat transfer, fluid flow, Micro-Electro-Mechanical-Sensors (MEMS) # https://eng.ox.ac.uk/people/john-coull/ # john.coull@eng.ox.ac.uk
+1. Constantin Coussios # Director, Institute of Biomedical Engineering, Statutory Chair of Biomedical Engineering, Professorial Fellow of Magdalen College # Drug delivery and therapeutic devices # https://ibme.ox.ac.uk/person/constantin-coussios/ # constantin.coussios@eng.ox.ac.uk
+1. Zhanfeng Cui # Donald Pollock Professor of Chemical Engineering # None # https://ibme.ox.ac.uk/person/zhanfeng-cui # zhanfeng.cui@eng.ox.ac.uk
+1. Martin Davy # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/martin-davy/ # martin.davy@eng.ox.ac.uk
+1. Daniele De Martini # Departmental Lecturer in Mobile Robotics # None # https://eng.ox.ac.uk/people/daniele-de-martini/ # daniele.demartini@eng.ox.ac.uk
+1. David De Roure # Professor of e-Research # Research at the intersection of music, maths, machines and AI, focusing on digital scholarship and innovation in knowledge infrastructure # https://eng.ox.ac.uk/people/david-de-roure/ # david.deroure@oerc.ox.ac.uk
+1. Prof. Tim Denison # Royal Academy of Engineering Chair in Emerging Technologies, MRC Investigator # None # https://www.mrcbndu.ox.ac.uk/people/prof-tim-denison # timothy.denison@bndu.ox.ac.uk
+1. Luca Di Mare # Associate Professor of Engineering Science # Computational modelling of gas turbines # https://eng.ox.ac.uk/people/luca-di-mare/ # luca.dimare@eng.ox.ac.uk
+1. Luke Doherty # Departmental Lecturer in High Speed Flows # None # https://eng.ox.ac.uk/people/luke-doherty/ # luke.doherty@eng.ox.ac.uk
+1. Xiaowen Dong # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/xiaowen-dong/ # xdong@robots.ox.ac.uk
+1. Stephen Duncan # Professor of Engineering Science # Control Systems # https://eng.ox.ac.uk/people/stephen-duncan/ # stephen.duncan@eng.ox.ac.uk
+1. Daniel Eakins # Professor of Engineering Science # Experimental scientist working at the interface of extreme materials science, shock physics, and dynamic measurement science # https://eng.ox.ac.uk/people/daniel-eakins/ # daniel.eakins@eng.ox.ac.uk
+1. Emma Edwards # Career Development Fellow # Optimization of the geometry of axisymmetric point absorber wave energy converters; Floating Offshore Wind Turbines # https://eng.ox.ac.uk/people/emma-edwards/ # emma.edwards@eng.ox.ac.uk
+1. Steve Elston # Professor of Engineering Science # None # https://eng.ox.ac.uk/people/steve-elston/ # steve.elston@eng.ox.ac.uk
+1. Maurice Fallon # Associate Professor # Develops algorithms for navigating quadrupeds and motion planning algorithms # https://eng.ox.ac.uk/people/maurice-fallon/ # mfallon@robots.ox.ac.uk
+1. Jakob Foerster # Professor # AI agents learning to cooperate and communicate, zero-shot coordination problem # https://eng.ox.ac.uk/people/jakob-foerster/ # jakob.foerster@eng.ox.ac.uk
+1. David Gillespie # Associate Professor of Engineering Science # Seals for jet engines, tip clearance control mechanisms, heat exchangers, internal cooling systems # https://eng.ox.ac.uk/people/david-gillespie/ # david.gillespie@eng.ox.ac.uk
+1. Paul Goulart # Professor # High speed optimization and control for embedded systems, data-driven and robust optimization, machine learning # https://users.ox.ac.uk/~engs1373 # paul.goulart@eng.ox.ac.uk
+1. Vicente Grau # Professor of Engineering Science # Biomedical Image Analysis # https://ibme.ox.ac.uk/person/vicente-grau-colomer/ # vicente.grau@eng.ox.ac.uk
+1. Michael Gray # Senior Research Fellow in Clinical Therapeutic Ultrasound # None # https://eng.ox.ac.uk/people/michael-gray/ # michael.gray@eng.ox.ac.uk
+1. Tim Hageman # Departmental Lecturer # Developing novel finite element schemes for multi-physics and multi-scale problems, including hydraulic fracturing processes within ice sheets, hydrogen embrittlement and failure of metals, and corrosion processes. # https://eng.ox.ac.uk/people/tim-hageman/ # tim.hageman@eng.ox.ac.uk
+1. Nick Hankins # Associate Professor of Engineering Science # Research on sustainable engineering processes for clean water acquisition, recycle and reuse # https://eng.ox.ac.uk/people/nick-hankins/ # nick.hankins@eng.ox.ac.uk
+1. Ioannis Havoutis # Departmental Lecturer in Robotics # None # https://eng.ox.ac.uk/people/ioannis-havoutis/ # ioannis@robots.ox.ac.uk
+1. Nick Hawes # Professor of AI and Robotics # Research on AI techniques for intelligent, autonomous robots # https://www.robots.ox.ac.uk/~nickh/ # None
+1. Li He # Statutory Professor of Computational Aerothermal Engineering # Developing unsteady aerodynamic, aeroelastic and aerothermal prediction and design/optimization methods # https://eng.ox.ac.uk/people/li-he/ # li.he@eng.ox.ac.uk
+1. Liang He # Associate Professor # Soft robotics, biosensors, haptic and VR, wearable robotics # https://eng.ox.ac.uk/people/liang-he/ # liang.he@eng.ox.ac.uk
+1. Chao He # College Lecturer # Optical techniques for vectorial beam manipulation, including structured light, structured matter, adaptive optics, and polarization sensing # https://eng.ox.ac.uk/people/chao-he/ # chao.he@eng.ox.ac.uk
+1. João F. Henriques # Research Fellow of the Royal Academy of Engineering # Machine learning, deep learning, computer vision, visual tracking, robotics, AI safety, 3D (NeRFs/splats), optimisation # https://www.robots.ox.ac.uk/~joao/ # None
+1. Manus Henry # Associate Professor # Industrial sensor validation, Coriolis mass flow metering # https://eng.ox.ac.uk/people/manus-henry/ # manus.henry@eng.ox.ac.uk
+1. Tobias Hermann # Departmental Lecturer in Engineering Science # High enthalpy non-equilibrium flows, optical diagnostic techniques # https://eng.ox.ac.uk/people/tobias-hermann/ # tobias.hermann@eng.ox.ac.uk
+1. David Hills # Emeritus Professor # None # https://eng.ox.ac.uk/people/david-hills/ # None
+1. Felix Hofmann # Professor of Engineering Science # None # https://eng.ox.ac.uk/people/felix-hofmann/ # felix.hofmann@eng.ox.ac.uk
+1. David Howey # Professor of Engineering Science # Modelling and managing energy storage systems for electric vehicles and grid/off-grid power systems # https://eng.ox.ac.uk/people/david-howey/ # david.howey@eng.ox.ac.uk
+1. Wei Huang # Professor of Biological Engineering # Synthetic biology, single cell biology and applications # https://eng.ox.ac.uk/people/wei-huang/ # wei.huang@eng.ox.ac.uk
+1. John Huber # Associate Professor of Engineering Science # Research on smart materials for actuators and sensors, mechanics of materials # https://eng.ox.ac.uk/people/john-huber/ # john.huber@eng.ox.ac.uk
+1. Peter Ireland # Professor # Technologies used to cool aero-engines and to decarbonise flight # https://eng.ox.ac.uk/people/peter-ireland/ # peter.ireland@eng.ox.ac.uk
+1. Antoine Jérusalem # Professor of Mechanical Engineering # Computational modelling of materials and structures, multiphysics of neurons and brain, Ultrasound Neuromodulation, TBI # https://eng.ox.ac.uk/people/antoine-jerusalem/ # None
+1. Konstantinos Kamnitsas # Associate Professor of Engineering Science # Machine-Learning (ML) and deep neural networks for medical image analysis # https://ibme.ox.ac.uk/person/konstantinos-kamnitsas/ # konstantinos.kamnitsas@eng.ox.ac.uk
+1. Alexander M. Korsunsky # Professor of Engineering Science # Integrity and reliability of engineered and natural structures, fracture mechanics, elasticity # http://www.korsunsky.org/?team=professor-alexander-korsunsky # alexander.korsunsky@eng.ox.ac.uk
+1. James Kwan # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/james-kwan/ # james.kwan@eng.ox.ac.uk
+1. Iro Laina # Departmental Lecturer in Computer Vision # Developing perception systems for understanding images, videos, and the 3D world via unsupervised and language-supervised learning # https://eng.ox.ac.uk/people/iro-laina # iro.laina@eng.ox.ac.uk
+1. Felix Leach # Associate Professor of Engineering Science # Thermal propulsion systems, air quality # https://eng.ox.ac.uk/people/felix-leach/ # felix.leach@eng.ox.ac.uk
+1. Dong (Lilly) Liu # Associate Professor # None # https://eng.ox.ac.uk/people/dong-lilly-liu/ # dong.liu@eng.ox.ac.uk
+1. Jesus Lizana # Associate Professor # Research on Zero-Carbon Space Heating and Cooling # https://eng.ox.ac.uk/people/jesus-lizana/ # jesus.lizana@eng.ox.ac.uk
+1. Huiqi (Yvonne) Lu # Associate Member of Faculty # Clinical machine learning, sensor signal processing, wearable devices for patient monitoring, digital health innovations for global women’s health # https://eng.ox.ac.uk/people/huiqi-yvonne-lu/ # yvonne.lu@eng.ox.ac.uk
+1. Chris MacMinn # Professor of Engineering Science # Specialization in fluid mechanics, geological carbon dioxide storage, poromechanics of soft granular materials # https://eng.ox.ac.uk/people/chris-macminn/ # christopher.macminn@eng.ox.ac.uk
+1. Perla Maiolino # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/perla-maiolino/ # perla.maiolino@eng.ox.ac.uk
+1. Kostas Margellos # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/kostas-margellos/ # kostas.margellos@eng.ox.ac.uk
+1. Chris Martin # Professor # None # https://eng.ox.ac.uk/people/chris-martin/ # chris.martin@eng.ox.ac.uk
+1. Emilio Martínez Pañeda # Associate Professor # None # https://www.empaneda.com # emilio.martinez-paneda@eng.ox.ac.uk
+1. Malcolm McCulloch # Professor of Energy Systems # Research interests include domestic energy sector, demand side management technologies, electric vehicle power trains, renewable generation, and energy for development. # https://eng.ox.ac.uk/people/malcolm-mcculloch/ # malcolm.mcculloch@eng.ox.ac.uk
+1. Matthew McGilvray # Associate Professor of Engineering Science # Hypersonics, Particle Deposition in Gas Turbines # https://eng.ox.ac.uk/people/matthew-mcgilvray/ # matthew.mcgilvray@eng.ox.ac.uk
+1. Charles Monroe # Professor of Engineering Science # Development and modeling of electrochemical devices for energy storage and conversion # https://eng.ox.ac.uk/people/charles-monroe/ # charles.monroe@eng.ox.ac.uk
+1. Stephen Morris # Professor of Engineering Science # Soft Matter Photonics Research Group, optoelectronic technologies based on soft materials # https://eng.ox.ac.uk/people/stephen-morris/ # stephen.morris@eng.ox.ac.uk
+1. Thomas Morstyn # Associate Professor in Power Systems # Design of control systems and markets for distributed power system flexibility # https://eng.ox.ac.uk/people/thomas-morstyn/ # thomas.morstyn@eng.ox.ac.uk
+1. Wouter Mostert # Associate Professor # Hydrodynamic stability of magnetohydrodynamic implosions, breaking ocean waves # https://eng.ox.ac.uk/people/wouter-mostert/ # wouter.mostert@eng.ox.ac.uk
+1. Malavika Nair # Associate Professor of Biomaterials # Multiscale characterisation of ice, collagen, and ice-templated collagen scaffolds for tissue engineering; Electroactive biomaterials for tissue regeneration # https://eng.ox.ac.uk/people/malavika-nair/ # malavika.nair@eng.ox.ac.uk
+1. Vincenzo Nardelli # Departmental Lecturer in Geotechnical Engineering # None # https://eng.ox.ac.uk/people/vincenzo-nardelli/ # vincenzo.nardelli@eng.ox.ac.uk
+1. Paul Newman # BP Professor of Information Engineering # None # https://eng.ox.ac.uk/people/paul-newman/ # pmn@robots.ox.ac.uk
+1. Binjian Nie # Departmental Lecturer in Chemical Engineering # Energy conversion and management using thermal, chemical, and thermochemical energy storage methodologies # https://eng.ox.ac.uk/people/binjian-nie/ # binjian.nie@eng.ox.ac.uk
+1. Alison Noble # Technikos Professor of Biomedical Engineering # Research interests at the interface of AI with computer vision and clinical medicine, particularly in ultrasound applications # https://ibme.ox.ac.uk/person/alison-noble/ # alison.noble@eng.ox.ac.uk
+1. Dominic O'Brien # Professor of Engineering Science # Optical communications, Quantum Computing and Simulation # https://eng.ox.ac.uk/people/dominic-obrien/ # dominic.obrien@eng.ox.ac.uk
+1. Reece Oosterbeek # Associate Professor of Engineering Science # Developing new materials for medical implants, novel mechanical metamaterials, bioresorbable composites # https://eng.ox.ac.uk/people/reece-oosterbeek/ # reece.oosterbeek@eng.ox.ac.uk
+1. Michael A Osborne # Professor of Machine Learning # Bayesian optimisation, Gaussian processes, Bayesian quadrature, Probabilistic Numerics, AI safety, AI Governance # https://www.robots.ox.ac.uk/~mosb # mosb@robots.ox.ac.uk
+1. Cheng Ouyang # Departmental Lecturer # Data-efficient, robust, and user-friendly machine learning approaches for medical image/signal computing # https://eng.ox.ac.uk/people/cheng-ouyang/ # cheng.ouyang@eng.ox.ac.uk
+1. Yangchen Pan # Departmental Lecturer in Machine Learning # Sample and computation efficient generalization, distribution shift, adversarial/robust learning, domain adaptation, offline/online RL, continual learning # https://eng.ox.ac.uk/people/yangchen-pan/ # yangchen.pan@eng.ox.ac.uk
+1. Antonis Papachristodoulou # Professor of Control Engineering # None # https://eng.ox.ac.uk/people/antonis-papachristodoulou/ # antonis@eng.ox.ac.uk
+1. Nik Petrinic # Professor of Engineering Science # Research on impact and shock mechanics, materials science, and engineering applications # https://eng.ox.ac.uk/people/nik-petrinic/ # nik.petrinic@eng.ox.ac.uk
+1. Janet B. Pierrehumbert # Professor of Language Modelling # None # https://eng.ox.ac.uk/people/janet-pierrehumbert/ # janet.pierrehumbert@oerc.ox.ac.uk
+1. Ingmar Posner # Professor of Engineering Science (Applied Artificial Intelligence) # None # https://eng.ox.ac.uk/people/ingmar-posner/ # ingmar@robots.ox.ac.uk
+1. Thomas Povey # Professor of Engineering Science # Research in turbomachinery, heat transfer, and aerothermal problems # https://eng.ox.ac.uk/people/thomas-povey/ # thomas.povey@eng.ox.ac.uk
+1. Victor Adrian Prisacariu # Associate Professor # Computer vision methods for real-time (semantic) AR on mobile and wearable platforms, 3D reconstruction, motion analysis # https://www.robots.ox.ac.uk/~victor # victor_AT_robots.ox.ac.uk
+1. Christopher Proctor # Associate Professor in Bioelectronics # None # https://eng.ox.ac.uk/people/christopher-proctor/ # christopher.proctor@eng.ox.ac.uk
+1. Roger Reed # Professor of Materials and Solid Mechanics # The materials science and engineering of structural materials, particularly those for high temperature application; design, structure & constitution, mechanical behaviour and processing of materials; numerical analysis; microstructural instabilities # https://www.materials.ox.ac.uk/peoplepages/reed.html # roger.reed@materials.ox.ac.uk
+1. Jens Rittscher # Professor of Engineering Science # Enhancing understanding of complex biological processes through image data analysis # https://www.ndm.ox.ac.uk/team/jens-rittscher # jens.rittscher@eng.ox.ac.uk
+1. Stephen Roberts # Professor of Machine Learning # Theory and application of machine learning for data analysis, especially sequential data and dynamical systems. # https://www.robots.ox.ac.uk/~sjrob # sjrob@robots.ox.ac.uk
+1. Philippe Rocca-Serra # Group Coordinator and Co-Investigator # None # https://eng.ox.ac.uk/people/philippe-rocca-serra/ # philippe.rocca-serra@oerc.ox.ac.uk
+1. Dan Rogers # Associate Professor of Engineering Science # Electrical power conversion and power systems, including power electronics, energy storage, microgrids and smart grids # https://eng.ox.ac.uk/people/dan-rogers/ # dan.rogers@eng.ox.ac.uk
+1. Budimir Rosic # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/budimir-rosic/ # budimir.rosic@eng.ox.ac.uk
+1. Barbara Rossi # Associate Professor of Engineering Science # Sustainable Metal Structures, Structural Behaviour of Metallic Structures # https://eng.ox.ac.uk/people/barbara-rossi/ # barbara.rossi@new.ox.ac.uk
+1. Ronald A Roy # Professor of Mechanical Engineering # None # https://eng.ox.ac.uk/people/ronald-roy/ # ronald.roy@eng.ox.ac.uk
+1. Patrick Salter # Departmental Lecturer # Photonic Engineering, short pulse laser fabrication # https://eng.ox.ac.uk/people/patrick-salter/ # patrick.salter@eng.ox.ac.uk
+1. Susanna-Assunta Sansone # Professor of Data Readiness # Data interoperability, reproducibility, research integrity # https://eng.ox.ac.uk/people/susanna-assunta-sansone/ # susanna-assunta.sansone@oerc.ox.ac.uk
+1. Paulo Savaget # Associate Professor of Engineering (Engineering Entrepreneurship) # Entrepreneurship, Sustainable development, Systems change, Innovation management # https://www.sbs.ox.ac.uk/about-us/people/paulo-savaget # paulo.savaget@sbs.ox.ac.uk
+1. Ekaterina Shamonina # Professor of Engineering Science # None # https://eng.ox.ac.uk/people/ekaterina-shamonina/ # ekaterina.shamonina@eng.ox.ac.uk
+1. Steve Sheard # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/steve-sheard/ # steve.sheard@eng.ox.ac.uk
+1. Paul Shearing # Statutory Professor in Sustainable Energy Engineering # None # https://eng.ox.ac.uk/people/paul-shearing/ # paul.shearing@eng.ox.ac.uk
+1. Clive Siviour # Professor of Materials Engineering # None # https://eng.ox.ac.uk/people/clive-siviour/ # clive.siviour@eng.ox.ac.uk
+1. Amanda Smyth # Departmental Lecturer # None # https://eng.ox.ac.uk/people/amanda-smyth/ # amanda.smyth@eng.ox.ac.uk
+1. Sarah Sparrow # Associate Professor # Data driven coupling of climate model output to impact models # https://eng.ox.ac.uk/people/sarah-sparrow/ # sarah.sparrow@oerc.ox.ac.uk
+1. Paul Stavrinou # Associate Professor of Engineering Science # Photonics # https://eng.ox.ac.uk/people/paul-stavrinou/ # paul.stavrinou@eng.ox.ac.uk
+1. Harrison Steel # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/harrison-steel/ # harrison.steel@eng.ox.ac.uk
+1. Chris Stevens # Associate Professor of Engineering Science # Communications Engineering, Metamaterials, UWB communications, RF tags for insects and birds # https://eng.ox.ac.uk/people/chris-stevens/ # chris.stevens@eng.ox.ac.uk
+1. Richard Stone # Emeritus Professor # None # https://eng.ox.ac.uk/people/richard-stone/ # richard.stone@eng.ox.ac.uk
+1. Eleanor Stride # Statutory Professor of Biomaterials # Specialises in the fabrication of nano and microscale devices for targeted drug delivery # https://eng.ox.ac.uk/people/eleanor-stride/ # eleanor.stride@eng.ox.ac.uk
+1. Jin-Chong Tan # Professor of Engineering Science (Nanoscale Engineering) # None # https://eng.ox.ac.uk/people/jin-chong-tan/ # jin-chong.tan@eng.ox.ac.uk
+1. Lionel Tarassenko # Professor of Engineering Science # Application of signal processing and machine learning in healthcare # https://eng.ox.ac.uk/people/lionel-tarassenko/ # lionel.tarassenko@eng.ox.ac.uk
+1. Edmund Tarleton # Professor # Materials Modelling for Fusion Energy # https://eng.ox.ac.uk/people/edmund-tarleton/ # edmund.tarleton@eng.ox.ac.uk
+1. Anshul Thakur # Departmental Lecturer in Clinical Machine Learning # Data-efficient deep learning, adversarial attacks, deep learning interpretations, tensor factorization, ML/AI frameworks for biomedical and healthcare applications # https://eng.ox.ac.uk/people/anshul-thakur/ # None
+1. Ian Thompson # Associate Professor of English Education # English pedagogy, school exclusion, initial teacher education, learning, and social justice in education # https://www.education.ox.ac.uk/people/ian-thompson/ # ian.thompson@education.ox.ac.uk
+1. Mark Thompson # Associate Professor in Engineering Science # None # https://eng.ox.ac.uk/people/mark-thompson/ # mark.thompson@eng.ox.ac.uk
+1. Philip Torr # Professor of Engineering Science # Computer Vision and Machine Learning # https://eng.ox.ac.uk/people/philip-torr/ # philip.torr@eng.ox.ac.uk
+1. Anne Trefethen # Professor of Scientific Computing # Research interests include creating accessibility to complex computing systems through high-level languages and multi-touch technology, and extreme computing with a focus on energy-aware algorithms. # https://eng.ox.ac.uk/people/anne-trefethen/ # anne.trefethen@it.ox.ac.uk
+1. Jack Umenberger # Senior Research Fellow # Control theory, optimisation, machine learning, energy systems, robotics, automation # https://eng.ox.ac.uk/people/jack-umenberger/ # jack.umenberger@eng.ox.ac.uk
+1. Andrea Vedaldi # Professor of Computer Vision and Machine Learning # Research in computer vision and machine learning methods for understanding images and videos # https://www.robots.ox.ac.uk/~vedaldi/ # vedaldi@robots.ox.ac.uk
+1. Mauricio Villarroel # Associate Professor of Biomedical Engineering # Research in Digital Health, AI models for physiological monitoring, cardiovascular disease, neurodegenerative diseases, sports injuries # https://eng.ox.ac.uk/people/mauricio-villarroel/ # mauricio.villarroel@eng.ox.ac.uk
+1. Christopher Vogel # Senior Research Associate # None # https://eng.ox.ac.uk/people/christopher-vogel/ # christopher.vogel@eng.ox.ac.uk
+1. Konstantina Vogiatzaki # Associate Professor # Multiscale computational modelling in fluid dynamics, phase change, turbulence, and heat transfer # https://eng.ox.ac.uk/people/konstantina-vogiatzaki/ # konstantina.vogiatzaki@eng.ox.ac.uk
+1. Ryan Walker # DPhil Student # Can Building a Community of Practice Improve Pharmacovigilance in Africa? # https://www.tropicalmedicine.ox.ac.uk/team/ryan-walker # ryan.walker@ndm.ox.ac.uk
+1. David Wallom # Professor of Informatics # Energy and Environmental ICT, Advanced e-infrastructure & Cloud Computing # https://eng.ox.ac.uk/people/david-wallom # david.wallom@oerc.ox.ac.uk
+1. Ed Walsh # Associate Professor of Engineering Science # Boundary layer studies, Multiphase microfluidics, Thermal management, Heat transfer, Energy reduction # https://eng.ox.ac.uk/people/ed-walsh/ # edmond.walsh@bnc.ox.ac.uk
+1. Richard Willden # Professor of Offshore Renewable Energy # None # https://eng.ox.ac.uk/people/richard-willden/ # richard.willden@eng.ox.ac.uk
+1. Martin Williams # Associate Professor in Public Management # Management, policy implementation, political economy focused on Africa # https://www.oxfordmartin.ox.ac.uk/people/martin-williams # info@oxfordmartin.ox.ac.uk
+1. Ben Williams # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/ben-williams/ # ben.williams@eng.ox.ac.uk
+1. Tony Wilson # Tutorial Fellow in Engineering Science # Applied optics, high-resolution optical microscopes, bio-imaging, materials characterisation # https://www.hertford.ox.ac.uk/staff/tony-wilson # None
+1. Aidong Yang # Professor of Engineering Science # None # https://eng.ox.ac.uk/people/aidong-yang/ # aidong.yang@eng.ox.ac.uk
+1. Cathy Ye # Associate Professor of Engineering Science # None # https://eng.ox.ac.uk/people/cathy-ye/ # hua.ye@eng.ox.ac.uk
+1. Zhong You # Professor of Engineering Science # None # https://eng.ox.ac.uk/people/zhong-you # zhong.you@eng.ox.ac.uk
+1. Amy Zavatsky # Reader in Engineering Science # None # https://eng.ox.ac.uk/people/amy-zavatsky/ # amy.zavatsky@eng.ox.ac.uk
+1. Tingting Zhu # Associate Professor in AI for Digital Health # None # https://eng.ox.ac.uk/people/tingting-zhu/ # tingting.zhu@eng.ox.ac.uk
+1. Noa Zilberman # Associate Professor # Sustainable computing infrastructure, data systems, networked-systems architectures, in-network computing and in-network machine learning # https://eng.ox.ac.uk/people/noa-zilberman/ # noa.zilberman@eng.ox.ac.uk
+1. Federico Zilic de Arcos # Departmental Lecturer in Civil Engineering Fluid Mechanics # None # https://eng.ox.ac.uk/people/federico-zilic-de-arcos/ # federico.zilic@eng.ox.ac.uk
+1. Andrew Zisserman # Professor of Computer Vision Engineering # None # https://www.robots.ox.ac.uk/~az # None
+1. Stefan Zohren # Research Associate # Applied machine learning in finance, deep learning, reinforcement learning, network and NLP approaches, quantum computing # https://www.oii.ox.ac.uk/people/profiles/stefan-zohren # stefan.zohren@eng.ox.ac.uk
