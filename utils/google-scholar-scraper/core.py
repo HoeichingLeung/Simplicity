@@ -307,6 +307,51 @@ def process_publications(_dataframe):
     return df
 
 
+def process_publications_single(row):
+
+    prof_name = row['Faculty']
+    university_name = row['University']
+
+    # Define parameters for the search
+    params = {
+        'keywords': f'{prof_name} {university_name}',  # Change keywords as needed
+        'start_year': 2014,              # Start year for the search
+        'end_year': 2024,                # End year for the search
+        'languages': ['en'],             # Language(s) for the search
+    }
+
+    # Choose the spider based on what you want to search
+    gs_spider = GSArticlesSpider()  # Use GSCaseLawSpider() or GSProfilesSpider() for different searches
+
+    # Set up the spider with the given parameters
+    gs_spider.setup(**params)
+    gs_spider.set_max_publications(10)  # Set the maximum number of publications to parse
+
+    # Fetch the results
+    results = pd.DataFrame(gs_spider.fetch())
+
+    # Check and save results
+    if results.empty:
+        print('No results found. Try again later or change your IP address.')
+    else:
+        results.sort_values('citations no.', ascending=False, inplace=True)
+
+    '''
+    results转成str写到csv最后一列publication
+    '''
+
+    if results.empty:
+        print('No results found. Try again later or change your IP address.')
+        result_str = ''
+    else:
+        results.sort_values('citations no.', ascending=False, inplace=True)
+
+        # string into column 'publications'
+        result_str = results.apply(lambda x: f"Title: {x['title']}, Authors: {x['authors']}, Year: {x['year']}, Source: {x['source']}", axis=1).str.cat(sep=' | ')
+
+    return result_str
+
+
 if __name__ == '__main__':
     import os
     import sys
@@ -316,54 +361,89 @@ if __name__ == '__main__':
     import chardet
     import os
     '''相对路径大法^_^'''
-    # 获取当前脚本所在的目录
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    # 获取上一级目录
-    parent_dir = os.path.dirname(current_dir)
-    # 获取再上一级目录
-    grandparent_dir = os.path.dirname(parent_dir)
-    # 拼接相对路径
-    original_file_path = os.path.join(grandparent_dir, 'data\\faculty\ME_faculty.csv')# CSV文件路径
-    # 检测文件编码
-    with open(original_file_path, 'rb') as f:
-        result = chardet.detect(f.read())
+    # # 获取当前脚本所在的目录
+    # current_dir = os.path.dirname(os.path.abspath(__file__))
+    # # 获取上一级目录
+    # parent_dir = os.path.dirname(current_dir)
+    # # 获取再上一级目录
+    # grandparent_dir = os.path.dirname(parent_dir)
+    # # 拼接相对路径
+    # original_file_path = os.path.join(grandparent_dir, 'data\\faculty\ME_faculty.csv')# CSV文件路径
+    # # 检测文件编码
+    # with open(original_file_path, 'rb') as f:
+    #     result = chardet.detect(f.read())
+    #
+    # print(f"Detected encoding: {result['encoding']}")  # 输出检测到的编码
+    #
+    # # # # 读取原始 CSV 文件
+    # # df = pd.read_csv(original_file_path, encoding=result['encoding'])
+    # # #
+    # # # # 定义每个子文件的行数
+    # # chunk_size = 20
+    # #
+    # # # 遍历数据帧并分割成多个文件
+    # # for i in range(0, len(df), chunk_size):
+    # #     chunk = df.iloc[i:i + chunk_size]
+    # #     chunk.to_csv(os.path.join(grandparent_dir, f'./data/txt_to_embed/split_pub_me/part_{i // chunk_size}.csv'), index=False)
+    # # print("csv_series:", os.path.join(grandparent_dir, './data/txt_to_embed/split_pub_me/part_{i}.csv'))
+    #
+    # # 列出所有分割的 CSV 文件路径
+    # directory_path = os.path.join(grandparent_dir,'./data/txt_to_embed/split_pub_me/')
+    # files = [os.path.join(directory_path, file) for file in os.listdir(directory_path) if file.startswith('part_')]
+    #
+    # for file_path in files:
+    #     print("file_path_current:", file_path)
+    #     df = pd.read_csv(file_path)
+    #     updated_df = process_publications(df)
+    #     # 保存更新后的数据到新的 CSV 文件
+    #     updated_df.to_csv(file_path.replace('part_', 'updated_part_'), index=False)
+    #
+    # updated_files = [os.path.join(directory_path, file) for file in os.listdir(directory_path) if
+    #                  file.startswith('updated_part_')]
+    # # 合并所有更新的 CSV 文件
+    #
+    # df_list = [pd.read_csv(file) for file in updated_files]
+    # print(df_list)
+    # final_df = pd.concat(df_list, ignore_index=True)
+    #
+    # # 保存合并后的最终 CSV 文件
+    # final_df.to_csv(os.path.join(grandparent_dir,'./data/Updated_ME_completed_2.csv'),
+    #                 index=False)
 
-    print(f"Detected encoding: {result['encoding']}")  # 输出检测到的编码
+    '''fill the blank!!!'''
 
-    # 读取原始 CSV 文件
-    df = pd.read_csv(original_file_path, encoding=result['encoding'])
+    # 读取 CSV 文件
+    csv_file = "D:/llm_python/Simplicity/data/Updated_ME_completed_2.csv"  # 替换为你的CSV文件路径
+    df = pd.read_csv(csv_file)
 
-    # 定义每个子文件的行数
-    chunk_size = 20
+    # 找出 'publication' 列为空的行
+    empty_publication_rows = df[df['publications'].isna()]
 
-    # 遍历数据帧并分割成多个文件
-    for i in range(0, len(df), chunk_size):
-        chunk = df.iloc[i:i + chunk_size]
-        chunk.to_csv(os.path.join(grandparent_dir, f'./data/txt_to_embed/split_pub_me/part_{i // chunk_size}.csv'), index=False)
-    print("csv_series:", os.path.join(grandparent_dir, './data/txt_to_embed/split_pub_me/part_{i}.csv'))
+    # 对每一行进行处理
+    for index, row in empty_publication_rows.iterrows():
+        # 填充的内容可以根据行中的其他列值来确定
+        filled_value = process_publications_single(row)
 
-    # 列出所有分割的 CSV 文件路径
-    directory_path = os.path.join(grandparent_dir,'./data/txt_to_embed/split_pub_me/')
-    files = [os.path.join(directory_path, file) for file in os.listdir(directory_path) if file.startswith('part_')]
+        # 将生成的值填入 'publication' 列
+        df.at[index, 'publications'] = filled_value
 
-    for file_path in files:
-        print("file_path_current:", file_path)
-        df = pd.read_csv(file_path)
-        updated_df = process_publications(df)
-        # 保存更新后的数据到新的 CSV 文件
-        updated_df.to_csv(file_path.replace('part_', 'updated_part_'), index=False)
+    # 保存修改后的CSV文件
+    df.to_csv("D:/llm_python/Simplicity/data/Updated_ME_completed_2_full.csv", index=False)
 
-    updated_files = [os.path.join(directory_path, file) for file in os.listdir(directory_path) if
-                     file.startswith('updated_part_')]
-    # 合并所有更新的 CSV 文件
 
-    df_list = [pd.read_csv(file) for file in updated_files]
-    print(df_list)
-    final_df = pd.concat(df_list, ignore_index=True)
 
-    # 保存合并后的最终 CSV 文件
-    final_df.to_csv(os.path.join(grandparent_dir,'./data/Updated_ME_completed.csv'),
-                    index=False)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     #
