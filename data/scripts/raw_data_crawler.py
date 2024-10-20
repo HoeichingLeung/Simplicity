@@ -377,6 +377,32 @@ def get_basic_data():
 
     print(f"CSV 文件已创建：{csv_file_path}")
 
+def fill_in_blank(csv_file: str, api_key: str):  
+    # 读取CSV文件  
+    df = pd.read_csv(csv_file)  
+
+    # 创建WebSearch实例  
+    web_search = WebSearch(api_key="88a8892a02409063f02a3bb97ac08b36fb213ae7")  
+
+    # 遍历DataFrame，查找Research列为空的行  
+    for index, row in df.iterrows():  
+        if pd.isna(row['Research']):  
+            faculty = row['Faculty']  
+            university = row['University']  
+            research_interest = row['Research interest']  
+
+            # 生成查询字符串  
+            query = f"{faculty} {university} {research_interest}"  
+
+            # 使用WebSearch进行查询  
+            research_link = web_search.get_first_link(query)  
+
+            # 填充Research列  
+            df.at[index, 'Research'] = research_link  
+
+    # 保存更新后的DataFrame到新的CSV文件  
+    df.to_csv('updated_' + csv_file, index=False)  
+  
 
 # 使用示例
 if __name__ == "__main__":
@@ -394,5 +420,21 @@ if __name__ == "__main__":
     print("所有页码的 URL：", paginator.get_all_urls())
     '''
     # get_basic_data()
-    get_detailed('D:/llm_python/Simplicity/data/faculty/11-1mechanical_engineering_faculty.csv')
+    #get_detailed('D:/llm_python/Simplicity/data/faculty/11-1mechanical_engineering_faculty.csv')
     # get_basic_data_with_link()
+    #fill_in_blank('your_file.csv')
+    df = pd.read_csv('D:/Simplicity/data/faculty/ME_faculty.csv')  
+
+    # 创建WebSearch实例  
+    web_search = WebSearch(api_key="88a8892a02409063f02a3bb97ac08b36fb213ae7")  
+ 
+    faculty = 'Greg Offer'
+    university = 'Imperial College London'
+    # 生成查询字符串  
+    query = f"{faculty} {university} homepage"  
+    ans = web_search.search(query)
+    print(ans)
+    # 使用WebSearch进行查询  
+    research_link = web_search.get_first_link(query)  
+    print(research_link)
+

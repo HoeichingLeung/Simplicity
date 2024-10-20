@@ -26,12 +26,12 @@ def load_csv_file(department, subfield=None):
     """根据部门名称和可能的子领域加载对应的CSV文件"""
     department_to_csv = {
         "Physics": "./data/major_data/physics_full.csv",
-        "Mechanical Engineering": "./data/major_data/mechanical_engineering.csv",
+        "Mechanical Engineering": "./data/major_data/Updated_ME_completed.csv",
         "Computer Science": {
-            "AI": "./data/major_data/computer_science_ai.csv",
-            "Systems": "./data/major_data/computer_science_systems.csv",
-            "Theory": "./data/major_data/computer_science_theory.csv",
-            "Interdisciplinary": "./data/major_data/computer_science_interdisciplinary.csv",
+            "AI": "./data/major_data/Updated_CS_AI_completed.csv",
+            #"Systems": "./data/major_data/computer_science_systems.csv",
+            #"Theory": "./data/major_data/computer_science_theory.csv",
+            #"Interdisciplinary": "./data/major_data/computer_science_interdisciplinary.csv",
         },
     }
 
@@ -39,6 +39,24 @@ def load_csv_file(department, subfield=None):
         return department_to_csv.get(department)
     else:
         return department_to_csv.get(department, {}).get(subfield)
+
+def load_embedding(department, subfield=None):
+    """根据部门名称和可能的子领域加载对应的embedding文件"""
+    department_to_embedding = {
+        "Physics": "./data/embeddings/physics",
+        "Mechanical Engineering": "./data/embeddings/ME",
+        "Computer Science": {
+            "AI": "./data/embeddings/CS_AI",
+            #"Systems": "./data/major_data/computer_science_systems.csv",
+            #"Theory": "./data/major_data/computer_science_theory.csv",
+            #"Interdisciplinary": "./data/major_data/computer_science_interdisciplinary.csv",
+        },
+    }
+
+    if subfield is None:
+        return department_to_embedding.get(department)
+    else:
+        return department_to_embedding.get(department, {}).get(subfield) 
 
 
 def run_agent_api_streamlit():
@@ -68,6 +86,7 @@ def run_agent_api_streamlit():
             )
 
         csv_file_path = load_csv_file(department, subfield)
+        embedding_path = load_embedding(department, subfield)
 
         if not csv_file_path:
             st.error("Information for the selected department is not available.")
@@ -95,7 +114,7 @@ def run_agent_api_streamlit():
         st.error("Information for the selected department is not available.")
         return
 
-    agent_api = AgentAPI(api_key, base_url, csv_file_path)
+    agent_api = AgentAPI(api_key, base_url, csv_file_path, embedding_path)
 
     if user_query := st.chat_input("Please input your question:"):
         # 检查消息列表的长度，如果超过15条，则移除最早的一条

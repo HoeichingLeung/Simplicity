@@ -31,16 +31,18 @@ def is_python_code(code):
 
 
 class AgentAPI(GPTclient):
-    def __init__(self, api_key: str, base_url: str, csv_file_path: str):
+    def __init__(self, api_key: str, base_url: str, csv_file_path: str, embedding_path: str):
         """
         Initialize the AgentAPI class.
 
         :param api_key: API Key for authentication
         :param base_url: Base URL for API requests
         :param csv_file_path: Path to the CSV file containing data
+        :param embedding_path: Path to the embedding file
         """
         super().__init__(api_key, base_url)
         self.csv_file_path = csv_file_path
+        self.embedding_path = embedding_path
         try:
             self.university_data = pd.read_csv(self.csv_file_path)
         except FileNotFoundError as e:
@@ -61,12 +63,12 @@ class AgentAPI(GPTclient):
             if not matches.empty:
                 # Extract relevant columns
                 response_content = (
-                    matches[["Website", "Email", "full_research", "publications"]]
+                    matches[["Website", "Email", "full_research", "publications", "Research"]]
                     .apply(
                         lambda row: (
                             f"- Website: {row['Website']}\n"
                             f"- Email: {row['Email']}\n"
-                            f"- Full Research: {row['full_research']}\n"
+                            f"- Full Research: {row['full_research']}, {row['Research']}\n"
                             f"- Publications: {row['publications']}\n"
                         ),
                         axis=1,
@@ -185,72 +187,74 @@ class AgentAPI(GPTclient):
             st.chat_message("assistant").write(response)
             st.session_state.messages.append({"role": "assistant", "content": response})
 
-    def personalized_recommendations(self, user_query: str):
-        model_name = "BCEmbeddingmodel"
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        dilimitor = "###RAG###"
+    def personalized_recommendations(self, user_query: str):  
+        model_name = "BCEmbeddingmodel"  
+        device = "cuda" if torch.cuda.is_available() else "cpu"  
+        dilimitor = "###RAG###"  
+          
+        col_embed_path = "./data/embeddings/column_embeddings.npy"  
+        json_file_path = "data/embeddings/embeddings_files.json"  
+        
+        model = EmbeddingModel(  
+            model_name=model_name,  
+            device=device,  
+            api_key=self.api_key,  
+            base_url=self.base_url,  
+        )  
+        query_embedding = model.get_embeddings([user_query])  
 
-        model = EmbeddingModel(
-            model_name=model_name,
-            device=device,
-            api_key=self.api_key,
-            base_url=self.base_url,
-        )
-        query_embedding = model.get_embeddings([user_query])
+        # Load column name embeddings  
+        column_name_embeddings = np.load(col_embed_path)  
 
-        col_embed_path = "./data/embeddings/column_embeddings.npy"
-        column_name_embeddings = np.load(col_embed_path)
+        # Calculate similarities  
+        similarities = [  
+            cosine_similarity(query_embedding.reshape(1, -1), embedding.reshape(1, -1))[0][0]  
+            for embedding in column_name_embeddings  
+        ]  
 
-        similarities = [
-            cosine_similarity(query_embedding.reshape(1, -1), embedding.reshape(1, -1))[
-                0
-            ][0]
-            for embedding in column_name_embeddings
-        ]
+        max_sim, min_sim = max(similarities), min(similarities)  
+        normalized_similarities = [  
+            (sim - min_sim) / (max_sim - min_sim) for sim in similarities  
+        ]  
 
-        max_sim, min_sim = max(similarities), min(similarities)
-        normalized_similarities = [
-            (sim - min_sim) / (max_sim - min_sim) for sim in similarities
-        ]
+        # Load embedding file paths  
+        with open(json_file_path, "r") as f:  
+            embeddings_files = json.load(f)  
 
-        json_file_path = "data/embeddings/embeddings_files.json"
-        with open(json_file_path, "r") as f:
-            embeddings_files = json.load(f)
+        num_rows = None  
+        scores = np.zeros(num_rows) if num_rows else None  
+        weights = np.array(normalized_similarities)  
+        df = pd.read_csv(self.csv_file_path)  
 
-        num_rows = None
-        scores = np.zeros(num_rows) if num_rows else None
-        weights = np.array(normalized_similarities)
-        df = pd.read_csv(self.csv_file_path)
+        for i, file_name in enumerate(embeddings_files):  
+            file_path = os.path.join(self.embedding_path, file_name)  
 
-        for i, file_name in enumerate(embeddings_files):
-            file_path = os.path.join("./data/embeddings/physics", file_name)
+            if not os.path.exists(file_path):  
+                logging.warning(f"{file_path} does not exist.")  
+                continue  
 
-            if not os.path.exists(file_path):
-                logging.warning(f"{file_path} does not exist.")
-                continue
+            embeddings = np.load(file_path)  
 
-            embeddings = np.load(file_path)
+            if scores is None:  
+                num_rows = embeddings.shape[0]  
+                scores = np.zeros(num_rows)  
 
-            if scores is None:
-                num_rows = embeddings.shape[0]
-                scores = np.zeros(num_rows)
+            similarity_scores = cosine_similarity(embeddings, query_embedding).flatten()  
+            scores += similarity_scores * weights[i]  
 
-            similarity_scores = cosine_similarity(embeddings, query_embedding).flatten()
-            scores += similarity_scores * weights[i]
+        rag_results = []  
+        if scores is not None:  
+            top_3_indices = np.argsort(scores)[-3:][::-1]  
+            rag_results = [  
+                ", ".join(df.iloc[index].astype(str)) for index in top_3_indices  
+            ]  
+        else:  
+            logging.error("Error: No embeddings were loaded.")  
 
-        rag_results = []
-        if scores is not None:
-            top_3_indices = np.argsort(scores)[-3:][::-1]
-            rag_results = [
-                ", ".join(df.iloc[index].astype(str)) for index in top_3_indices
-            ]
-        else:
-            logging.error("Error: No embeddings were loaded.")
+        content = user_query + dilimitor + str(rag_results)  
+        response = self.get_response_psnl(content)  
 
-        content = user_query + dilimitor + str(rag_results)
-        response = self.get_response_psnl(content)
-
-        st.chat_message("assistant").write(response)
+        st.chat_message("assistant").write(response)  
         st.session_state.messages.append({"role": "assistant", "content": response})
 
     def generate_code_for_query(self, user_query, history):
