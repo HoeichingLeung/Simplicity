@@ -8,6 +8,7 @@ import logging
 sys.path.append("./utils")  # 加入路径以便于直接运行
 from gpt_api import GPTclient
 from agent_api import AgentAPI
+from agent_api import log_conversation
 
 # 配置日志记录
 logging.basicConfig(level=logging.INFO)
@@ -29,9 +30,9 @@ def load_csv_file(department, subfield=None):
         "Mechanical Engineering": "./data/major_data/Updated_ME_completed.csv",
         "Computer Science": {
             "AI": "./data/major_data/Updated_CS_AI_completed.csv",
-            #"Systems": "./data/major_data/computer_science_systems.csv",
-            #"Theory": "./data/major_data/computer_science_theory.csv",
-            #"Interdisciplinary": "./data/major_data/computer_science_interdisciplinary.csv",
+            # "Systems": "./data/major_data/computer_science_systems.csv",
+            # "Theory": "./data/major_data/computer_science_theory.csv",
+            # "Interdisciplinary": "./data/major_data/computer_science_interdisciplinary.csv",
         },
     }
 
@@ -40,6 +41,7 @@ def load_csv_file(department, subfield=None):
     else:
         return department_to_csv.get(department, {}).get(subfield)
 
+
 def load_embedding(department, subfield=None):
     """根据部门名称和可能的子领域加载对应的embedding文件"""
     department_to_embedding = {
@@ -47,16 +49,16 @@ def load_embedding(department, subfield=None):
         "Mechanical Engineering": "./data/embeddings/ME",
         "Computer Science": {
             "AI": "./data/embeddings/CS_AI",
-            #"Systems": "./data/major_data/computer_science_systems.csv",
-            #"Theory": "./data/major_data/computer_science_theory.csv",
-            #"Interdisciplinary": "./data/major_data/computer_science_interdisciplinary.csv",
+            # "Systems": "./data/major_data/computer_science_systems.csv",
+            # "Theory": "./data/major_data/computer_science_theory.csv",
+            # "Interdisciplinary": "./data/major_data/computer_science_interdisciplinary.csv",
         },
     }
 
     if subfield is None:
         return department_to_embedding.get(department)
     else:
-        return department_to_embedding.get(department, {}).get(subfield) 
+        return department_to_embedding.get(department, {}).get(subfield)
 
 
 def run_agent_api_streamlit():
@@ -67,6 +69,8 @@ def run_agent_api_streamlit():
     base_url = "https://api.pumpkinaigc.online/v1"
 
     st.title("PhD Application Assistant")
+    # 日志文件路径
+    log_file_path = "./config/conversation_log.json"
 
     # 初始化会话状态的消息
     if "messages" not in st.session_state:
@@ -124,6 +128,12 @@ def run_agent_api_streamlit():
         # 添加用户的查询到消息列表
         st.session_state.messages.append({"role": "user", "content": user_query})
         st.chat_message("user").write(user_query)
+        log_conversation(
+            log_file_path,
+            [
+                {"role": "user", "content": user_query},
+            ],
+        )
 
         try:
             generated_code = agent_api.generate_code_for_query(
@@ -136,7 +146,16 @@ def run_agent_api_streamlit():
                 else:
                     response = generated_code
                     st.chat_message("assistant").write(response)
-                    st.session_state.messages.append({"role": "assistant", "content": response})
+                    log_conversation(
+                        log_file_path,
+                        [
+                            {"role": "assistant", "content": response},
+                        ],
+                    )
+                    st.session_state.messages.append(
+                        {"role": "assistant", "content": response}
+                    )
+
             else:
                 response = "Sorry, I couldn't generate a response for that query. Please try again."
         except Exception as e:
@@ -145,6 +164,7 @@ def run_agent_api_streamlit():
 
         if len(st.session_state.messages) >= 15:
             st.session_state.messages.pop(0)
+
 
 if __name__ == "__main__":
     run_agent_api_streamlit()

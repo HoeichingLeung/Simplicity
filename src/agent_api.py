@@ -21,6 +21,17 @@ from compute_embedding import EmbeddingModel
 logging.basicConfig(level=logging.INFO)
 
 
+def log_conversation(log_file_path, messages):
+    """记录对话到指定的日志文件"""
+    # 确保目录存在
+    os.makedirs(os.path.dirname(log_file_path), exist_ok=True)
+
+    # 打开文件进行追加写入，文件不存在时会自动创建
+    with open(log_file_path, "a") as log_file:
+        for message in messages:
+            log_file.write(json.dumps(message) + "\n")
+
+
 def is_python_code(code):
     """Check if the provided code is a valid Python snippet."""
     try:
@@ -31,7 +42,9 @@ def is_python_code(code):
 
 
 class AgentAPI(GPTclient):
-    def __init__(self, api_key: str, base_url: str, csv_file_path: str, embedding_path: str):
+    def __init__(
+        self, api_key: str, base_url: str, csv_file_path: str, embedding_path: str
+    ):
         """
         Initialize the AgentAPI class.
 
@@ -43,6 +56,7 @@ class AgentAPI(GPTclient):
         super().__init__(api_key, base_url)
         self.csv_file_path = csv_file_path
         self.embedding_path = embedding_path
+        self.log_file_path = "./config/conversation_log.json"
         try:
             self.university_data = pd.read_csv(self.csv_file_path)
         except FileNotFoundError as e:
@@ -51,6 +65,12 @@ class AgentAPI(GPTclient):
             response = "Sorry, the data for this section is temporarily unavailable."
             st.chat_message("assistant").write(response)
             st.session_state.messages.append({"role": "assistant", "content": response})
+            log_conversation(
+                self.log_file_path,
+                [
+                    {"role": "assistant", "content": response},
+                ],
+            )
 
     def query_professors_details(self, professor_name: str, user_query: str) -> None:
         user_query += " Use the provided information to generate a clear and accurate response to the query."
@@ -63,7 +83,15 @@ class AgentAPI(GPTclient):
             if not matches.empty:
                 # Extract relevant columns
                 response_content = (
-                    matches[["Website", "Email", "full_research", "publications", "Research"]]
+                    matches[
+                        [
+                            "Website",
+                            "Email",
+                            "full_research",
+                            "publications",
+                            "Research",
+                        ]
+                    ]
                     .apply(
                         lambda row: (
                             f"- Website: {row['Website']}\n"
@@ -83,6 +111,12 @@ class AgentAPI(GPTclient):
 
             st.chat_message("assistant").write(response)
             st.session_state.messages.append({"role": "assistant", "content": response})
+            log_conversation(
+                self.log_file_path,
+                [
+                    {"role": "assistant", "content": response},
+                ],
+            )
 
         except KeyError as e:
             logging.error(f"Dataframe key error: {e}")
@@ -112,6 +146,12 @@ class AgentAPI(GPTclient):
 
         st.chat_message("assistant").write(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
+        log_conversation(
+            self.log_file_path,
+            [
+                {"role": "assistant", "content": response},
+            ],
+        )
 
         return matches["University"].to_list() if not matches.empty else []
 
@@ -124,30 +164,30 @@ class AgentAPI(GPTclient):
         all_matches = pd.DataFrame()
 
         for university in university_list or []:
-            # 查找匹配的教授信息  
-            matches = self.university_data[  
-                (  
-                    self.university_data["University"].str.contains(  
-                        university, case=False, na=False  
-                    )  
-                    if university  
-                    else True  
-                )  
-                & (  
-                    (  
-                        self.university_data["Research"].str.contains(  
-                            research_area, case=False, na=False  
-                        )  
-                    )  
-                    | (  
-                        self.university_data["full_research"].str.contains(  
-                            research_area, case=False, na=False  
-                        )  
-                    )  
-                    if research_area  
-                    else True  
-                )  
-            ] # research和full_research一起匹配
+            # 查找匹配的教授信息
+            matches = self.university_data[
+                (
+                    self.university_data["University"].str.contains(
+                        university, case=False, na=False
+                    )
+                    if university
+                    else True
+                )
+                & (
+                    (
+                        self.university_data["Research"].str.contains(
+                            research_area, case=False, na=False
+                        )
+                    )
+                    | (
+                        self.university_data["full_research"].str.contains(
+                            research_area, case=False, na=False
+                        )
+                    )
+                    if research_area
+                    else True
+                )
+            ]  # research和full_research一起匹配
 
             if not matches.empty:
                 university_content = matches.apply(
@@ -172,6 +212,12 @@ class AgentAPI(GPTclient):
 
         st.chat_message("assistant").write(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
+        log_conversation(
+            self.log_file_path,
+            [
+                {"role": "assistant", "content": response},
+            ],
+        )
 
         if not all_matches.empty:
             self.university_data = all_matches
@@ -186,76 +232,90 @@ class AgentAPI(GPTclient):
         else:
             st.chat_message("assistant").write(response)
             st.session_state.messages.append({"role": "assistant", "content": response})
+            log_conversation(
+                self.log_file_path,
+                [
+                    {"role": "assistant", "content": response},
+                ],
+            )
 
-    def personalized_recommendations(self, user_query: str):  
-        model_name = "BCEmbeddingmodel"  
-        device = "cuda" if torch.cuda.is_available() else "cpu"  
-        dilimitor = "###RAG###"  
-          
-        col_embed_path = "./data/embeddings/column_embeddings.npy"  
-        json_file_path = "data/embeddings/embeddings_files.json"  
-        
-        model = EmbeddingModel(  
-            model_name=model_name,  
-            device=device,  
-            api_key=self.api_key,  
-            base_url=self.base_url,  
-        )  
-        query_embedding = model.get_embeddings([user_query])  
+    def personalized_recommendations(self, user_query: str):
+        model_name = "BCEmbeddingmodel"
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        dilimitor = "###RAG###"
 
-        # Load column name embeddings  
-        column_name_embeddings = np.load(col_embed_path)  
+        col_embed_path = "./data/embeddings/column_embeddings.npy"
+        json_file_path = "data/embeddings/embeddings_files.json"
 
-        # Calculate similarities  
-        similarities = [  
-            cosine_similarity(query_embedding.reshape(1, -1), embedding.reshape(1, -1))[0][0]  
-            for embedding in column_name_embeddings  
-        ]  
+        model = EmbeddingModel(
+            model_name=model_name,
+            device=device,
+            api_key=self.api_key,
+            base_url=self.base_url,
+        )
+        query_embedding = model.get_embeddings([user_query])
 
-        max_sim, min_sim = max(similarities), min(similarities)  
-        normalized_similarities = [  
-            (sim - min_sim) / (max_sim - min_sim) for sim in similarities  
-        ]  
+        # Load column name embeddings
+        column_name_embeddings = np.load(col_embed_path)
 
-        # Load embedding file paths  
-        with open(json_file_path, "r") as f:  
-            embeddings_files = json.load(f)  
+        # Calculate similarities
+        similarities = [
+            cosine_similarity(query_embedding.reshape(1, -1), embedding.reshape(1, -1))[
+                0
+            ][0]
+            for embedding in column_name_embeddings
+        ]
 
-        num_rows = None  
-        scores = np.zeros(num_rows) if num_rows else None  
-        weights = np.array(normalized_similarities)  
-        df = pd.read_csv(self.csv_file_path)  
+        max_sim, min_sim = max(similarities), min(similarities)
+        normalized_similarities = [
+            (sim - min_sim) / (max_sim - min_sim) for sim in similarities
+        ]
 
-        for i, file_name in enumerate(embeddings_files):  
-            file_path = os.path.join(self.embedding_path, file_name)  
+        # Load embedding file paths
+        with open(json_file_path, "r") as f:
+            embeddings_files = json.load(f)
 
-            if not os.path.exists(file_path):  
-                logging.warning(f"{file_path} does not exist.")  
-                continue  
+        num_rows = None
+        scores = np.zeros(num_rows) if num_rows else None
+        weights = np.array(normalized_similarities)
+        df = pd.read_csv(self.csv_file_path)
 
-            embeddings = np.load(file_path)  
+        for i, file_name in enumerate(embeddings_files):
+            file_path = os.path.join(self.embedding_path, file_name)
 
-            if scores is None:  
-                num_rows = embeddings.shape[0]  
-                scores = np.zeros(num_rows)  
+            if not os.path.exists(file_path):
+                logging.warning(f"{file_path} does not exist.")
+                continue
 
-            similarity_scores = cosine_similarity(embeddings, query_embedding).flatten()  
-            scores += similarity_scores * weights[i]  
+            embeddings = np.load(file_path)
 
-        rag_results = []  
-        if scores is not None:  
-            top_3_indices = np.argsort(scores)[-3:][::-1]  
-            rag_results = [  
-                ", ".join(df.iloc[index].astype(str)) for index in top_3_indices  
-            ]  
-        else:  
-            logging.error("Error: No embeddings were loaded.")  
+            if scores is None:
+                num_rows = embeddings.shape[0]
+                scores = np.zeros(num_rows)
 
-        content = user_query + dilimitor + str(rag_results)  
-        response = self.get_response_psnl(content)  
+            similarity_scores = cosine_similarity(embeddings, query_embedding).flatten()
+            scores += similarity_scores * weights[i]
 
-        st.chat_message("assistant").write(response)  
+        rag_results = []
+        if scores is not None:
+            top_3_indices = np.argsort(scores)[-3:][::-1]
+            rag_results = [
+                ", ".join(df.iloc[index].astype(str)) for index in top_3_indices
+            ]
+        else:
+            logging.error("Error: No embeddings were loaded.")
+
+        content = user_query + dilimitor + str(rag_results)
+        response = self.get_response_psnl(content)
+
+        st.chat_message("assistant").write(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
+        log_conversation(
+            self.log_file_path,
+            [
+                {"role": "assistant", "content": response},
+            ],
+        )
 
     def generate_code_for_query(self, user_query, history):
 
