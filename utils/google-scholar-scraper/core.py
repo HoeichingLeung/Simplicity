@@ -413,7 +413,7 @@ if __name__ == '__main__':
     '''fill the blank!!!'''
 
     # 读取 CSV 文件
-    csv_file = "D:/llm_python/Simplicity/data/Updated_ME_completed_2.csv"  # 替换为你的CSV文件路径
+    csv_file = "D:/llm_python/Simplicity/data/Updated_CS_AI_completed_2.csv"  # 替换为你的CSV文件路径
     df = pd.read_csv(csv_file)
 
     # 找出 'publication' 列为空的行
@@ -428,7 +428,7 @@ if __name__ == '__main__':
         df.at[index, 'publications'] = filled_value
 
     # 保存修改后的CSV文件
-    df.to_csv("D:/llm_python/Simplicity/data/Updated_ME_completed_2_full.csv", index=False)
+    df.to_csv("D:/llm_python/Simplicity/data/Updated_CS_AI_completed_3.csv", index=False)
 
 
 
