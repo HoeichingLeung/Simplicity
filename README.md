@@ -37,9 +37,8 @@ Simplicity
 |   └── BCEmbeddingmodel
 ├── config
 ├── data
-|   |── txt_to_embed
 |   ├── embeddings
-|   ├── raw
+|   ├── major_data
 |   └── scripts
 ├── src
 |   ├── main.py
@@ -47,9 +46,8 @@ Simplicity
 ├── utils
 |   ├── google-scholar-scraper
 |   ├── gpt_api.py
-|   ├── cProfile.py
-|   ├── compute_embeddings.py
-|   └── stream_generator.py
+|   ├── compute_embedding.py
+|   └── compute_columns_embed.py
 └── README.md
 ```
 
