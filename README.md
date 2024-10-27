@@ -33,21 +33,17 @@ Really Simple :)
 ## Structure Overview
 ```
 Simplicity
-├── model
-|   └── BCEmbeddingmodel
+├── BCEmbeddingmodel
 ├── config
 ├── data
 |   ├── embeddings
-|   ├── major_data
-|   └── scripts
+|   └── major_data
 ├── src
-|   ├── main.py
 |   └── agent_api.py
 ├── utils
-|   ├── google-scholar-scraper
 |   ├── gpt_api.py
-|   ├── compute_embedding.py
-|   └── compute_columns_embed.py
+|   └── compute_embedding.py
+├── app.py
 └── README.md
 ```
 
