@@ -1,4 +1,4 @@
-# PhD Application Assistant 内测测试指南
+# PhD Application Assistant 内测产品说明和测试指南
 欢迎使用 PhD Application Assistant！这是一个创新的对话式 AI 工具，旨在帮助未来的博士生在申请过程中获得个性化的支持和建议。我们非常高兴邀请您参与我们的内测阶段，并期待您的反馈以帮助我们改进产品。
 ## 产品说明
 ### 功能概述
