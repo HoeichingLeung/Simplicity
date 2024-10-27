@@ -347,8 +347,8 @@ class AgentAPI(GPTclient):
                 {"role": "system", "content": Prompt},
                 {"role": "user", "content": user_query},
             ],
-            model="gpt-3.5-turbo",
-            max_tokens=512,
+            model="gpt-4-1106-preview",
+            max_tokens=1024,
             temperature=0.1,
         )
 
