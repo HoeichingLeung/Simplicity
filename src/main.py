@@ -65,8 +65,10 @@ def run_agent_api_streamlit():
     """运行 Streamlit 应用"""
 
     # 设置 API 密钥和基础 URL
-    api_key = "sk-Erm52wwWJba3F2iz620d47D7F40e4fDcB2D36e9cC22bDe09"
-    base_url = "https://api.pumpkinaigc.online/v1"
+    # api_key = "sk-Erm52wwWJba3F2iz620d47D7F40e4fDcB2D36e9cC22bDe09"
+    # base_url = "https://api.pumpkinaigc.online/v1"
+    api_key = "sk-nbMjjOveYugA6waf2dE962E6533943189835968aAa09E7A9"  #gpt4
+    base_url = 'https://api.pumpkinaigc.online/v1'
 
     st.title("PhD Application Assistant")
     # 日志文件路径

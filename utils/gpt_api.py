@@ -47,7 +47,8 @@ class GPTclient:
                         ),
                     },
                 ],
-                model="gpt-3.5-turbo-16k",
+                # model="gpt-3.5-turbo-16k",
+                model="gpt-4-1106-preview",
             )
             # 返回结果
             return chat_completion.choices[0].message.content
@@ -71,7 +72,8 @@ class GPTclient:
                         "content": content,
                     },
                 ],
-                model="gpt-3.5-turbo-16k",
+                # model="gpt-3.5-turbo-16k",
+                model="gpt-4-1106-preview",
                 temperature=0.1,
             )
             # 返回结果
@@ -101,7 +103,8 @@ class GPTclient:
                     },
                     {"role": "user", "content": content},
                 ],
-                model="gpt-3.5-turbo-16k",
+                # model="gpt-3.5-turbo-16k",
+                model="gpt-4-1106-preview",
             )
             # 返回结果
             return chat_completion.choices[0].message.content
@@ -131,7 +134,8 @@ class GPTclient:
                     },
                     {"role": "user", "content": content},
                 ],
-                model="gpt-3.5-turbo-16k",
+                # model="gpt-3.5-turbo-16k",
+                model="gpt-4-1106-preview",
             )
             # 返回结果
             return chat_completion.choices[0].message.content
@@ -170,7 +174,8 @@ class GPTclient:
                         "content": content,
                     },
                 ],
-                model="gpt-3.5-turbo-16k",
+                # model="gpt-3.5-turbo-16k",
+                model="gpt-4-1106-preview",
                 temperature=0.1,
             )
             # 返回结果
@@ -191,7 +196,8 @@ class GPTclient:
                         "content": content,
                     }
                 ],
-                model="gpt-3.5-turbo-16k",
+                # model="gpt-3.5-turbo-16k",
+                model="gpt-4-1106-preview",
                 temperature=0.1,
             )
             # 返回结果
@@ -203,11 +209,14 @@ class GPTclient:
             return ""
 
 
-"""
+
 # 使用示例
 if __name__ == "__main__":
-    api_key = "sk-Erm52wwWJba3F2iz620d47D7F40e4fDcB2D36e9cC22bDe09"
-    base_url = "https://api.pumpkinaigc.online/v1"
+    # api_key = "sk-Erm52wwWJba3F2iz620d47D7F40e4fDcB2D36e9cC22bDe09"
+    # base_url = "https://api.pumpkinaigc.online/v1"
+    api_key = "sk-nbMjjOveYugA6waf2dE962E6533943189835968aAa09E7A9"  #gpt4
+    base_url = 'https://api.pumpkinaigc.online/v1'
+
     client = GPTclient(api_key, base_url)
 
     #demo test
@@ -219,4 +228,4 @@ if __name__ == "__main__":
 
     response = client.get_response(user_query)
     print(response)
-"""
+
