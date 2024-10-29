@@ -10,8 +10,18 @@ import re
 import json
 import torch
 
+
+# 获取当前文件的目录
+current_dir = os.path.dirname(__file__)
+
+# 外部包的路径
+external_package_path = os.path.join(current_dir, '../utils')
+
 # 添加必要的路径
-sys.path.append("./utils")
+sys.path.append(external_package_path)
+# sys.path.append("./utils")
+
+
 
 # Import custom modules
 from gpt_api import GPTclient
@@ -56,6 +66,7 @@ class AgentAPI(GPTclient):
         super().__init__(api_key, base_url)
         self.csv_file_path = csv_file_path
         self.embedding_path = embedding_path
+
         self.log_file_path = "./config/conversation_log.json"
         try:
             self.university_data = pd.read_csv(self.csv_file_path)
@@ -244,8 +255,15 @@ class AgentAPI(GPTclient):
         device = "cuda" if torch.cuda.is_available() else "cpu"
         dilimitor = "###RAG###"
 
-        col_embed_path = "./data/embeddings/column_embeddings.npy"
-        json_file_path = "data/embeddings/embeddings_files.json"
+        # 获取当前文件的目录
+        current_dir = os.path.dirname(__file__)
+
+        # 设置数据文件的路径
+        col_embed_path = os.path.join(current_dir, '../data/embeddings/column_embeddings.npy')
+        json_file_path = os.path.join(current_dir, '../data/embeddings/embeddings_files.json')
+
+        # col_embed_path = "./data/embeddings/column_embeddings.npy"
+        # json_file_path = "data/embeddings/embeddings_files.json"
 
         model = EmbeddingModel(
             model_name=model_name,
@@ -381,7 +399,11 @@ def run_agent_api():
     base_url = "https://api.pumpkinaigc.online/v1"
 
     # 创建 AgentAPI 实例
-    agent_api = AgentAPI(api_key, base_url, "./data/major_data/physics_full.csv")
+    current_dir = os.path.dirname(__file__)
+    data_file_path = os.path.join(current_dir, '../data/major_data/physics_full.csv')
+
+    # agent_api = AgentAPI(api_key, base_url, "../data/major_data/physics_full.csv")
+    agent_api = AgentAPI(api_key, base_url, data_file_path)
 
     # 初始化列表以存储用户查询
     query_history = []

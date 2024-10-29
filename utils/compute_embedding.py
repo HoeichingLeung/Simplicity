@@ -88,9 +88,17 @@ class EmbeddingModel(GPTclient):
     def query_for_sentences(self, question: str, k: int) -> str:
         question_vector = self.get_embeddings([question])[0]  
         result = np.array([self.get_similarity(question_vector, vector) for vector in self.vectors])  
-        top_k_indices = result.argsort()[-k:][::-1]  
-        df = pd.read_csv('data/embeddings/physics_full_mapping.csv')  
-        # Retrieve the sentences corresponding to indices  
+        top_k_indices = result.argsort()[-k:][::-1]
+
+        # 获取当前文件的目录
+        current_dir = os.path.dirname(__file__)
+        # 设置数据文件的路径
+        sdk_csv_path = os.path.join(current_dir, '../data/embeddings/physics_full_mapping.csv')
+        df = pd.read_csv(sdk_csv_path)
+        # df = pd.read_csv('data/embeddings/physics_full_mapping.csv')
+
+
+        # Retrieve the sentences corresponding to indices
         matched_sentences = df[df['Index'].isin(top_k_indices)]['Sentence'].tolist()  
         # Join the list of sentences into a single string  
         result_string = ' '.join(matched_sentences)
