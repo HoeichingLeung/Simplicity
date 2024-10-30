@@ -15,10 +15,10 @@ import torch
 current_dir = os.path.dirname(__file__)
 
 # 外部包的路径
-external_package_path = os.path.join(current_dir, '../utils')
+compute_embedding_path = os.path.join(current_dir, '../utils')
 
 # 添加必要的路径
-sys.path.append(external_package_path)
+sys.path.append(compute_embedding_path)
 # sys.path.append("./utils")
 
 
@@ -251,7 +251,12 @@ class AgentAPI(GPTclient):
             )
 
     def personalized_recommendations(self, user_query: str):
-        model_name = "BCEmbeddingmodel"
+        #sdk相对路径
+        current_dir = os.path.dirname(__file__)
+        # 外部包的路径
+        embedding_path = os.path.join(current_dir, '../BCEmbeddingmodel')
+        model_name = embedding_path
+        # model_name = "BCEmbeddingmodel"
         device = "cuda" if torch.cuda.is_available() else "cpu"
         dilimitor = "###RAG###"
 
